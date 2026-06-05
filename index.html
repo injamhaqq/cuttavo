@@ -17,207 +17,319 @@
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{background:var(--ink);color:var(--paper);font-family:var(--in);
-    -webkit-font-smoothing:antialiased;overflow-x:hidden;}
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative;}
   a{color:inherit;text-decoration:none;}
   img{display:block;max-width:100%;}
   ::selection{background:var(--lime);color:var(--ink);}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px;position:relative;z-index:2;}
 
-  .wrap{max-width:1240px;margin:0 auto;padding:0 32px;}
+  /* === AMBIENT GRAIN === */
+  .grain{position:fixed;inset:-50%;pointer-events:none;z-index:100;opacity:.06;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation:grain 8s steps(8) infinite;mix-blend-mode:overlay;}
+  @keyframes grain{
+    0%,100%{transform:translate(0,0);} 10%{transform:translate(-5%,-10%);}
+    20%{transform:translate(-15%,5%);} 30%{transform:translate(7%,-25%);}
+    40%{transform:translate(-5%,25%);} 50%{transform:translate(-15%,10%);}
+    60%{transform:translate(15%,0);} 70%{transform:translate(0,15%);}
+    80%{transform:translate(3%,35%);} 90%{transform:translate(-10%,10%);}
+  }
+
+  /* === CUSTOM CURSOR === */
+  .cursor-dot{position:fixed;width:8px;height:8px;background:var(--lime);
+    border-radius:50%;pointer-events:none;z-index:200;transform:translate(-50%,-50%);
+    transition:transform .15s ease;mix-blend-mode:difference;opacity:0;}
+  .cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--lime);
+    border-radius:50%;pointer-events:none;z-index:199;transform:translate(-50%,-50%);
+    transition:width .25s,height .25s;opacity:0;}
+  body.cursor-ready .cursor-dot,body.cursor-ready .cursor-ring{opacity:1;}
+  @media(hover:none){.cursor-dot,.cursor-ring{display:none;}}
+
+  /* === FLOATING ORBS === */
+  .orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;
+    z-index:0;opacity:.18;}
+  .orb-1{width:520px;height:520px;background:var(--lime);top:-100px;left:-100px;
+    animation:orbFloat1 22s ease-in-out infinite;}
+  .orb-2{width:380px;height:380px;background:#5a7a00;top:50%;right:-150px;
+    animation:orbFloat2 28s ease-in-out infinite;}
+  .orb-3{width:300px;height:300px;background:var(--lime);bottom:-100px;left:30%;
+    animation:orbFloat3 18s ease-in-out infinite;opacity:.10;}
+  @keyframes orbFloat1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(60px,80px) scale(1.1);}}
+  @keyframes orbFloat2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-80px,-40px) scale(.9);}}
+  @keyframes orbFloat3{0%,100%{transform:translate(0,0);}50%{transform:translate(-50px,-60px);}}
+
+  /* === BUTTONS === */
   .btn{display:inline-flex;align-items:center;gap:10px;background:var(--lime);
     color:var(--ink);font-family:var(--in);font-weight:500;font-size:15px;
-    padding:17px 32px;border-radius:0;transition:transform .14s ease,box-shadow .14s ease;
-    border:none;cursor:pointer;}
+    padding:17px 32px;transition:transform .14s cubic-bezier(.16,1,.3,1),box-shadow .14s;
+    border:none;cursor:pointer;position:relative;}
   .btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--line);}
-  .btn-ghost{background:transparent;color:var(--paper);
-    box-shadow:inset 0 0 0 1px var(--line);}
+  .btn-ghost{background:transparent;color:var(--paper);box-shadow:inset 0 0 0 1px var(--line);}
   .btn-ghost:hover{box-shadow:inset 0 0 0 1px var(--lime);transform:none;}
   .arrow{font-family:var(--sg);}
-
-  /* tag / index marker */
-  .marker{font-family:var(--sg);font-weight:500;font-size:13px;
-    letter-spacing:.05em;color:var(--lime);display:flex;align-items:center;gap:10px;}
+  .marker{font-family:var(--sg);font-weight:500;font-size:13px;letter-spacing:.05em;
+    color:var(--lime);display:flex;align-items:center;gap:10px;}
   .marker::before{content:"";width:30px;height:1px;background:var(--lime);display:inline-block;}
 
-  /* NAV */
-  nav{position:sticky;top:0;z-index:60;background:rgba(11,11,12,.82);
-    backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+  /* === NAV === */
+  nav{position:sticky;top:0;z-index:60;background:rgba(11,11,12,.7);
+    backdrop-filter:blur(18px) saturate(140%);border-bottom:1px solid var(--line);}
   .nav-in{display:flex;align-items:center;justify-content:space-between;
     height:74px;max-width:1240px;margin:0 auto;padding:0 32px;}
   .logo{font-family:var(--sg);font-weight:700;font-size:23px;letter-spacing:-.5px;}
-  .logo span{color:var(--lime);}
+  .logo span{color:var(--lime);display:inline-block;animation:dotPulse 2.5s ease-in-out infinite;}
+  @keyframes dotPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.15);}}
   .nav-links{display:flex;gap:34px;align-items:center;}
-  .nav-links a{font-family:var(--in);font-size:14px;color:var(--grey);
-    transition:color .15s;}
+  .nav-links a{font-family:var(--in);font-size:14px;color:var(--grey);transition:color .15s;}
   .nav-links a:hover{color:var(--paper);}
-  .nav-cta{color:var(--ink)!important;background:var(--lime);
-    font-family:var(--sg);font-weight:600;font-size:13.5px;
-    padding:11px 20px;display:flex;align-items:center;gap:7px;
-    transition:transform .14s ease;}
+  .nav-cta{color:var(--ink)!important;background:var(--lime);font-family:var(--sg);
+    font-weight:600;font-size:13.5px;padding:11px 20px;display:flex;align-items:center;
+    gap:7px;transition:transform .14s;}
   .nav-cta:hover{transform:translateY(-1px);}
   .nav-cta::after{content:"↗";}
-  .burger{display:none;background:none;border:none;color:var(--paper);
-    font-size:24px;cursor:pointer;}
+  .burger{display:none;background:none;border:none;color:var(--paper);font-size:24px;cursor:pointer;}
 
-  /* HERO */
-  .hero{padding:90px 0 70px;position:relative;border-bottom:1px solid var(--line);}
-  .hero::before{content:"";position:absolute;top:0;right:0;width:46%;height:100%;
-    background:radial-gradient(circle at 75% 30%,rgba(200,255,0,.07),transparent 60%);
-    pointer-events:none;}
+  /* === HERO === */
+  .hero{padding:120px 0 90px;position:relative;border-bottom:1px solid var(--line);
+    overflow:hidden;perspective:1400px;}
+  .hero::before{content:"";position:absolute;top:0;right:0;width:55%;height:100%;
+    background:radial-gradient(circle at 75% 30%,rgba(200,255,0,.08),transparent 60%);
+    pointer-events:none;animation:meshShift 12s ease-in-out infinite;}
+  @keyframes meshShift{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-30px,20px) scale(1.05);}}
+  .hero-shape{position:absolute;pointer-events:none;z-index:1;}
+  .hero-shape.s1{width:14px;height:14px;background:var(--lime);top:18%;left:8%;animation:float1 9s ease-in-out infinite;}
+  .hero-shape.s2{width:60px;height:60px;border:1px solid var(--lime);border-radius:50%;top:65%;left:12%;animation:float2 11s ease-in-out infinite;opacity:.4;}
+  .hero-shape.s3{width:8px;height:80px;background:var(--lime);top:30%;right:14%;animation:float3 13s ease-in-out infinite;opacity:.6;}
+  .hero-shape.s4{width:100px;height:100px;border:1px solid var(--line);top:75%;right:8%;animation:float1 14s ease-in-out infinite reverse;}
+  .hero-shape.s5{width:6px;height:6px;background:var(--paper);top:48%;left:48%;border-radius:50%;animation:float2 8s ease-in-out infinite;opacity:.5;}
+  @keyframes float1{0%,100%{transform:translate(0,0) rotate(0);}50%{transform:translate(20px,-30px) rotate(180deg);}}
+  @keyframes float2{0%,100%{transform:translate(0,0) rotate(0);}50%{transform:translate(-30px,40px) rotate(-180deg);}}
+  @keyframes float3{0%,100%{transform:translate(0,0);}50%{transform:translate(15px,-20px);}}
+  .hero-inner{position:relative;z-index:3;transform-style:preserve-3d;
+    transition:transform .3s cubic-bezier(.16,1,.3,1);}
   .hero-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:50px;align-items:end;}
-  .hero h1{font-family:var(--sg);font-weight:700;font-size:clamp(46px,7.6vw,104px);
+  .hero h1{font-family:var(--sg);font-weight:700;font-size:clamp(46px,7.6vw,108px);
     line-height:.97;letter-spacing:-3px;}
-  .hero h1 em{font-style:normal;display:block;color:var(--ink);
-    background:var(--lime);width:max-content;max-width:100%;padding:0 .1em;}
-  .hero h1 .out{-webkit-text-stroke:1.5px var(--grey);
-    -webkit-text-fill-color:transparent;}
+  .hero h1 .line{display:block;}
+  .hero h1 em{font-style:normal;color:var(--ink);background:var(--lime);
+    width:max-content;max-width:100%;padding:0 .15em;box-shadow:0 8px 40px rgba(200,255,0,.25);}
+  .hero h1 .out{-webkit-text-stroke:1.5px var(--grey);-webkit-text-fill-color:transparent;}
   .hero-right p{font-size:17px;color:var(--grey);line-height:1.62;}
   .hero-right .actions{display:flex;flex-direction:column;gap:12px;margin-top:26px;}
-  .hero-strip{display:flex;gap:0;margin-top:60px;border-top:1px solid var(--line);}
-  .hero-strip .cell{flex:1;padding:22px 4px 0;border-right:1px solid var(--line);}
+  .hero-strip{display:flex;gap:0;margin-top:70px;border-top:1px solid var(--line);position:relative;z-index:3;}
+  .hero-strip .cell{flex:1;padding:22px 4px 0;border-right:1px solid var(--line);
+    transition:transform .25s,color .2s;}
   .hero-strip .cell:last-child{border-right:none;}
-  .hero-strip .v{font-family:var(--sg);font-weight:700;font-size:26px;color:var(--paper);}
+  .hero-strip .cell:hover{transform:translateY(-4px);}
+  .hero-strip .cell:hover .v{color:var(--lime);}
+  .hero-strip .v{font-family:var(--sg);font-weight:700;font-size:28px;color:var(--paper);transition:color .2s;}
   .hero-strip .k{font-size:12.5px;color:var(--grey);margin-top:4px;}
 
-  /* SECTION SHELL */
-  section{padding:104px 0;border-bottom:1px solid var(--line);}
-  .sec-top{display:flex;justify-content:space-between;align-items:flex-end;
-    gap:30px;flex-wrap:wrap;}
-  .sec-top h2{font-family:var(--sg);font-weight:700;
-    font-size:clamp(32px,4.6vw,58px);letter-spacing:-2px;line-height:1.04;
-    margin-top:18px;max-width:16ch;}
+  /* === MARQUEE === */
+  .marquee{overflow:hidden;border-bottom:1px solid var(--line);background:var(--ink);padding:18px 0;}
+  .marquee-track{display:flex;gap:80px;animation:marqueeScroll 28s linear infinite;width:max-content;}
+  .marquee-track span{font-family:var(--sg);font-weight:500;font-size:14px;
+    color:var(--grey);letter-spacing:.08em;text-transform:uppercase;
+    display:flex;align-items:center;gap:80px;white-space:nowrap;}
+  .marquee-track span::after{content:"●";color:var(--lime);font-size:8px;}
+  @keyframes marqueeScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* === SECTION === */
+  section{padding:120px 0;border-bottom:1px solid var(--line);position:relative;overflow:hidden;}
+  .sec-top{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;}
+  .sec-top h2{font-family:var(--sg);font-weight:700;font-size:clamp(32px,4.6vw,62px);
+    letter-spacing:-2px;line-height:1.04;margin-top:18px;max-width:16ch;}
   .sec-top .side{color:var(--grey);font-size:15px;max-width:34ch;line-height:1.6;}
 
   /* PROBLEM */
   .problem{background:var(--panel);}
-  .problem .big{font-family:var(--sg);font-weight:700;
-    font-size:clamp(26px,3.4vw,44px);letter-spacing:-1.2px;line-height:1.22;
-    max-width:21ch;margin-top:30px;}
+  .problem .big{font-family:var(--sg);font-weight:700;font-size:clamp(28px,3.6vw,48px);
+    letter-spacing:-1.2px;line-height:1.22;max-width:21ch;margin-top:30px;}
   .problem .big b{color:var(--lime);font-weight:700;}
-  .problem .note{color:var(--grey);font-size:16px;line-height:1.65;
-    max-width:52ch;margin-top:26px;}
+  .problem .note{color:var(--grey);font-size:16px;line-height:1.65;max-width:52ch;margin-top:26px;}
 
   /* WORK */
-  .work-rail{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
-    margin-top:50px;background:var(--line);border:1px solid var(--line);}
-  .wk{background:var(--ink);overflow:hidden;transition:background .18s;}
+  .work-rail{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:50px;
+    background:var(--line);border:1px solid var(--line);perspective:1200px;}
+  .wk{background:var(--ink);overflow:hidden;
+    transition:background .25s,transform .35s cubic-bezier(.16,1,.3,1);
+    transform-style:preserve-3d;position:relative;}
   .wk:hover{background:var(--panel);}
+  .wk::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(135deg,rgba(200,255,0,0),rgba(200,255,0,.04));
+    opacity:0;transition:opacity .3s;pointer-events:none;}
+  .wk:hover::after{opacity:1;}
   .wk-embed{position:relative;width:100%;aspect-ratio:16/9;background:#000;}
   .wk-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
-  .wk-meta{display:flex;justify-content:space-between;align-items:baseline;
-    padding:18px 20px;gap:14px;}
+  .wk-meta{display:flex;justify-content:space-between;align-items:baseline;padding:18px 20px;gap:14px;}
   .wk-meta .t{font-family:var(--sg);font-weight:600;font-size:17px;}
-  .wk-meta .c{font-size:12px;color:var(--grey);text-transform:uppercase;
-    letter-spacing:.06em;white-space:nowrap;}
+  .wk-meta .c{font-size:12px;color:var(--grey);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;}
+
+  /* === MOODBOARD === */
+  .mood{background:var(--ink);position:relative;overflow:hidden;padding:140px 0;}
+  .mood::before{content:"";position:absolute;top:-150px;right:-100px;width:500px;height:500px;
+    border-radius:50%;background:radial-gradient(circle,rgba(200,255,0,.06),transparent 70%);pointer-events:none;}
+  .mood::after{content:"";position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;
+    border-radius:50%;background:radial-gradient(circle,rgba(200,255,0,.04),transparent 70%);pointer-events:none;}
+  .mood-top{margin-bottom:60px;}
+  .mood-top h2{font-family:var(--sg);font-weight:700;font-size:clamp(36px,5vw,72px);
+    letter-spacing:-2.5px;line-height:1.02;margin-top:18px;max-width:14ch;}
+  .mood-top h2 em{font-style:normal;color:var(--lime);}
+  .mood-top .sub{color:var(--grey);font-size:16.5px;line-height:1.62;max-width:46ch;margin-top:22px;}
+  .mood-board{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;grid-auto-rows:90px;perspective:1500px;}
+  .mood-card{position:relative;background:var(--panel);border:1px solid var(--line);overflow:hidden;
+    transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s,border-color .3s;
+    transform-style:preserve-3d;display:flex;align-items:flex-end;padding:18px;
+    animation:moodFloat 8s ease-in-out infinite;}
+  .mood-card:nth-child(odd){animation-delay:-2s;}
+  .mood-card:nth-child(3n){animation-delay:-4s;}
+  .mood-card:nth-child(5n){animation-delay:-6s;}
+  @keyframes moodFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+  .mood-card:hover{transform:translateY(-12px) scale(1.02);
+    box-shadow:0 30px 60px rgba(0,0,0,.5),0 0 0 1px var(--lime);border-color:var(--lime);}
+  .mood-card .label{font-family:var(--sg);font-weight:600;font-size:13px;color:var(--paper);letter-spacing:-.2px;}
+  .mood-card .num{position:absolute;top:14px;left:18px;font-family:var(--sg);font-weight:500;
+    font-size:11px;color:var(--lime);letter-spacing:.06em;}
+  .mood-1{grid-column:span 4;grid-row:span 3;background:var(--lime);color:var(--ink);}
+  .mood-1 .num{color:var(--ink);}
+  .mood-1 .label{color:var(--ink);font-size:28px;line-height:1.05;font-weight:700;letter-spacing:-1px;}
+  .mood-2{grid-column:span 5;grid-row:span 3;background:linear-gradient(135deg,var(--panel),#1a1a1d);}
+  .mood-2 .label{font-size:18px;font-weight:500;color:var(--grey);line-height:1.5;letter-spacing:-.2px;}
+  .mood-2 .label b{color:var(--paper);font-weight:600;}
+  .mood-3{grid-column:span 3;grid-row:span 3;background:var(--ink);border:1px solid var(--line);}
+  .mood-3 .swatches{display:flex;gap:6px;width:100%;}
+  .mood-3 .sw{flex:1;aspect-ratio:1;border-radius:2px;}
+  .mood-3 .sw1{background:var(--ink);border:1px solid var(--line);}
+  .mood-3 .sw2{background:var(--panel);}
+  .mood-3 .sw3{background:var(--grey);}
+  .mood-3 .sw4{background:var(--paper);}
+  .mood-3 .sw5{background:var(--lime);}
+  .mood-4{grid-column:span 4;grid-row:span 4;background:var(--panel);overflow:hidden;padding:0;}
+  .mood-4 .vid-wrap{position:absolute;inset:0;}
+  .mood-4 iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+  .mood-4 .label{position:absolute;bottom:14px;left:18px;z-index:2;color:var(--paper);
+    background:rgba(11,11,12,.8);padding:4px 10px;backdrop-filter:blur(6px);font-size:12px;}
+  .mood-5{grid-column:span 4;grid-row:span 2;background:var(--panel);align-items:center;
+    justify-content:center;text-align:center;padding:24px;flex-direction:column;}
+  .mood-5 .big-type{font-family:var(--sg);font-weight:700;font-size:54px;color:var(--paper);letter-spacing:-2px;line-height:1;}
+  .mood-5 .big-type em{color:var(--lime);font-style:normal;}
+  .mood-5 .label{font-size:11px;color:var(--grey);margin-top:8px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;}
+  .mood-6{grid-column:span 4;grid-row:span 2;background:var(--ink);border:1px solid var(--line);}
+  .mood-6 .label{font-family:var(--sg);font-size:14px;color:var(--paper);line-height:1.5;font-weight:500;}
+  .mood-6 .label .hl{background:var(--lime);color:var(--ink);padding:0 4px;}
+  .mood-7{grid-column:span 5;grid-row:span 3;background:var(--panel);overflow:hidden;padding:0;}
+  .mood-7 .vid-wrap{position:absolute;inset:0;}
+  .mood-7 iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+  .mood-7 .label{position:absolute;bottom:14px;left:18px;z-index:2;color:var(--paper);
+    background:rgba(11,11,12,.8);padding:4px 10px;backdrop-filter:blur(6px);font-size:12px;}
+  .mood-8{grid-column:span 7;grid-row:span 3;background:var(--ink);border:1px solid var(--line);
+    align-items:center;justify-content:center;text-align:center;padding:30px;flex-direction:column;}
+  .mood-8 .big-type{font-family:var(--sg);font-weight:700;font-size:clamp(36px,5vw,68px);
+    color:var(--paper);letter-spacing:-2px;line-height:1;}
+  .mood-8 .big-type em{color:var(--lime);font-style:normal;}
+  .mood-8 .label{font-size:11px;color:var(--grey);margin-top:14px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;}
 
   /* SERVICES */
   .svc-rows{margin-top:46px;border-top:1px solid var(--line);}
-  .svc-row{display:grid;grid-template-columns:80px 1fr 1.4fr;gap:30px;
-    padding:32px 0;border-bottom:1px solid var(--line);align-items:start;
-    transition:padding-left .2s ease;}
-  .svc-row:hover{padding-left:14px;}
+  .svc-row{display:grid;grid-template-columns:80px 1fr 1.4fr;gap:30px;padding:36px 0;
+    border-bottom:1px solid var(--line);align-items:start;
+    transition:padding-left .25s,background .25s;position:relative;}
+  .svc-row:hover{padding-left:18px;background:rgba(200,255,0,.02);}
+  .svc-row::before{content:"";position:absolute;left:0;top:0;height:100%;width:2px;
+    background:var(--lime);transform:scaleY(0);transform-origin:top;transition:transform .3s;}
+  .svc-row:hover::before{transform:scaleY(1);}
   .svc-row .rn{font-family:var(--sg);font-weight:700;font-size:18px;color:var(--lime);}
-  .svc-row h3{font-family:var(--sg);font-weight:600;font-size:clamp(20px,2.4vw,28px);
-    letter-spacing:-.5px;}
+  .svc-row h3{font-family:var(--sg);font-weight:600;font-size:clamp(20px,2.4vw,28px);letter-spacing:-.5px;}
   .svc-row p{color:var(--grey);font-size:15.5px;line-height:1.62;}
 
   /* WHY */
   .why{background:var(--panel);}
-  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;
-    margin-top:46px;align-items:start;}
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;margin-top:46px;align-items:start;}
   .why-list{list-style:none;display:flex;flex-direction:column;}
-  .why-list li{display:flex;gap:16px;padding:20px 0;
-    border-bottom:1px solid var(--line);font-size:16px;line-height:1.55;}
+  .why-list li{display:flex;gap:16px;padding:22px 0;border-bottom:1px solid var(--line);
+    font-size:16px;line-height:1.55;transition:padding-left .2s,color .2s;}
+  .why-list li:hover{padding-left:8px;color:var(--paper);}
   .why-list li:first-child{border-top:1px solid var(--line);}
-  .why-list .x{font-family:var(--sg);font-weight:700;color:var(--lime);
-    flex-shrink:0;}
+  .why-list .x{font-family:var(--sg);font-weight:700;color:var(--lime);flex-shrink:0;}
 
   /* PROCESS */
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
-    margin-top:46px;background:var(--line);border:1px solid var(--line);}
-  .step{background:var(--ink);padding:30px 26px;min-height:210px;
-    display:flex;flex-direction:column;}
-  .step .sn{font-family:var(--sg);font-weight:700;font-size:46px;
-    color:var(--line);letter-spacing:-1px;line-height:1;}
-  .step h4{font-family:var(--sg);font-weight:600;font-size:19px;
-    margin:auto 0 8px;}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:46px;
+    background:var(--line);border:1px solid var(--line);perspective:1000px;}
+  .step{background:var(--ink);padding:30px 26px;min-height:220px;display:flex;flex-direction:column;
+    transition:background .25s,transform .3s cubic-bezier(.16,1,.3,1);transform-style:preserve-3d;}
+  .step:hover{background:var(--panel);transform:translateY(-6px) translateZ(20px);}
+  .step .sn{font-family:var(--sg);font-weight:700;font-size:50px;color:var(--line);
+    letter-spacing:-1px;line-height:1;transition:color .25s;}
+  .step:hover .sn{color:var(--lime);}
+  .step h4{font-family:var(--sg);font-weight:600;font-size:19px;margin:auto 0 8px;}
   .step p{color:var(--grey);font-size:14px;line-height:1.6;}
 
   /* REVIEWS */
   .rev-wrap{margin-top:50px;}
-  .rev{display:grid;grid-template-columns:1fr 280px;gap:50px;
-    padding:46px 0;border-bottom:1px solid var(--line);align-items:start;}
+  .rev{display:grid;grid-template-columns:1fr 280px;gap:50px;padding:48px 0;
+    border-bottom:1px solid var(--line);align-items:start;transition:padding-left .25s;}
+  .rev:hover{padding-left:8px;}
   .rev:first-child{border-top:1px solid var(--line);}
-  .rev .quote{font-family:var(--sg);font-weight:500;
-    font-size:clamp(19px,2.3vw,27px);line-height:1.4;letter-spacing:-.4px;}
+  .rev .quote{font-family:var(--sg);font-weight:500;font-size:clamp(19px,2.3vw,27px);
+    line-height:1.4;letter-spacing:-.4px;}
   .rev .quote .mk{color:var(--lime);}
   .rev .who{padding-top:8px;}
   .rev .who .stars{color:var(--lime);font-size:13px;letter-spacing:3px;}
-  .rev .who .n{font-family:var(--sg);font-weight:700;font-size:18px;
-    margin-top:14px;}
+  .rev .who .n{font-family:var(--sg);font-weight:700;font-size:18px;margin-top:14px;}
   .rev .who .r{font-size:13px;color:var(--grey);margin-top:3px;}
 
   /* RISK */
-  .risk{background:var(--lime);color:var(--ink);}
-  .risk .wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px;
-    align-items:center;}
+  .risk{background:var(--lime);color:var(--ink);position:relative;overflow:hidden;}
+  .risk .wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
   .risk .marker{color:var(--ink);}
   .risk .marker::before{background:var(--ink);}
-  .risk h2{font-family:var(--sg);font-weight:700;
-    font-size:clamp(30px,4.2vw,52px);letter-spacing:-2px;line-height:1.05;
-    margin-top:18px;}
+  .risk h2{font-family:var(--sg);font-weight:700;font-size:clamp(30px,4.2vw,56px);
+    letter-spacing:-2px;line-height:1.05;margin-top:18px;}
   .risk p{font-size:16.5px;line-height:1.62;margin-top:0;}
   .risk .btn{background:var(--ink);color:var(--paper);}
   .risk .btn:hover{box-shadow:6px 6px 0 rgba(11,11,12,.25);}
 
   /* FAQ */
   .faq-list{margin-top:46px;border-top:1px solid var(--line);}
-  .faq-item{border-bottom:1px solid var(--line);}
-  .faq-q{width:100%;background:none;border:none;color:var(--paper);
-    font-family:var(--sg);font-weight:600;font-size:clamp(17px,2vw,22px);
-    text-align:left;padding:28px 0;cursor:pointer;display:flex;
-    justify-content:space-between;align-items:center;gap:24px;
-    letter-spacing:-.3px;}
-  .faq-q .ic{color:var(--lime);font-size:26px;flex-shrink:0;
-    transition:transform .2s;font-family:var(--sg);}
+  .faq-item{border-bottom:1px solid var(--line);transition:padding-left .2s;}
+  .faq-item:hover{padding-left:6px;}
+  .faq-q{width:100%;background:none;border:none;color:var(--paper);font-family:var(--sg);
+    font-weight:600;font-size:clamp(17px,2vw,22px);text-align:left;padding:28px 0;cursor:pointer;
+    display:flex;justify-content:space-between;align-items:center;gap:24px;letter-spacing:-.3px;}
+  .faq-q .ic{color:var(--lime);font-size:26px;flex-shrink:0;transition:transform .25s;font-family:var(--sg);}
   .faq-item.open .faq-q .ic{transform:rotate(45deg);}
-  .faq-a{max-height:0;overflow:hidden;transition:max-height .26s ease;}
-  .faq-a p{color:var(--grey);font-size:15.5px;line-height:1.66;
-    padding:0 60px 30px 0;}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+  .faq-a p{color:var(--grey);font-size:15.5px;line-height:1.66;padding:0 60px 30px 0;}
 
   /* FINAL */
-  .final{padding:130px 0;}
-  .final h2{font-family:var(--sg);font-weight:700;
-    font-size:clamp(40px,8vw,116px);letter-spacing:-3.5px;line-height:.95;}
-  .final h2 .out{-webkit-text-stroke:1.5px var(--grey);
-    -webkit-text-fill-color:transparent;}
-  .final .row{display:flex;justify-content:space-between;align-items:flex-end;
-    gap:40px;flex-wrap:wrap;margin-top:40px;}
+  .final{padding:160px 0;}
+  .final h2{font-family:var(--sg);font-weight:700;font-size:clamp(40px,8vw,124px);
+    letter-spacing:-3.5px;line-height:.95;}
+  .final h2 .out{-webkit-text-stroke:1.5px var(--grey);-webkit-text-fill-color:transparent;}
+  .final .row{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap;margin-top:40px;}
   .final .row p{color:var(--grey);font-size:16px;max-width:40ch;line-height:1.6;}
 
   /* FOOTER */
-  footer{border-top:1px solid var(--line);padding:60px 0 36px;}
+  footer{border-top:1px solid var(--line);padding:80px 0 40px;}
   .foot-in{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;}
-  .foot-brand .logo{font-size:30px;}
-  .foot-brand p{color:var(--grey);font-size:14px;margin-top:12px;line-height:1.65;}
-  .foot-col h5{font-family:var(--sg);font-weight:600;font-size:13px;
-    text-transform:uppercase;letter-spacing:.08em;color:var(--grey);
-    margin-bottom:16px;}
-  .foot-col a{display:block;font-size:15px;color:var(--paper);
-    padding:6px 0;transition:color .15s;}
-  .foot-col a:hover{color:var(--lime);}
-  .foot-bottom{margin-top:50px;padding-top:26px;border-top:1px solid var(--line);
-    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
-    font-size:13px;color:var(--grey);}
+  .foot-brand .logo{font-size:32px;}
+  .foot-brand p{color:var(--grey);font-size:14px;margin-top:14px;line-height:1.65;}
+  .foot-col h5{font-family:var(--sg);font-weight:600;font-size:13px;text-transform:uppercase;
+    letter-spacing:.08em;color:var(--grey);margin-bottom:18px;}
+  .foot-col a{display:block;font-size:15px;color:var(--paper);padding:6px 0;
+    transition:color .15s,transform .15s;}
+  .foot-col a:hover{color:var(--lime);transform:translateX(4px);}
+  .foot-bottom{margin-top:60px;padding-top:28px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--grey);}
 
   /* REVEAL */
-  .reveal-on .reveal{opacity:0;transform:translateY(26px);
-    transition:opacity .6s ease,transform .6s ease;}
+  .reveal-on .reveal{opacity:0;transform:translateY(40px);
+    transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
   .reveal-on .reveal.in{opacity:1;transform:none;}
 
   @media(max-width:900px){
-    .nav-links{position:fixed;inset:74px 0 auto 0;background:var(--ink);
-      flex-direction:column;padding:26px 32px;gap:22px;
-      border-bottom:1px solid var(--line);display:none;}
+    .nav-links{position:fixed;inset:74px 0 auto 0;background:var(--ink);flex-direction:column;
+      padding:26px 32px;gap:22px;border-bottom:1px solid var(--line);display:none;}
     .nav-links.show{display:flex;}
     .burger{display:block;}
     .hero-grid,.why-grid,.risk .wrap,.rev{grid-template-columns:1fr;gap:32px;}
@@ -226,23 +338,33 @@
     .svc-row{gap:10px;}
     .steps{grid-template-columns:1fr 1fr;}
     .hero-strip{flex-wrap:wrap;}
-    .hero-strip .cell{flex:1 0 50%;border-bottom:1px solid var(--line);
-      padding-bottom:18px;}
+    .hero-strip .cell{flex:1 0 50%;border-bottom:1px solid var(--line);padding-bottom:18px;}
     .foot-in{grid-template-columns:1fr;}
-    section{padding:74px 0;}
+    section{padding:90px 0;}
     .rev .who{padding-top:0;}
+    .mood-board{grid-template-columns:repeat(6,1fr);grid-auto-rows:70px;}
+    .mood-1,.mood-8{grid-column:span 6;}
+    .mood-2,.mood-3,.mood-4,.mood-5,.mood-6,.mood-7{grid-column:span 3;}
+    .cursor-dot,.cursor-ring{display:none;}
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+<div class="grain"></div>
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
 <nav>
   <div class="nav-in">
     <a href="#top" class="logo">cuttavo<span>.</span></a>
     <button class="burger" id="burger" aria-label="Menu">☰</button>
     <div class="nav-links" id="navLinks">
       <a href="#work">Work</a>
+      <a href="#mood">Vibe</a>
       <a href="#services">Services</a>
       <a href="#process">Process</a>
       <a href="#reviews">Reviews</a>
@@ -253,36 +375,58 @@
 </nav>
 <span id="top"></span>
 
-<!-- HERO -->
 <header class="hero">
+  <div class="hero-shape s1"></div>
+  <div class="hero-shape s2"></div>
+  <div class="hero-shape s3"></div>
+  <div class="hero-shape s4"></div>
+  <div class="hero-shape s5"></div>
   <div class="wrap">
-    <div class="hero-grid">
-      <div>
-        <p class="marker reveal">Video editing studio — for coaches</p>
-        <h1 class="reveal" style="margin-top:26px;">
-          You record.<br>
-          <em>We edit.</em>
-          <span class="out">You post.</span>
-        </h1>
-      </div>
-      <div class="hero-right reveal">
-        <p>Cuttavo turns your raw footage into scroll-stopping short-form and long-form video — fully done for you. The content keeps coming. You never open an editing app.</p>
-        <div class="actions">
-          <a href="https://calendly.com/cuttavo/20min" class="btn" target="_blank" rel="noopener">Book a free call <span class="arrow">↗</span></a>
-          <a href="#work" class="btn btn-ghost">See selected work</a>
+    <div class="hero-inner" id="heroInner">
+      <div class="hero-grid">
+        <div>
+          <p class="marker reveal">Video editing studio — for coaches</p>
+          <h1 class="reveal" style="margin-top:26px;">
+            <span class="line">You record.</span>
+            <em>We edit.</em>
+            <span class="line out">You post.</span>
+          </h1>
+        </div>
+        <div class="hero-right reveal">
+          <p>Cuttavo turns your raw footage into scroll-stopping short-form and long-form video — fully done for you. The content keeps coming. You never open an editing app.</p>
+          <div class="actions">
+            <a href="https://calendly.com/cuttavo/20min" class="btn magnetic" target="_blank" rel="noopener">Book a free call <span class="arrow">↗</span></a>
+            <a href="#work" class="btn btn-ghost magnetic">See selected work</a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="hero-strip reveal">
-      <div class="cell"><div class="v">48h</div><div class="k">Short-form turnaround</div></div>
-      <div class="cell"><div class="v">3–5d</div><div class="k">Long-form turnaround</div></div>
-      <div class="cell"><div class="v">100%</div><div class="k">Done-for-you editing</div></div>
-      <div class="cell"><div class="v">7-day</div><div class="k">Money-back guarantee</div></div>
+      <div class="hero-strip reveal">
+        <div class="cell"><div class="v">48h</div><div class="k">Short-form turnaround</div></div>
+        <div class="cell"><div class="v">3–5d</div><div class="k">Long-form turnaround</div></div>
+        <div class="cell"><div class="v">100%</div><div class="k">Done-for-you editing</div></div>
+        <div class="cell"><div class="v">7-day</div><div class="k">Money-back guarantee</div></div>
+      </div>
     </div>
   </div>
 </header>
 
-<!-- PROBLEM -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>scroll-stopping short-form</span>
+    <span>48-hour turnaround</span>
+    <span>YouTube · podcasts · reels</span>
+    <span>done-for-you editing</span>
+    <span>hooks · captions · sound</span>
+    <span>built for coaches</span>
+    <span>scroll-stopping short-form</span>
+    <span>48-hour turnaround</span>
+    <span>YouTube · podcasts · reels</span>
+    <span>done-for-you editing</span>
+    <span>hooks · captions · sound</span>
+    <span>built for coaches</span>
+  </div>
+</div>
+
 <section class="problem">
   <div class="wrap">
     <p class="marker reveal">01 — The problem</p>
@@ -291,7 +435,6 @@
   </div>
 </section>
 
-<!-- WORK -->
 <section id="work">
   <div class="wrap">
     <div class="sec-top">
@@ -302,84 +445,62 @@
       <p class="side reveal">Recent work across short-form, long-form, and sales video. Press play.</p>
     </div>
     <div class="work-rail reveal">
-      <div class="wk">
-        <div class="wk-embed"><iframe src="https://www.youtube.com/embed/oLhWn_4RKHo" title="Bernd Trading" loading="lazy" allowfullscreen></iframe></div>
-        <div class="wk-meta"><span class="t">Bernd Trading</span><span class="c">Long-form</span></div>
-      </div>
-      <div class="wk">
-        <div class="wk-embed"><iframe src="https://www.youtube.com/embed/ESsmWEt1UlE" title="Conor Murray" loading="lazy" allowfullscreen></iframe></div>
-        <div class="wk-meta"><span class="t">Conor Murray</span><span class="c">Long-form</span></div>
-      </div>
-      <div class="wk">
-        <div class="wk-embed"><iframe src="https://www.youtube.com/embed/RAKWDJKlj7Q" title="Nathan" loading="lazy" allowfullscreen></iframe></div>
-        <div class="wk-meta"><span class="t">Nathan</span><span class="c">Long-form</span></div>
-      </div>
-      <div class="wk">
-        <div class="wk-embed"><iframe src="https://www.youtube.com/embed/Kh1LTEoHtBc" title="f_ingla" loading="lazy" allowfullscreen></iframe></div>
-        <div class="wk-meta"><span class="t">f_ingla</span><span class="c">Short-form</span></div>
-      </div>
-      <div class="wk">
-        <div class="wk-embed"><iframe src="https://www.youtube.com/embed/WtLtJySbw4I" title="Talking Head Edit" loading="lazy" allowfullscreen></iframe></div>
-        <div class="wk-meta"><span class="t">Talking-Head Edit</span><span class="c">Short-form</span></div>
-      </div>
-      <div class="wk">
-        <div class="wk-embed"><iframe src="https://www.youtube.com/embed/_NRQc0GFlTU" title="Gym Niche Sales Video" loading="lazy" allowfullscreen></iframe></div>
-        <div class="wk-meta"><span class="t">Gym Niche Sales Video</span><span class="c">VSL</span></div>
-      </div>
-      <div class="wk">
-        <div class="wk-embed"><iframe src="https://www.youtube.com/embed/n7qG2U5fIBc" title="Mini Launch Kit" loading="lazy" allowfullscreen></iframe></div>
-        <div class="wk-meta"><span class="t">Mini Launch Kit</span><span class="c">VSL</span></div>
-      </div>
-      <div class="wk">
-        <div class="wk-embed"><iframe src="https://www.youtube.com/embed/1fhVFWGxXz0" title="Viral Labs" loading="lazy" allowfullscreen></iframe></div>
-        <div class="wk-meta"><span class="t">Viral Labs</span><span class="c">Short-form</span></div>
-      </div>
+      <div class="wk tilt-card"><div class="wk-embed"><iframe src="https://www.youtube.com/embed/oLhWn_4RKHo" title="Bernd Trading" loading="lazy" allowfullscreen></iframe></div><div class="wk-meta"><span class="t">Bernd Trading</span><span class="c">Long-form</span></div></div>
+      <div class="wk tilt-card"><div class="wk-embed"><iframe src="https://www.youtube.com/embed/ESsmWEt1UlE" title="Conor Murray" loading="lazy" allowfullscreen></iframe></div><div class="wk-meta"><span class="t">Conor Murray</span><span class="c">Long-form</span></div></div>
+      <div class="wk tilt-card"><div class="wk-embed"><iframe src="https://www.youtube.com/embed/RAKWDJKlj7Q" title="Nathan" loading="lazy" allowfullscreen></iframe></div><div class="wk-meta"><span class="t">Nathan</span><span class="c">Long-form</span></div></div>
+      <div class="wk tilt-card"><div class="wk-embed"><iframe src="https://www.youtube.com/embed/Kh1LTEoHtBc" title="f_ingla" loading="lazy" allowfullscreen></iframe></div><div class="wk-meta"><span class="t">f_ingla</span><span class="c">Short-form</span></div></div>
+      <div class="wk tilt-card"><div class="wk-embed"><iframe src="https://www.youtube.com/embed/WtLtJySbw4I" title="Talking Head" loading="lazy" allowfullscreen></iframe></div><div class="wk-meta"><span class="t">Talking-Head Edit</span><span class="c">Short-form</span></div></div>
+      <div class="wk tilt-card"><div class="wk-embed"><iframe src="https://www.youtube.com/embed/_NRQc0GFlTU" title="Gym VSL" loading="lazy" allowfullscreen></iframe></div><div class="wk-meta"><span class="t">Gym Niche Sales Video</span><span class="c">VSL</span></div></div>
+      <div class="wk tilt-card"><div class="wk-embed"><iframe src="https://www.youtube.com/embed/n7qG2U5fIBc" title="Mini Launch" loading="lazy" allowfullscreen></iframe></div><div class="wk-meta"><span class="t">Mini Launch Kit</span><span class="c">VSL</span></div></div>
+      <div class="wk tilt-card"><div class="wk-embed"><iframe src="https://www.youtube.com/embed/1fhVFWGxXz0" title="Viral Labs" loading="lazy" allowfullscreen></iframe></div><div class="wk-meta"><span class="t">Viral Labs</span><span class="c">Short-form</span></div></div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
+<section class="mood" id="mood">
+  <div class="wrap">
+    <div class="mood-top">
+      <p class="marker reveal">03 — The vibe</p>
+      <h2 class="reveal">Built for a feeling. <em>Not just a brief.</em></h2>
+      <p class="sub reveal">Every edit we deliver has a sonic and visual identity. Color. Type. Sound. Pacing. Treated as design, not output.</p>
+    </div>
+    <div class="mood-board reveal">
+      <div class="mood-card mood-1"><span class="num">/ TONE</span><div class="label">scroll-stopping.<br>not loud.</div></div>
+      <div class="mood-card mood-2"><span class="num">/ VOICE</span><div class="label">we don't make content. <b>we make video your audience finishes watching.</b></div></div>
+      <div class="mood-card mood-3"><span class="num">/ PALETTE</span><div class="swatches"><div class="sw sw1"></div><div class="sw sw2"></div><div class="sw sw3"></div><div class="sw sw4"></div><div class="sw sw5"></div></div></div>
+      <div class="mood-card mood-4"><div class="vid-wrap"><iframe src="https://www.youtube.com/embed/Kh1LTEoHtBc?autoplay=1&mute=1&loop=1&playlist=Kh1LTEoHtBc&controls=0&modestbranding=1" title="vibe" loading="lazy" allow="autoplay"></iframe></div><div class="label">f_ingla / short</div></div>
+      <div class="mood-card mood-5"><div class="big-type">48h<em>.</em></div><div class="label">turnaround on short-form</div></div>
+      <div class="mood-card mood-6"><span class="num">/ RULE</span><div class="label">the first <span class="hl">3 seconds</span> earn the next 27.</div></div>
+      <div class="mood-card mood-7"><div class="vid-wrap"><iframe src="https://www.youtube.com/embed/WtLtJySbw4I?autoplay=1&mute=1&loop=1&playlist=WtLtJySbw4I&controls=0&modestbranding=1" title="vibe" loading="lazy" allow="autoplay"></iframe></div><div class="label">talking-head / short</div></div>
+      <div class="mood-card mood-8"><div class="big-type">you record.<br>we edit.<em> you post.</em></div><div class="label">/ the whole arrangement</div></div>
+    </div>
+  </div>
+</section>
+
 <section id="services">
   <div class="wrap">
     <div class="sec-top">
       <div>
-        <p class="marker reveal">03 — What we do</p>
+        <p class="marker reveal">04 — What we do</p>
         <h2 class="reveal">One studio for every video you need.</h2>
       </div>
       <p class="side reveal">Short, long, or sales — handled in-house, so you're never juggling editors.</p>
     </div>
     <div class="svc-rows reveal">
-      <div class="svc-row">
-        <div class="rn">01</div>
-        <h3>Short-Form Video</h3>
-        <p>Reels, TikToks, and Shorts engineered to stop the scroll — hooks in the first second, captions, pacing, sound. Built to get watched, not just posted.</p>
-      </div>
-      <div class="svc-row">
-        <div class="rn">02</div>
-        <h3>Long-Form Video</h3>
-        <p>YouTube videos and podcast edits that hold attention and build trust — the deeper content that turns followers into buyers.</p>
-      </div>
-      <div class="svc-row">
-        <div class="rn">03</div>
-        <h3>Sales Video &amp; VSLs</h3>
-        <p>Conversion-focused edits for launches and offers. Structured to move a viewer from mildly interested to ready to buy.</p>
-      </div>
-      <div class="svc-row">
-        <div class="rn">04</div>
-        <h3>Repurposing</h3>
-        <p>One long recording becomes a week of short-form. Film once, post everywhere — without the extra work landing on you.</p>
-      </div>
+      <div class="svc-row"><div class="rn">01</div><h3>Short-Form Video</h3><p>Reels, TikToks, and Shorts engineered to stop the scroll — hooks in the first second, captions, pacing, sound. Built to get watched, not just posted.</p></div>
+      <div class="svc-row"><div class="rn">02</div><h3>Long-Form Video</h3><p>YouTube videos and podcast edits that hold attention and build trust — the deeper content that turns followers into buyers.</p></div>
+      <div class="svc-row"><div class="rn">03</div><h3>Sales Video &amp; VSLs</h3><p>Conversion-focused edits for launches and offers. Structured to move a viewer from mildly interested to ready to buy.</p></div>
+      <div class="svc-row"><div class="rn">04</div><h3>Repurposing</h3><p>One long recording becomes a week of short-form. Film once, post everywhere — without the extra work landing on you.</p></div>
     </div>
   </div>
 </section>
 
-<!-- WHY -->
 <section id="why" class="why">
   <div class="wrap">
     <div class="why-grid">
       <div>
-        <p class="marker reveal">04 — Why Cuttavo</p>
-        <h2 class="reveal" style="font-family:var(--sg);font-weight:700;font-size:clamp(30px,4vw,50px);letter-spacing:-2px;line-height:1.06;margin-top:18px;">Why not just hire a freelancer?</h2>
+        <p class="marker reveal">05 — Why Cuttavo</p>
+        <h2 class="reveal" style="font-family:var(--sg);font-weight:700;font-size:clamp(30px,4vw,52px);letter-spacing:-2px;line-height:1.06;margin-top:18px;">Why not just hire a freelancer?</h2>
         <p class="reveal" style="color:var(--grey);font-size:16px;line-height:1.62;margin-top:18px;max-width:36ch;">Most editors hand back a file and disappear. We work like a partner you can plan a content calendar around.</p>
       </div>
       <ul class="why-list reveal">
@@ -393,12 +514,11 @@
   </div>
 </section>
 
-<!-- PROCESS -->
 <section id="process">
   <div class="wrap">
     <div class="sec-top">
       <div>
-        <p class="marker reveal">05 — How it works</p>
+        <p class="marker reveal">06 — How it works</p>
         <h2 class="reveal">Four steps. That's the whole system.</h2>
       </div>
       <p class="side reveal">No lengthy onboarding. You could be sending footage this week.</p>
@@ -412,106 +532,62 @@
   </div>
 </section>
 
-<!-- REVIEWS -->
 <section id="reviews">
   <div class="wrap">
     <div class="sec-top">
       <div>
-        <p class="marker reveal">06 — What clients say</p>
+        <p class="marker reveal">07 — What clients say</p>
         <h2 class="reveal">Coaches who stopped editing.</h2>
       </div>
       <p class="side reveal">Real words from people who handed their footage to Cuttavo.</p>
     </div>
     <div class="rev-wrap">
-      <div class="rev reveal">
-        <p class="quote"><span class="mk">“</span>I had weeks of coaching calls and client transformations just sitting unedited on my drive. Sent everything over, got it back in 2 days looking sharp. My clients actually started sharing my content. Been working together since.<span class="mk">”</span></p>
-        <div class="who">
-          <div class="stars">★★★★★</div>
-          <div class="n">Conor Murray</div>
-          <div class="r">Online Business Coach</div>
-        </div>
-      </div>
-      <div class="rev reveal">
-        <p class="quote"><span class="mk">“</span>I'm coaching clients from 6am. I'm not sitting down to edit after that. I just send the gym footage and it comes back exactly how I want it. Fast cuts, good energy, feels like me. Shows up every week without me chasing.<span class="mk">”</span></p>
-        <div class="who">
-          <div class="stars">★★★★★</div>
-          <div class="n">Nathan</div>
-          <div class="r">Fitness Coach</div>
-        </div>
-      </div>
-      <div class="rev reveal">
-        <p class="quote"><span class="mk">“</span>We're pushing content hard and needed someone who could keep up with the pace. No lengthy briefs, no revisions back and forth, just fast, clean edits that match the brand. Fits straight into how we work.<span class="mk">”</span></p>
-        <div class="who">
-          <div class="stars">★★★★★</div>
-          <div class="n">Viral Labs</div>
-          <div class="r">Content &amp; Growth Agency</div>
-        </div>
-      </div>
+      <div class="rev reveal"><p class="quote"><span class="mk">"</span>I had weeks of coaching calls and client transformations just sitting unedited on my drive. Sent everything over, got it back in 2 days looking sharp. My clients actually started sharing my content. Been working together since.<span class="mk">"</span></p><div class="who"><div class="stars">★★★★★</div><div class="n">Conor Murray</div><div class="r">Online Business Coach</div></div></div>
+      <div class="rev reveal"><p class="quote"><span class="mk">"</span>I'm coaching clients from 6am. I'm not sitting down to edit after that. I just send the gym footage and it comes back exactly how I want it. Fast cuts, good energy, feels like me. Shows up every week without me chasing.<span class="mk">"</span></p><div class="who"><div class="stars">★★★★★</div><div class="n">Nathan</div><div class="r">Fitness Coach</div></div></div>
+      <div class="rev reveal"><p class="quote"><span class="mk">"</span>We're pushing content hard and needed someone who could keep up with the pace. No lengthy briefs, no revisions back and forth, just fast, clean edits that match the brand. Fits straight into how we work.<span class="mk">"</span></p><div class="who"><div class="stars">★★★★★</div><div class="n">Viral Labs</div><div class="r">Content &amp; Growth Agency</div></div></div>
     </div>
   </div>
 </section>
 
-<!-- RISK -->
 <section class="risk">
   <div class="wrap">
     <div>
-      <p class="marker reveal">07 — Zero risk</p>
+      <p class="marker reveal">08 — Zero risk</p>
       <h2 class="reveal">Try Cuttavo with nothing to lose.</h2>
     </div>
     <div class="reveal">
       <p>Hiring a new editor is a leap — so we take the risk off you. If you're not happy with your first delivery within 7 days, you get a full refund of your first payment. No arguments, no awkwardness. You walk away with a finished video either way.</p>
-      <a href="https://calendly.com/cuttavo/20min" class="btn" target="_blank" rel="noopener" style="margin-top:26px;">Book a free call <span class="arrow">↗</span></a>
+      <a href="https://calendly.com/cuttavo/20min" class="btn magnetic" target="_blank" rel="noopener" style="margin-top:26px;">Book a free call <span class="arrow">↗</span></a>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
 <section id="faq">
   <div class="wrap">
-    <p class="marker reveal">08 — Questions</p>
-    <h2 class="reveal" style="font-family:var(--sg);font-weight:700;font-size:clamp(32px,4.6vw,58px);letter-spacing:-2px;margin-top:18px;">Everything you might ask.</h2>
+    <p class="marker reveal">09 — Questions</p>
+    <h2 class="reveal" style="font-family:var(--sg);font-weight:700;font-size:clamp(32px,4.6vw,62px);letter-spacing:-2px;margin-top:18px;">Everything you might ask.</h2>
     <div class="faq-list reveal">
-      <div class="faq-item">
-        <button class="faq-q">What exactly does Cuttavo do?<span class="ic">+</span></button>
-        <div class="faq-a"><p>We're a video editing studio for coaches. You send raw footage; we deliver finished short-form and long-form video, ready to post — Reels, TikToks, Shorts, YouTube, podcasts, and sales videos.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">How fast is turnaround?<span class="ic">+</span></button>
-        <div class="faq-a"><p>Short-form video is delivered within 48 hours on a standard schedule. Longer YouTube and podcast edits take 3–5 days depending on length and complexity.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">What if I don't like the edit?<span class="ic">+</span></button>
-        <div class="faq-a"><p>We revise until you're happy — no rigid round limits. And your first payment is protected by a 7-day money-back guarantee, so trying us carries no risk.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">How do I send my footage?<span class="ic">+</span></button>
-        <div class="faq-a"><p>Through a simple shared cloud folder. You drop your clips in, and we take it from there. No complicated tools or process.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Do you do both short and long form?<span class="ic">+</span></button>
-        <div class="faq-a"><p>Yes. Short-form (Reels, TikToks, Shorts), long-form (YouTube, podcasts), and sales videos — all under one roof, so you're not juggling multiple editors.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">How do we get started?<span class="ic">+</span></button>
-        <div class="faq-a"><p>Book a free call. We'll look at your current content, talk through your goals, and map out a plan. No pressure — just a conversation to see if we're a fit.</p></div>
-      </div>
+      <div class="faq-item"><button class="faq-q">What exactly does Cuttavo do?<span class="ic">+</span></button><div class="faq-a"><p>We're a video editing studio for coaches. You send raw footage; we deliver finished short-form and long-form video, ready to post — Reels, TikToks, Shorts, YouTube, podcasts, and sales videos.</p></div></div>
+      <div class="faq-item"><button class="faq-q">How fast is turnaround?<span class="ic">+</span></button><div class="faq-a"><p>Short-form video is delivered within 48 hours on a standard schedule. Longer YouTube and podcast edits take 3–5 days depending on length and complexity.</p></div></div>
+      <div class="faq-item"><button class="faq-q">What if I don't like the edit?<span class="ic">+</span></button><div class="faq-a"><p>We revise until you're happy — no rigid round limits. And your first payment is protected by a 7-day money-back guarantee, so trying us carries no risk.</p></div></div>
+      <div class="faq-item"><button class="faq-q">How do I send my footage?<span class="ic">+</span></button><div class="faq-a"><p>Through a simple shared cloud folder. You drop your clips in, and we take it from there. No complicated tools or process.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Do you do both short and long form?<span class="ic">+</span></button><div class="faq-a"><p>Yes. Short-form (Reels, TikToks, Shorts), long-form (YouTube, podcasts), and sales videos — all under one roof, so you're not juggling multiple editors.</p></div></div>
+      <div class="faq-item"><button class="faq-q">How do we get started?<span class="ic">+</span></button><div class="faq-a"><p>Book a free call. We'll look at your current content, talk through your goals, and map out a plan. No pressure — just a conversation to see if we're a fit.</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- FINAL -->
 <section class="final" style="border-bottom:none;">
   <div class="wrap">
-    <p class="marker reveal">09 — Let's work together</p>
+    <p class="marker reveal">10 — Let's work together</p>
     <h2 class="reveal" style="margin-top:24px;">Never edit a<br><span class="out">video again.</span></h2>
     <div class="row reveal">
       <p>We take on a limited number of new coaches each month to protect turnaround. Book a free call and let's see if it's a fit.</p>
-      <a href="https://calendly.com/cuttavo/20min" class="btn" target="_blank" rel="noopener">Book a free call <span class="arrow">↗</span></a>
+      <a href="https://calendly.com/cuttavo/20min" class="btn magnetic" target="_blank" rel="noopener">Book a free call <span class="arrow">↗</span></a>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="wrap">
     <div class="foot-in">
@@ -522,6 +598,7 @@
       <div class="foot-col">
         <h5>Studio</h5>
         <a href="#work">Selected Work</a>
+        <a href="#mood">The Vibe</a>
         <a href="#services">Services</a>
         <a href="#process">Process</a>
         <a href="#faq">FAQ</a>
@@ -544,29 +621,61 @@
   const burger=document.getElementById('burger');
   const navLinks=document.getElementById('navLinks');
   burger.addEventListener('click',()=>navLinks.classList.toggle('show'));
-  navLinks.querySelectorAll('a').forEach(a=>
-    a.addEventListener('click',()=>navLinks.classList.remove('show')));
+  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('show')));
 
   document.querySelectorAll('.faq-q').forEach(q=>{
     q.addEventListener('click',()=>{
       const item=q.parentElement;
       const a=item.querySelector('.faq-a');
       const open=item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i=>{
-        i.classList.remove('open');
-        i.querySelector('.faq-a').style.maxHeight=null;
-      });
+      document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-a').style.maxHeight=null;});
       if(!open){item.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}
     });
   });
 
   document.documentElement.classList.add('reveal-on');
-  const io=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
-  },{threshold:.1});
-  document.querySelectorAll('.reveal').forEach((el,i)=>{
-    el.style.transitionDelay=(i%3*0.08)+'s';
-    io.observe(el);
+  const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4*0.08)+'s';io.observe(el);});
+
+  const dot=document.querySelector('.cursor-dot');
+  const ring=document.querySelector('.cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';document.body.classList.add('cursor-ready');});
+  function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);}
+  loop();
+  document.querySelectorAll('a, button, .wk, .mood-card, .step, .svc-row').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ring.style.width='60px';ring.style.height='60px';});
+    el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';});
+  });
+
+  const heroInner=document.getElementById('heroInner');
+  const hero=document.querySelector('.hero');
+  hero.addEventListener('mousemove',e=>{
+    const r=hero.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    heroInner.style.transform=`rotateY(${x*2.5}deg) rotateX(${-y*1.5}deg)`;
+  });
+  hero.addEventListener('mouseleave',()=>{heroInner.style.transform='';});
+
+  document.querySelectorAll('.tilt-card').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5;
+      const y=(e.clientY-r.top)/r.height-.5;
+      card.style.transform=`perspective(1000px) rotateY(${x*4}deg) rotateX(${-y*4}deg) translateZ(8px)`;
+    });
+    card.addEventListener('mouseleave',()=>{card.style.transform='';});
+  });
+
+  document.querySelectorAll('.magnetic').forEach(btn=>{
+    btn.addEventListener('mousemove',e=>{
+      const r=btn.getBoundingClientRect();
+      const x=e.clientX-r.left-r.width/2;
+      const y=e.clientY-r.top-r.height/2;
+      btn.style.transform=`translate(${x*0.18}px, ${y*0.18}px)`;
+    });
+    btn.addEventListener('mouseleave',()=>{btn.style.transform='';});
   });
 </script>
 </body>

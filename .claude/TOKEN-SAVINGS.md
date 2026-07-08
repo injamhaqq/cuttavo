@@ -24,6 +24,11 @@ instead of shell dumps. Right-size the model. New chat per topic on claude.ai.
 | `Mibayy/token-savior` | **Legit** | Python (not npm). Structural code indexer + memory. No exfil; telemetry local. Keep bash-rewriter OFF (`TS_BASH_REWRITE` unset). |
 | `drona23/claude-token-efficient` | **Content OK; hook skipped** | Adopted 2 CLAUDE.md rules. Did NOT adopt its PreCompact `git add -A --no-verify` auto-commit (commits secrets/junk). |
 | `ooples/token-optimizer-mcp` | **Not malicious; caution** | npm. Global install auto-`curl`s hooks from GitHub raw and wires them into Claude Code — avoid. If used: local `npm install` (NOT `-g`), `npm run build`, point MCP at `dist/server/index.js`. Poor repo hygiene. |
+| `alexgreensh/token-optimizer` | **Best-vetted of the set** | Not pip (`requirements.txt`/`analyze.py` don't exist). Installs via verified `install.sh` (signed releases + SHA256 checksums). Local-only, no telemetry, credential-redacted session cache. Reads `~/.claude/projects/*.jsonl`. Read `HOOKS.md`/`SECURITY.md` first. |
+
+Note: every third-party install snippet handed to me so far (npm/pip/node
+paths) was **wrong for its repo** — generated without reading the code. Always
+verify the real entrypoint before running.
 
 ## Rule of thumb
 

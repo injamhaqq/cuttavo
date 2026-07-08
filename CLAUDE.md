@@ -17,8 +17,15 @@ pulled into context and then re-sent on every subsequent turn. Keep output small
   trees, avoid dumping whole files.
 - **Send noise to a file, read back only what matters:**
   `cmd > /tmp/out.log 2>&1; tail -n 30 /tmp/out.log`.
+- **Skip huge files:** don't read files >100KB unless the task requires them.
 - **Manage context lifecycle:** `/clear` between unrelated tasks; `/compact` when a
   session gets long but you need continuity.
+
+## Accuracy (cheaper than being wrong)
+
+- Don't guess an API, version, flag, commit SHA, or package name. Verify by
+  reading the code or docs before asserting it. A wrong guess costs more tokens
+  (and trust) than a quick check.
 
 ## What is configured here (`.claude/`)
 

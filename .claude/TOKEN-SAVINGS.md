@@ -20,7 +20,8 @@ instead of shell dumps. Right-size the model. New chat per topic on claude.ai.
 
 | Repo | Verdict | Notes |
 |---|---|---|
-| `rtk.ai/install.sh` | **Blocked / refused** | `curl \| sh` from unverified host; env network policy denies it; advertises silent Claude-session hooking. |
+| `rtk.ai/install.sh` (curl\|sh) | **Refused (correct)** | Blind `curl \| sh` from a network-blocked host is the wrong install method for anything, vetted or not. Refusal stands. |
+| `rtk-ai/rtk` (source, reviewed) | **Legit — install via cargo/brew** | Rust CLI proxy that filters command output. `build.rs` benign; telemetry opt-in (defaults off, endpoint compile-time only, sends anonymized command-name+savings stats — not output/paths/content), disable+erasure supported. Reddit "89%" is cherry-picked. Install: `cargo install rtk` or `brew` — NOT curl\|sh. |
 | `Mibayy/token-savior` | **Legit** | Python (not npm). Structural code indexer + memory. No exfil; telemetry local. Keep bash-rewriter OFF (`TS_BASH_REWRITE` unset). |
 | `drona23/claude-token-efficient` | **Content OK; hook skipped** | Adopted 2 CLAUDE.md rules. Did NOT adopt its PreCompact `git add -A --no-verify` auto-commit (commits secrets/junk). |
 | `ooples/token-optimizer-mcp` | **Not malicious; caution** | npm. Global install auto-`curl`s hooks from GitHub raw and wires them into Claude Code — avoid. If used: local `npm install` (NOT `-g`), `npm run build`, point MCP at `dist/server/index.js`. Poor repo hygiene. |

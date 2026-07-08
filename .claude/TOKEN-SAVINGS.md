@@ -25,6 +25,7 @@ instead of shell dumps. Right-size the model. New chat per topic on claude.ai.
 | `drona23/claude-token-efficient` | **Content OK; hook skipped** | Adopted 2 CLAUDE.md rules. Did NOT adopt its PreCompact `git add -A --no-verify` auto-commit (commits secrets/junk). |
 | `ooples/token-optimizer-mcp` | **Not malicious; caution** | npm. Global install auto-`curl`s hooks from GitHub raw and wires them into Claude Code — avoid. If used: local `npm install` (NOT `-g`), `npm run build`, point MCP at `dist/server/index.js`. Poor repo hygiene. |
 | `alexgreensh/token-optimizer` | **Best-vetted of the set** | Not pip (`requirements.txt`/`analyze.py` don't exist). Installs via verified `install.sh` (signed releases + SHA256 checksums). Local-only, no telemetry, credential-redacted session cache. Reads `~/.claude/projects/*.jsonl`. Read `HOOKS.md`/`SECURITY.md` first. |
+| `zilliztech/claude-context` | **Legit; sends code off-machine** | Reputable (Zilliz/Milvus), npm/pnpm (not pip — no `index.py`). Semantic code search. By design sends your code to an external embedding API (OpenAI/Voyage/Gemini) + stores vectors in Zilliz Cloud, unless you use local Ollama + self-hosted Milvus. Needs API keys. |
 
 Note: every third-party install snippet handed to me so far (npm/pip/node
 paths) was **wrong for its repo** — generated without reading the code. Always

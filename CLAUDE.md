@@ -21,6 +21,13 @@ pulled into context and then re-sent on every subsequent turn. Keep output small
 - **Manage context lifecycle:** `/clear` between unrelated tasks; `/compact` when a
   session gets long but you need continuity.
 
+## Process
+
+- No edits before a written plan on non-trivial work: state goal, steps, and
+  success criteria, then act.
+- Refute your own work: try to disprove the answer before presenting it.
+- Open with the result ("Done. Here's what changed."), touch only what was asked.
+
 ## Accuracy (cheaper than being wrong)
 
 - Don't guess an API, version, flag, commit SHA, or package name. Verify by

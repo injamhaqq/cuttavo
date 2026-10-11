@@ -1,548 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cuttavo — Authority to Demand for Expert-Led Businesses</title>
-  <meta name="description" content="Cuttavo turns the expertise inside your calls, podcasts and ideas into authority-building content designed to make the right buyers know, trust and remember you.">
-  <meta name="theme-color" content="#0b0b0c">
-  <meta property="og:title" content="Cuttavo — Authority to Demand">
-  <meta property="og:description" content="Turn what you know into the authority your market can see — and the demand your business can use.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://cuttavo.studio/">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --ink:#0B0B0C;--panel:#131315;--panel2:#18181b;--paper:#F4F4F2;--muted:#99999f;
-      --line:#29292d;--lime:#C8FF00;--lime2:#a4d600;--danger:#ffb5bd;
-      --sg:'Space Grotesk',sans-serif;--in:'Inter',sans-serif;
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{background:var(--ink);color:var(--paper);font-family:var(--in);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-    a{color:inherit;text-decoration:none}
-    button{font:inherit}
-    ::selection{background:var(--lime);color:var(--ink)}
-    .wrap{width:min(1180px,calc(100% - 40px));margin:0 auto}
-    .eyebrow{display:flex;align-items:center;gap:10px;color:var(--lime);font-family:var(--sg);font-weight:600;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
-    .eyebrow:before{content:"";width:28px;height:1px;background:var(--lime)}
-    .kicker{font-size:15px;line-height:1.7;color:var(--muted);max-width:60ch}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px 22px;border:1px solid var(--lime);background:var(--lime);color:var(--ink);font-family:var(--sg);font-weight:700;font-size:14px;transition:.18s ease;cursor:pointer}
-    .btn:hover{transform:translateY(-2px);box-shadow:5px 5px 0 #313136}
-    .btn.secondary{background:transparent;color:var(--paper);border-color:var(--line)}
-    .btn.secondary:hover{border-color:var(--lime);box-shadow:none}
-    .grid{display:grid;gap:18px}
-    .card{background:var(--panel);border:1px solid var(--line);padding:26px}
-    .card h3{font-family:var(--sg);font-size:21px;letter-spacing:-.4px}
-    .card p{color:var(--muted);font-size:14.5px;line-height:1.65;margin-top:10px}
-    .reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
-    .reveal.in{opacity:1;transform:none}
-
-    nav{position:sticky;top:0;z-index:50;background:rgba(11,11,12,.78);border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}
-    .navin{height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-    .logo{font-family:var(--sg);font-weight:700;font-size:24px;letter-spacing:-.8px}
-    .logo span{color:var(--lime)}
-    .links{display:flex;align-items:center;gap:28px}
-    .links a{font-size:13px;color:#b7b7bc}
-    .links a:hover{color:var(--paper)}
-    .links .navcta{background:var(--lime);color:var(--ink);padding:11px 15px;font-weight:700}
-    .burger{display:none;background:none;border:0;color:var(--paper);font-size:24px}
-
-    .hero{position:relative;overflow:hidden;padding:110px 0 72px;border-bottom:1px solid var(--line)}
-    .hero:before{content:"";position:absolute;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(200,255,0,.13),rgba(200,255,0,0) 68%);right:-180px;top:-220px;pointer-events:none}
-    .hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:54px;align-items:end}
-    h1{font-family:var(--sg);font-size:clamp(54px,8.5vw,118px);line-height:.92;letter-spacing:-5px;margin-top:28px;max-width:9.5ch}
-    h1 em{display:inline-block;font-style:normal;color:var(--ink);background:var(--lime);padding:0 .12em}
-    .hero-copy{padding-bottom:7px}
-    .hero-copy p{font-size:17px;color:#b2b2b7;line-height:1.7}
-    .hero-copy strong{color:var(--paper)}
-    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-    .proofbar{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);margin-top:72px;background:var(--line);gap:1px}
-    .proofbar div{background:var(--ink);padding:22px}
-    .proofbar b{font-family:var(--sg);display:block;font-size:16px}
-    .proofbar span{display:block;color:var(--muted);font-size:12.5px;margin-top:6px;line-height:1.45}
-
-    .thesis{padding:90px 0;border-bottom:1px solid var(--line);background:var(--panel)}
-    .thesis-grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:70px}
-    .statement{font-family:var(--sg);font-weight:700;font-size:clamp(32px,5vw,66px);line-height:1;letter-spacing:-2.4px}
-    .statement em{font-style:normal;color:var(--lime)}
-    .thesis-copy p{color:#b5b5ba;font-size:16px;line-height:1.8}
-    .thesis-copy p+p{margin-top:18px}
-    .truths{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:34px}
-    .truth{background:#101012;padding:22px}
-    .truth b{display:block;font-family:var(--sg);font-size:15px}
-    .truth span{display:block;color:var(--muted);font-size:13px;line-height:1.55;margin-top:8px}
-
-    section{padding:100px 0;border-bottom:1px solid var(--line)}
-    .section-head{display:flex;align-items:end;justify-content:space-between;gap:40px;margin-bottom:42px}
-    .section-head h2{font-family:var(--sg);font-size:clamp(36px,5.5vw,72px);line-height:.98;letter-spacing:-3px;max-width:12ch;margin-top:17px}
-    .section-head p{max-width:47ch;color:var(--muted);line-height:1.7}
-
-    .system{grid-template-columns:repeat(4,1fr);counter-reset:sys}
-    .system .card{min-height:310px;display:flex;flex-direction:column;position:relative;overflow:hidden}
-    .system .card:before{counter-increment:sys;content:"0" counter(sys);font-family:var(--sg);font-size:54px;color:#2e2e33;line-height:1}
-    .system .card h3{margin-top:auto}
-    .system .card:hover{border-color:#45454a}
-    .system .card:hover:before{color:var(--lime)}
-
-    .process{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-    .process .step{padding:24px;border-top:2px solid var(--line);background:#0f0f11}
-    .process .step span{color:var(--lime);font-family:var(--sg);font-weight:700;font-size:13px}
-    .process .step h3{font-family:var(--sg);font-size:20px;margin-top:35px}
-    .process .step p{color:var(--muted);font-size:14px;line-height:1.65;margin-top:9px}
-
-    .fit-grid{grid-template-columns:1fr 1fr}
-    .fit-card{padding:32px;border:1px solid var(--line)}
-    .fit-card.good{background:linear-gradient(145deg,rgba(200,255,0,.07),#111113)}
-    .fit-card.bad{background:#111113}
-    .fit-card h3{font-family:var(--sg);font-size:29px;letter-spacing:-1px}
-    .fit-list{list-style:none;margin-top:20px;display:grid;gap:13px}
-    .fit-list li{color:#bdbdc2;font-size:14.5px;line-height:1.55;padding-left:24px;position:relative}
-    .fit-card.good li:before{content:"+";position:absolute;left:0;color:var(--lime);font-weight:700}
-    .fit-card.bad li:before{content:"—";position:absolute;left:0;color:#7d7d83}
-
-    .work-grid{grid-template-columns:repeat(2,1fr)}
-    .work{border:1px solid var(--line);background:var(--panel);overflow:hidden}
-    .video{aspect-ratio:16/9;background:#000}
-    .video iframe{width:100%;height:100%;border:0}
-    .work-meta{display:flex;justify-content:space-between;gap:16px;padding:16px 18px}
-    .work-meta b{font-family:var(--sg)}
-    .work-meta span{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
-
-    .compare-wrap{overflow-x:auto;border:1px solid var(--line)}
-    table{width:100%;border-collapse:collapse;min-width:760px}
-    th,td{padding:17px 18px;border-bottom:1px solid var(--line);text-align:left;font-size:13.5px}
-    th{font-family:var(--sg);font-size:13px;color:#c7c7cb;background:#101012}
-    th:last-child,td:last-child{background:rgba(200,255,0,.055)}
-    td{color:#aaaab0}
-    td:first-child{color:var(--paper);font-weight:600}
-    .yes{color:var(--lime);font-weight:700}
-    .partial{color:#d7d7da}
-    .no{color:#5f5f65}
-
-    .offers{grid-template-columns:repeat(4,1fr)}
-    .offer{position:relative;min-height:330px;display:flex;flex-direction:column}
-    .offer.featured{border-color:var(--lime)}
-    .tag{font-size:11px;color:var(--ink);background:var(--lime);font-weight:800;padding:6px 8px;width:max-content;text-transform:uppercase;letter-spacing:.08em;margin-bottom:18px}
-    .offer .stage{font-family:var(--sg);font-size:12px;color:var(--lime);text-transform:uppercase;letter-spacing:.1em}
-    .offer h3{font-family:var(--sg);font-size:25px;margin-top:10px}
-    .offer p{font-size:14px}
-    .offer .result{margin-top:auto;padding-top:26px;color:var(--paper);font-family:var(--sg);font-size:13px}
-
-    .audit{background:var(--lime);color:var(--ink);padding:88px 0}
-    .audit-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:60px;align-items:center}
-    .audit .eyebrow{color:var(--ink)}
-    .audit .eyebrow:before{background:var(--ink)}
-    .audit h2{font-family:var(--sg);font-size:clamp(42px,6vw,82px);line-height:.94;letter-spacing:-3.4px;margin-top:18px}
-    .audit p{font-size:16px;line-height:1.7;margin-top:20px;max-width:52ch}
-    .audit-list{list-style:none;display:grid;gap:13px}
-    .audit-list li{padding:16px 18px;border:1px solid rgba(11,11,12,.25);background:rgba(244,244,242,.25);font-weight:600;font-size:14px}
-    .audit .btn{background:var(--ink);color:var(--paper);border-color:var(--ink);margin-top:24px}
-
-    .faq{max-width:900px}
-    .faq-item{border-bottom:1px solid var(--line)}
-    .faq-q{width:100%;padding:24px 0;background:none;border:0;color:var(--paper);display:flex;justify-content:space-between;gap:20px;text-align:left;font-family:var(--sg);font-size:20px;font-weight:600;cursor:pointer}
-    .faq-q span{color:var(--lime);font-size:24px}
-    .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
-    .faq-a p{color:var(--muted);line-height:1.75;padding:0 40px 23px 0;font-size:14.5px}
-    .faq-item.open .faq-q span{transform:rotate(45deg)}
-
-    .final{padding:125px 0;border-bottom:0}
-    .final h2{font-family:var(--sg);font-size:clamp(50px,8vw,112px);line-height:.91;letter-spacing:-5px;max-width:9ch}
-    .final h2 em{font-style:normal;color:var(--lime)}
-    .final-row{display:flex;justify-content:space-between;gap:40px;align-items:end;margin-top:38px}
-    .final-row p{color:var(--muted);max-width:52ch;line-height:1.7}
-
-    footer{border-top:1px solid var(--line);padding:60px 0 34px}
-    .foot{display:grid;grid-template-columns:1.3fr .7fr .7fr;gap:50px}
-    .foot p{color:var(--muted);font-size:13.5px;line-height:1.7;margin-top:13px}
-    .foot h4{font-family:var(--sg);font-size:12px;color:#77777d;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
-    .foot a{display:block;font-size:13.5px;padding:5px 0}
-    .foot a:hover{color:var(--lime)}
-    .copyright{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;color:#77777d;font-size:12px}
-
-    @media(max-width:960px){
-      .hero-grid,.thesis-grid,.audit-grid{grid-template-columns:1fr}
-      h1{max-width:11ch}
-      .hero-copy{max-width:650px}
-      .system,.offers{grid-template-columns:repeat(2,1fr)}
-      .process{grid-template-columns:repeat(2,1fr)}
-      .proofbar{grid-template-columns:repeat(2,1fr)}
-      .truths{grid-template-columns:1fr}
-      .section-head{align-items:start;flex-direction:column}
-      .foot{grid-template-columns:1fr 1fr}
-    }
-    @media(max-width:720px){
-      .wrap{width:min(100% - 28px,1180px)}
-      .links{position:fixed;left:0;right:0;top:72px;background:#0b0b0c;border-bottom:1px solid var(--line);padding:20px 22px;display:none;flex-direction:column;align-items:flex-start}
-      .links.show{display:flex}
-      .burger{display:block}
-      .hero{padding-top:76px}
-      h1{font-size:clamp(50px,16vw,76px);letter-spacing:-3px}
-      .proofbar,.system,.process,.fit-grid,.work-grid,.offers,.foot{grid-template-columns:1fr}
-      .final-row{align-items:flex-start;flex-direction:column}
-      .copyright{flex-direction:column}
-    }
-  </style>
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"ProfessionalService",
-    "name":"Cuttavo",
-    "url":"https://cuttavo.studio/",
-    "email":"hello@cuttavo.studio",
-    "description":"Authority and demand content systems for expert-led businesses."
-  }
-  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cuttavo — Done-for-You Content for Coaches & Consultants</title>
+<meta name="description" content="Cuttavo turns one conversation, call, podcast or voice note into a month of ready-to-publish content for coaches, consultants and expert-led businesses. Strategy, writing, repurposing and production coordination handled.">
+<meta name="theme-color" content="#0B0B0C">
+<meta property="og:title" content="Cuttavo — One Conversation. A Month of Content.">
+<meta property="og:description" content="Done-for-you content for coaches and consultants who want their expertise to pre-sell them without turning content into a second job.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cuttavo.studio/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0B0B0C;--panel:#141416;--panel2:#1b1b1f;--paper:#F4F4F2;--muted:#97979e;--line:#29292d;--lime:#C8FF00;--sg:'Space Grotesk',sans-serif;--in:'Inter',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{background:var(--ink);color:var(--paper);font-family:var(--in);-webkit-font-smoothing:antialiased;overflow-x:hidden}a{color:inherit;text-decoration:none}button{font:inherit}::selection{background:var(--lime);color:var(--ink)}.wrap{width:min(1180px,calc(100% - 40px));margin:auto}.eyebrow{display:flex;gap:10px;align-items:center;color:var(--lime);font:600 12px var(--sg);letter-spacing:.12em;text-transform:uppercase}.eyebrow:before{content:"";width:28px;height:1px;background:var(--lime)}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:15px 21px;border:1px solid var(--lime);background:var(--lime);color:var(--ink);font:700 14px var(--sg);transition:.18s;cursor:pointer}.btn:hover{transform:translateY(-2px);box-shadow:5px 5px 0 #303035}.btn.ghost{background:transparent;color:var(--paper);border-color:var(--line)}.btn.ghost:hover{border-color:var(--lime);box-shadow:none}.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}.reveal.in{opacity:1;transform:none}
+nav{position:sticky;top:0;z-index:50;background:rgba(11,11,12,.82);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.navin{height:72px;display:flex;justify-content:space-between;align-items:center;gap:24px}.logo{font:700 24px var(--sg);letter-spacing:-.8px}.logo span{color:var(--lime)}.links{display:flex;align-items:center;gap:27px}.links a{font-size:13px;color:#b9b9be}.links a:hover{color:var(--paper)}.links .navcta{background:var(--lime);color:var(--ink);font-weight:700;padding:11px 15px}.burger{display:none;color:var(--paper);background:none;border:0;font-size:24px}
+.hero{position:relative;overflow:hidden;padding:110px 0 75px;border-bottom:1px solid var(--line)}.hero:before{content:"";position:absolute;right:-190px;top:-230px;width:680px;height:680px;border-radius:50%;background:radial-gradient(circle,rgba(200,255,0,.15),transparent 68%);pointer-events:none}.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:56px;align-items:end}.hero h1{font:700 clamp(54px,8.2vw,112px)/.92 var(--sg);letter-spacing:-5px;max-width:10ch;margin-top:27px}.hero h1 em{font-style:normal;background:var(--lime);color:var(--ink);padding:0 .12em;display:inline-block}.hero-copy p{font-size:17px;line-height:1.72;color:#b7b7bc}.hero-copy strong{color:var(--paper)}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:27px}.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:68px}.strip div{background:var(--ink);padding:22px}.strip b{display:block;font:700 17px var(--sg)}.strip span{display:block;color:var(--muted);font-size:12.5px;line-height:1.5;margin-top:6px}
+section{padding:100px 0;border-bottom:1px solid var(--line)}.panel{background:var(--panel)}.head{display:flex;align-items:end;justify-content:space-between;gap:44px;margin-bottom:42px}.head h2{font:700 clamp(36px,5.5vw,72px)/.98 var(--sg);letter-spacing:-3px;max-width:12ch;margin-top:17px}.head p{color:var(--muted);line-height:1.72;max-width:48ch}.thesis{display:grid;grid-template-columns:.82fr 1.18fr;gap:70px}.big{font:700 clamp(34px,5vw,66px)/1 var(--sg);letter-spacing:-2.5px}.big em{font-style:normal;color:var(--lime)}.copy p{color:#b9b9be;font-size:16px;line-height:1.8}.copy p+p{margin-top:18px}.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:32px}.mini{background:#101012;padding:21px}.mini b{font:600 15px var(--sg)}.mini span{display:block;color:var(--muted);font-size:13px;line-height:1.55;margin-top:8px}
+.engine{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);counter-reset:item}.engine article{background:var(--ink);padding:28px;min-height:300px;display:flex;flex-direction:column}.engine article:before{counter-increment:item;content:"0" counter(item);font:700 52px var(--sg);color:#303035}.engine h3{font:600 21px var(--sg);margin-top:auto}.engine p{color:var(--muted);font-size:14.5px;line-height:1.65;margin-top:10px}.engine article:hover:before{color:var(--lime)}
+.deliverables{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.dcard{border:1px solid var(--line);background:#101012;padding:24px}.dcard .num{font:700 34px var(--sg);color:var(--lime)}.dcard h3{font:600 18px var(--sg);margin-top:12px}.dcard p{color:var(--muted);font-size:13.5px;line-height:1.6;margin-top:8px}.note{margin-top:18px;color:#7f7f86;font-size:12.5px;line-height:1.6}
+.fit{display:grid;grid-template-columns:1fr 1fr;gap:18px}.fitcard{border:1px solid var(--line);padding:31px;background:#101012}.fitcard.good{background:linear-gradient(145deg,rgba(200,255,0,.07),#101012)}.fitcard h3{font:700 28px var(--sg);letter-spacing:-1px}.fitcard ul{list-style:none;display:grid;gap:13px;margin-top:20px}.fitcard li{position:relative;padding-left:23px;color:#b9b9be;font-size:14.5px;line-height:1.55}.fitcard.good li:before{content:"+";position:absolute;left:0;color:var(--lime);font-weight:800}.fitcard.bad li:before{content:"—";position:absolute;left:0;color:#75757b}
+.workgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.work{border:1px solid var(--line);background:var(--panel);overflow:hidden}.video{aspect-ratio:16/9;background:#000}.video iframe{width:100%;height:100%;border:0}.wm{display:flex;justify-content:space-between;gap:15px;padding:16px 18px}.wm b{font-family:var(--sg)}.wm span{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.compare{overflow-x:auto;border:1px solid var(--line)}table{width:100%;min-width:760px;border-collapse:collapse}th,td{padding:17px 18px;border-bottom:1px solid var(--line);text-align:left;font-size:13.5px}th{background:#101012;color:#c8c8cc;font:600 13px var(--sg)}td{color:#aaaab0}td:first-child{color:var(--paper);font-weight:600}th:last-child,td:last-child{background:rgba(200,255,0,.055)}.yes{color:var(--lime);font-weight:700}.muted{color:#64646a}
+.offers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.offer{border:1px solid var(--line);background:var(--panel);padding:28px;min-height:315px;display:flex;flex-direction:column}.offer.featured{border-color:var(--lime)}.tag{width:max-content;background:var(--lime);color:var(--ink);padding:6px 8px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}.offer small{color:var(--lime);font:600 11px var(--sg);letter-spacing:.1em;text-transform:uppercase}.offer h3{font:700 25px var(--sg);margin-top:9px}.offer p{color:var(--muted);font-size:14px;line-height:1.65;margin-top:10px}.offer .outcome{margin-top:auto;padding-top:25px;color:var(--paper);font:500 13px var(--sg)}
+.audit{background:var(--lime);color:var(--ink);padding:88px 0}.auditgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:58px;align-items:center}.audit .eyebrow{color:var(--ink)}.audit .eyebrow:before{background:var(--ink)}.audit h2{font:700 clamp(42px,6vw,80px)/.94 var(--sg);letter-spacing:-3.2px;margin-top:17px}.audit p{font-size:16px;line-height:1.72;margin-top:20px;max-width:52ch}.audit .btn{background:var(--ink);color:var(--paper);border-color:var(--ink);margin-top:24px}.audit ul{list-style:none;display:grid;gap:12px}.audit li{border:1px solid rgba(11,11,12,.24);background:rgba(255,255,255,.22);padding:15px 17px;font-weight:600;font-size:14px}
+.faq{max-width:900px}.faq-item{border-bottom:1px solid var(--line)}.faq-q{width:100%;padding:24px 0;background:none;border:0;color:var(--paper);display:flex;justify-content:space-between;gap:20px;text-align:left;font:600 20px var(--sg);cursor:pointer}.faq-q span{color:var(--lime);font-size:24px}.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}.faq-a p{color:var(--muted);line-height:1.75;padding:0 40px 23px 0;font-size:14.5px}.faq-item.open .faq-q span{transform:rotate(45deg)}
+.final{padding:125px 0;border-bottom:0}.final h2{font:700 clamp(50px,8vw,108px)/.91 var(--sg);letter-spacing:-5px;max-width:10ch}.final h2 em{font-style:normal;color:var(--lime)}.finalrow{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-top:38px}.finalrow p{color:var(--muted);line-height:1.72;max-width:52ch}
+footer{border-top:1px solid var(--line);padding:58px 0 34px}.foot{display:grid;grid-template-columns:1.3fr .7fr .7fr;gap:48px}.foot p{color:var(--muted);font-size:13.5px;line-height:1.7;margin-top:13px}.foot h4{font:600 12px var(--sg);text-transform:uppercase;letter-spacing:.1em;color:#77777d;margin-bottom:14px}.foot a{display:block;font-size:13.5px;padding:5px 0}.foot a:hover{color:var(--lime)}.copyline{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;color:#77777d;font-size:12px}
+@media(max-width:960px){.hero-grid,.thesis,.auditgrid{grid-template-columns:1fr}.engine{grid-template-columns:repeat(2,1fr)}.deliverables{grid-template-columns:repeat(2,1fr)}.strip{grid-template-columns:repeat(2,1fr)}.mini-grid{grid-template-columns:1fr}.offers{grid-template-columns:1fr}.head{align-items:start;flex-direction:column}.foot{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.wrap{width:min(100% - 28px,1180px)}.links{position:fixed;left:0;right:0;top:72px;background:#0b0b0c;border-bottom:1px solid var(--line);padding:20px 22px;display:none;flex-direction:column;align-items:flex-start}.links.show{display:flex}.burger{display:block}.hero{padding-top:78px}.hero h1{font-size:clamp(50px,16vw,74px);letter-spacing:-3px}.engine,.deliverables,.strip,.fit,.workgrid,.foot{grid-template-columns:1fr}.finalrow{align-items:flex-start;flex-direction:column}.copyline{flex-direction:column}}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Cuttavo","url":"https://cuttavo.studio/","email":"hello@cuttavo.studio","description":"Done-for-you content systems for coaches, consultants and expert-led businesses."}
+</script>
 </head>
 <body>
-<nav>
-  <div class="wrap navin">
-    <a class="logo" href="#top">cuttavo<span>.</span></a>
-    <button class="burger" id="burger" aria-label="Open menu">☰</button>
-    <div class="links" id="navLinks">
-      <a href="#method">Method</a>
-      <a href="#proof">Proof</a>
-      <a href="#fit">Who it's for</a>
-      <a href="#offers">Offers</a>
-      <a href="#faq">FAQ</a>
-      <a class="navcta" href="https://calendly.com/cuttavo/20min" target="_blank" rel="noopener">Get an Authority Audit ↗</a>
-    </div>
-  </div>
-</nav>
+<nav><div class="wrap navin"><a class="logo" href="#top">cuttavo<span>.</span></a><button class="burger" id="burger" aria-label="Open menu">☰</button><div class="links" id="navLinks"><a href="#system">System</a><a href="#proof">Work</a><a href="#fit">Who it's for</a><a href="#offers">Start here</a><a href="#faq">FAQ</a><a class="navcta" href="https://calendly.com/cuttavo/20min" target="_blank" rel="noopener">Get 3 content ideas ↗</a></div></div></nav>
 
 <main id="top">
-  <header class="hero">
-    <div class="wrap">
-      <div class="hero-grid">
-        <div class="reveal">
-          <div class="eyebrow">Authority → Demand for expert-led businesses</div>
-          <h1>Your expertise should <em>compound.</em></h1>
-        </div>
-        <div class="hero-copy reveal">
-          <p><strong>Cuttavo turns the thinking already inside your calls, podcasts, interviews and ideas into authority-building content designed to make the right buyers know, trust and remember you.</strong></p>
-          <p style="margin-top:14px">You bring the expertise. We find the ideas worth owning, shape the positioning, build the content system and learn from what your market responds to.</p>
-          <div class="actions">
-            <a class="btn" href="https://calendly.com/cuttavo/20min" target="_blank" rel="noopener">Get a free Authority Leak Audit ↗</a>
-            <a class="btn secondary" href="#method">See the system</a>
-          </div>
-        </div>
-      </div>
-      <div class="proofbar reveal">
-        <div><b>30–45 min/week</b><span>Start from conversations and expertise you already have.</span></div>
-        <div><b>Human judgment</b><span>Positioning and taste stay human. AI accelerates the mechanical work.</span></div>
-        <div><b>One authority system</b><span>Ideas, writing, repurposing, production coordination and learning.</span></div>
-        <div><b>Built for buyers</b><span>We care more about qualified attention than vanity output.</span></div>
-      </div>
-    </div>
-  </header>
+<header class="hero"><div class="wrap">
+<div class="hero-grid">
+<div class="reveal"><div class="eyebrow">Done-for-you content for coaches & consultants</div><h1>One conversation. <em>A month of content.</em></h1></div>
+<div class="hero-copy reveal">
+<p><strong>Cuttavo turns the expertise already inside your calls, podcasts, voice notes and ideas into ready-to-publish content that helps prospects understand why you're worth listening to before the sales call.</strong></p>
+<p style="margin-top:14px">We handle strategy, writing, repurposing, content planning and production coordination. You stay focused on clients — not scripts, editors or content calendars.</p>
+<div class="actions"><a class="btn" href="https://calendly.com/cuttavo/20min" target="_blank" rel="noopener">Get my free 3-Idea Content Plan ↗</a><a class="btn ghost" href="#system">See exactly how it works</a></div>
+</div>
+</div>
+<div class="strip reveal">
+<div><b>45 minutes</b><span>A focused source conversation — or use content you already have.</span></div>
+<div><b>30-day system</b><span>Ideas become posts, scripts, assets and a clear publishing plan.</span></div>
+<div><b>0 editing for you</b><span>No Premiere, no chasing freelancers, no managing production details.</span></div>
+<div><b>Built around your voice</b><span>AI speeds up the work. Human judgment protects your positioning.</span></div>
+</div>
+</div></header>
 
-  <section class="thesis">
-    <div class="wrap">
-      <div class="thesis-grid">
-        <div class="statement reveal">AI made content production cheap. <em>Being worth remembering got more valuable.</em></div>
-        <div class="thesis-copy reveal">
-          <p>Anyone can generate captions, clips and posts now. That is not the advantage anymore. The advantage is knowing which ideas deserve attention, what you should become known for, and how to express that expertise in a way buyers recognize.</p>
-          <p>Cuttavo sits above the tools. We use automation where it saves time, then apply human judgment where strategy, voice, credibility and differentiation matter.</p>
-          <div class="truths">
-            <div class="truth"><b>Production is abundant.</b><span>More output is not automatically more authority.</span></div>
-            <div class="truth"><b>Distinctive POV is scarce.</b><span>Strong beliefs and useful frameworks create memory.</span></div>
-            <div class="truth"><b>Trust compounds.</b><span>The right content can pre-sell expertise before a call happens.</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<section class="panel"><div class="wrap thesis">
+<div class="big reveal">You do not need more content ideas. <em>You need your expertise used properly.</em></div>
+<div class="copy reveal">
+<p>Most established coaches and consultants already say valuable things every week — on client calls, podcasts, webinars, voice notes and sales conversations. The problem is that those ideas get used once and disappear.</p>
+<p>Meanwhile, cheap AI tools can generate endless generic posts and clips. That makes basic production easier, but it makes distinctive thinking more important. Cuttavo's job is to find the ideas worth repeating, sharpen them, and turn them into a consistent body of content that sounds like you.</p>
+<div class="mini-grid">
+<div class="mini"><b>Stop starting from blank pages.</b><span>We mine what you already know and already say.</span></div>
+<div class="mini"><b>Stop sounding like everyone else.</b><span>Your POV, stories and frameworks drive the content.</span></div>
+<div class="mini"><b>Stop managing production.</b><span>Cuttavo owns the workflow; you approve the output.</span></div>
+</div>
+</div>
+</div></section>
 
-  <section id="method">
-    <div class="wrap">
-      <div class="section-head">
-        <div>
-          <div class="eyebrow reveal">The Cuttavo Authority Engine</div>
-          <h2 class="reveal">Turn what you know into something your market can recognize.</h2>
-        </div>
-        <p class="reveal">Not a pile of deliverables. A recurring system that captures expertise, sharpens positioning, creates content and feeds the response back into the next cycle.</p>
-      </div>
-      <div class="grid system">
-        <article class="card reveal">
-          <h3>Extract</h3>
-          <p>We mine calls, interviews, voice notes, podcasts, webinars and existing material for strong ideas, stories, objections, frameworks and buyer-relevant insights.</p>
-        </article>
-        <article class="card reveal">
-          <h3>Position</h3>
-          <p>We decide what deserves to become a point of view, what you should be associated with, and how to make the idea sharper without flattening your voice.</p>
-        </article>
-        <article class="card reveal">
-          <h3>Package</h3>
-          <p>We turn the strongest ideas into platform-ready thought leadership, posts, scripts, repurposed assets and production briefs. Video production can be coordinated when it supports the strategy.</p>
-        </article>
-        <article class="card reveal">
-          <h3>Learn</h3>
-          <p>We review response quality, engagement patterns and commercial signals where available, then use that evidence to improve the next month's themes and angles.</p>
-        </article>
-      </div>
-    </div>
-  </section>
+<section id="system"><div class="wrap">
+<div class="head"><div><div class="eyebrow reveal">The Cuttavo Content Engine</div><h2 class="reveal">Your expertise in. A finished content system out.</h2></div><p class="reveal">Simple enough to explain in one sentence. Deep enough to improve every month.</p></div>
+<div class="engine">
+<article class="reveal"><h3>Capture</h3><p>We start from a short content-mining conversation or material you already have: calls, podcasts, webinars, voice notes, posts and customer stories.</p></article>
+<article class="reveal"><h3>Extract</h3><p>We identify the strongest beliefs, stories, frameworks, objections and buyer-relevant ideas — not just random quotable moments.</p></article>
+<article class="reveal"><h3>Create</h3><p>We turn those ideas into platform-ready posts, captions, carousels, scripts, newsletters and production briefs in your voice.</p></article>
+<article class="reveal"><h3>Improve</h3><p>We review what earned the right kind of response, then use those signals to shape the next cycle instead of guessing forever.</p></article>
+</div>
+</div></section>
 
-  <section>
-    <div class="wrap">
-      <div class="section-head">
-        <div>
-          <div class="eyebrow reveal">Your Cuttavo Authority Graph</div>
-          <h2 class="reveal">The system gets smarter as we learn how you think.</h2>
-        </div>
-        <p class="reveal">We build a living working model of your expertise so every month starts with more context than the last.</p>
-      </div>
-      <div class="process">
-        <div class="step reveal"><span>01 / POV</span><h3>What you believe</h3><p>Your strongest beliefs, contrarian views, frameworks and category opinions.</p></div>
-        <div class="step reveal"><span>02 / BUYER</span><h3>What they care about</h3><p>Pains, objections, decision criteria, language and problems close to the buying decision.</p></div>
-        <div class="step reveal"><span>03 / PROOF</span><h3>Why they should believe you</h3><p>Cases, stories, results, examples and experiences that support the point of view.</p></div>
-        <div class="step reveal"><span>04 / SIGNALS</span><h3>What resonates</h3><p>Hooks, themes, formats and conversations that deserve another iteration.</p></div>
-      </div>
-    </div>
-  </section>
+<section class="panel"><div class="wrap">
+<div class="head"><div><div class="eyebrow reveal">A typical month</div><h2 class="reveal">Concrete output. No content-manager job for you.</h2></div><p class="reveal">The exact mix changes by client and platform. This is the type of monthly system Cuttavo is built to run.</p></div>
+<div class="deliverables">
+<div class="dcard reveal"><div class="num">12</div><h3>Authority posts</h3><p>LinkedIn posts and Instagram captions built around your ideas, stories, proof and buyer problems.</p></div>
+<div class="dcard reveal"><div class="num">4</div><h3>Carousel concepts/assets</h3><p>Framework-led educational pieces designed to make your thinking easy to understand and save.</p></div>
+<div class="dcard reveal"><div class="num">8</div><h3>Short-form scripts / clip briefs</h3><p>Strong hooks and structured talking points for video, or briefs for repurposing existing footage.</p></div>
+<div class="dcard reveal"><div class="num">1</div><h3>Newsletter / deeper piece</h3><p>A longer asset that develops one high-value idea beyond a social caption.</p></div>
+<div class="dcard reveal"><div class="num">30</div><h3>Day content calendar</h3><p>What to publish, where it fits, and what role each piece plays in the bigger message.</p></div>
+<div class="dcard reveal"><div class="num">1</div><h3>Performance review</h3><p>We look at useful response signals and decide what deserves another iteration next month.</p></div>
+</div>
+<p class="note reveal">Video editing is not something the client — or the founder of Cuttavo — needs to sit and do personally. When a plan includes finished video, production can be handled through Cuttavo's specialist/AI-assisted workflow and quality control.</p>
+</div></section>
 
-  <section id="fit">
-    <div class="wrap">
-      <div class="section-head">
-        <div>
-          <div class="eyebrow reveal">Fit matters</div>
-          <h2 class="reveal">Built for experts whose knowledge is connected to revenue.</h2>
-        </div>
-        <p class="reveal">Cuttavo is intentionally narrower than a generic content agency. The economics work best when one new customer is meaningfully valuable to your business.</p>
-      </div>
-      <div class="grid fit-grid">
-        <div class="fit-card good reveal">
-          <h3>Best fit</h3>
-          <ul class="fit-list">
-            <li>Business and executive coaches with an established offer</li>
-            <li>Consultants, advisors and fractional executives</li>
-            <li>B2B founders selling expertise-heavy products or services</li>
-            <li>Speakers and subject-matter experts with existing IP</li>
-            <li>Experts with calls, podcasts, webinars or ideas already being underused</li>
-          </ul>
-        </div>
-        <div class="fit-card bad reveal">
-          <h3>Probably not a fit</h3>
-          <ul class="fit-list">
-            <li>Someone looking only for the cheapest editor</li>
-            <li>An aspiring creator without a clear offer or expertise</li>
-            <li>A brand that wants generic AI content at maximum volume</li>
-            <li>A business expecting guaranteed virality or guaranteed customers</li>
-            <li>Anyone unwilling to contribute real ideas, experience or point of view</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
+<section id="fit"><div class="wrap">
+<div class="head"><div><div class="eyebrow reveal">Who this is built for</div><h2 class="reveal">Experts with something valuable to sell — and no desire to become full-time creators.</h2></div><p class="reveal">We are deliberately not trying to serve everybody who wants social media content.</p></div>
+<div class="fit">
+<div class="fitcard good reveal"><h3>Strong fit</h3><ul>
+<li>Business, executive and specialist coaches with an established offer</li>
+<li>Consultants, advisors and fractional executives</li>
+<li>Speakers, podcast hosts and subject-matter experts</li>
+<li>B2B founders whose expertise helps sell the company</li>
+<li>People already producing ideas but using only a fraction of them</li>
+</ul></div>
+<div class="fitcard bad reveal"><h3>Not what Cuttavo is for</h3><ul>
+<li>Someone shopping only for the cheapest video editor</li>
+<li>Beginners without a clear offer, audience or expertise yet</li>
+<li>Brands wanting hundreds of generic AI posts</li>
+<li>Anyone expecting guaranteed virality or guaranteed customers</li>
+<li>Teams that want a vendor to copy trends without understanding the business</li>
+</ul></div>
+</div>
+</div></section>
 
-  <section id="proof">
-    <div class="wrap">
-      <div class="section-head">
-        <div>
-          <div class="eyebrow reveal">Selected production work</div>
-          <h2 class="reveal">Execution still matters. It just isn't the strategy.</h2>
-        </div>
-        <p class="reveal">Cuttavo began with production. That capability stays available underneath the authority system when video is the right format.</p>
-      </div>
-      <div class="grid work-grid">
-        <article class="work reveal"><div class="video"><iframe src="https://www.youtube.com/embed/oLhWn_4RKHo" title="Bernd Trading" loading="lazy" allowfullscreen></iframe></div><div class="work-meta"><b>Bernd Trading</b><span>Long-form</span></div></article>
-        <article class="work reveal"><div class="video"><iframe src="https://www.youtube.com/embed/ESsmWEt1UlE" title="Conor Murray" loading="lazy" allowfullscreen></iframe></div><div class="work-meta"><b>Conor Murray</b><span>Long-form</span></div></article>
-        <article class="work reveal"><div class="video"><iframe src="https://www.youtube.com/embed/WtLtJySbw4I" title="Talking Head" loading="lazy" allowfullscreen></iframe></div><div class="work-meta"><b>Talking-head content</b><span>Short-form</span></div></article>
-        <article class="work reveal"><div class="video"><iframe src="https://www.youtube.com/embed/_NRQc0GFlTU" title="Gym Sales Video" loading="lazy" allowfullscreen></iframe></div><div class="work-meta"><b>Gym niche sales video</b><span>VSL</span></div></article>
-      </div>
-    </div>
-  </section>
+<section id="proof" class="panel"><div class="wrap">
+<div class="head"><div><div class="eyebrow reveal">Selected production work</div><h2 class="reveal">We know the production layer. Now it serves the strategy.</h2></div><p class="reveal">Cuttavo started in video production. That experience stays useful — but the service no longer asks clients to buy “editing” as the outcome.</p></div>
+<div class="workgrid">
+<article class="work reveal"><div class="video"><iframe src="https://www.youtube.com/embed/oLhWn_4RKHo" title="Bernd Trading" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Bernd Trading</b><span>Long-form</span></div></article>
+<article class="work reveal"><div class="video"><iframe src="https://www.youtube.com/embed/ESsmWEt1UlE" title="Conor Murray" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Conor Murray</b><span>Long-form</span></div></article>
+<article class="work reveal"><div class="video"><iframe src="https://www.youtube.com/embed/WtLtJySbw4I" title="Talking Head" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Talking-head content</b><span>Short-form</span></div></article>
+<article class="work reveal"><div class="video"><iframe src="https://www.youtube.com/embed/_NRQc0GFlTU" title="Sales Video" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Sales video</b><span>VSL</span></div></article>
+</div>
+</div></section>
 
-  <section>
-    <div class="wrap">
-      <div class="section-head">
-        <div>
-          <div class="eyebrow reveal">Why Cuttavo</div>
-          <h2 class="reveal">Do not compare us to another editing subscription.</h2>
-        </div>
-        <p class="reveal">If you only need clips, use a clipper. Cuttavo is designed for the layer above production: deciding what deserves to be said and how it supports market authority.</p>
-      </div>
-      <div class="compare-wrap reveal">
-        <table>
-          <thead><tr><th>Capability</th><th>AI clipper</th><th>Generic editor</th><th>Typical content vendor</th><th>Cuttavo</th></tr></thead>
-          <tbody>
-            <tr><td>Create clips / assets</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓ when useful</td></tr>
-            <tr><td>Mine existing expertise</td><td class="partial">Automatic</td><td class="no">—</td><td class="partial">Sometimes</td><td class="yes">Core</td></tr>
-            <tr><td>Clarify what you should own</td><td class="no">—</td><td class="no">—</td><td class="partial">Varies</td><td class="yes">Core</td></tr>
-            <tr><td>Map ideas to buyer problems</td><td class="no">—</td><td class="no">—</td><td class="partial">Varies</td><td class="yes">Core</td></tr>
-            <tr><td>Protect voice and POV</td><td class="partial">Prompt-dependent</td><td class="partial">Visual only</td><td class="partial">Varies</td><td class="yes">Human-reviewed</td></tr>
-            <tr><td>Use response to guide next cycle</td><td class="partial">Basic metrics</td><td class="no">—</td><td class="partial">Reporting</td><td class="yes">Performance review</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
+<section><div class="wrap">
+<div class="head"><div><div class="eyebrow reveal">Why not just use AI?</div><h2 class="reveal">Use AI for production. Do not outsource your positioning to it.</h2></div><p class="reveal">If all you need is automatic clips, buy software. Cuttavo is for the judgment layer around what to say, why it matters, and how the pieces fit together.</p></div>
+<div class="compare reveal"><table>
+<thead><tr><th>Capability</th><th>AI tool</th><th>Freelance editor</th><th>Cuttavo</th></tr></thead>
+<tbody>
+<tr><td>Generate / edit content</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+<tr><td>Mine your existing expertise</td><td>Automatic</td><td class="muted">—</td><td class="yes">✓</td></tr>
+<tr><td>Develop buyer-relevant angles</td><td>Prompt-dependent</td><td class="muted">—</td><td class="yes">✓</td></tr>
+<tr><td>Protect your actual voice / POV</td><td>Prompt-dependent</td><td>Sometimes</td><td class="yes">Human reviewed</td></tr>
+<tr><td>Run the full monthly workflow</td><td class="muted">—</td><td class="muted">—</td><td class="yes">✓</td></tr>
+<tr><td>Use performance to shape next month</td><td>Basic analytics</td><td class="muted">—</td><td class="yes">✓</td></tr>
+</tbody></table></div>
+</div></section>
 
-  <section id="offers">
-    <div class="wrap">
-      <div class="section-head">
-        <div>
-          <div class="eyebrow reveal">Start small. Earn the next step.</div>
-          <h2 class="reveal">An offer ladder built to reduce risk.</h2>
-        </div>
-        <p class="reveal">We do not ask a cold prospect to commit to a large retainer before seeing how we think.</p>
-      </div>
-      <div class="grid offers">
-        <article class="card offer reveal">
-          <div class="stage">Free diagnosis</div>
-          <h3>Authority Leak Audit</h3>
-          <p>We identify underused ideas, a positioning gap, stronger angles and what we would publish next from what you already have.</p>
-          <div class="result">Outcome → See what your expertise is currently leaving on the table.</div>
-        </article>
-        <article class="card offer featured reveal">
-          <div class="tag">Best first engagement</div>
-          <div class="stage">Pilot</div>
-          <h3>Authority Sprint</h3>
-          <p>A focused project to establish the positioning, initial Authority Graph and first content system without forcing a long commitment.</p>
-          <div class="result">Outcome → Experience the operating system before scaling it.</div>
-        </article>
-        <article class="card offer reveal">
-          <div class="stage">Ongoing</div>
-          <h3>Authority Engine</h3>
-          <p>Recurring extraction, positioning, thought leadership, repurposing, production coordination and performance learning.</p>
-          <div class="result">Outcome → Consistent authority without becoming a full-time creator.</div>
-        </article>
-        <article class="card offer reveal">
-          <div class="stage">Advanced</div>
-          <h3>Authority Demand</h3>
-          <p>For mature clients who want deeper distribution, buyer-signal review and closer alignment between authority content and commercial conversations.</p>
-          <div class="result">Outcome → Connect content activity more closely to demand.</div>
-        </article>
-      </div>
-    </div>
-  </section>
+<section id="offers" class="panel"><div class="wrap">
+<div class="head"><div><div class="eyebrow reveal">The buying path</div><h2 class="reveal">Do not commit to a retainer before you see how we think.</h2></div><p class="reveal">The entry offer is intentionally small. We prove the quality of the ideas and the workflow first.</p></div>
+<div class="offers">
+<article class="offer reveal"><small>Free</small><h3>3-Idea Content Plan</h3><p>We review a small amount of your existing content and show you three specific pieces we would create from it, including the angle and opening hook.</p><div class="outcome">Best for → seeing whether Cuttavo understands your business before buying anything.</div></article>
+<article class="offer featured reveal"><div class="tag">Best first paid step</div><small>Pilot</small><h3>Content Sprint</h3><p>A short engagement that turns one source conversation or recording into a real batch of finished content and establishes your voice/POV playbook.</p><div class="outcome">Best for → experiencing the system without a long contract.</div></article>
+<article class="offer reveal"><small>Monthly</small><h3>Cuttavo Content Engine</h3><p>The recurring done-for-you system: extraction, strategy, writing, repurposing, production coordination, calendar and performance learning.</p><div class="outcome">Best for → staying consistently visible without content becoming a second job.</div></article>
+</div>
+</div></section>
 
-  <section class="audit">
-    <div class="wrap audit-grid">
-      <div class="reveal">
-        <div class="eyebrow">Free Authority Leak Audit</div>
-        <h2>Before you create more, find what you're already wasting.</h2>
-        <p>Bring us your profile, a podcast, a webinar, a call, a video or a few recent posts. We'll show you where the strongest authority opportunities are hiding.</p>
-        <a class="btn" href="https://calendly.com/cuttavo/20min" target="_blank" rel="noopener">Request your audit ↗</a>
-      </div>
-      <ul class="audit-list reveal">
-        <li>3 ideas you could own more clearly</li>
-        <li>3 stronger angles or hooks</li>
-        <li>1 positioning gap we would fix</li>
-        <li>1 recommended next move</li>
-      </ul>
-    </div>
-  </section>
+<section class="audit"><div class="wrap auditgrid">
+<div class="reveal"><div class="eyebrow">Free 3-Idea Content Plan</div><h2>Let us show you what is hiding inside content you already have.</h2><p>Send a podcast, post, webinar, call, video or even a few voice notes. We'll show you three specific pieces we would build from it and why each one deserves to exist.</p><a class="btn" href="https://calendly.com/cuttavo/20min" target="_blank" rel="noopener">Get my 3 ideas ↗</a></div>
+<ul class="reveal"><li>3 specific content opportunities</li><li>3 hooks / angles we would test</li><li>1 positioning issue we would tighten</li><li>No obligation to buy a retainer</li></ul>
+</div></section>
 
-  <section id="faq">
-    <div class="wrap faq">
-      <div class="eyebrow reveal">Questions</div>
-      <div class="section-head" style="margin-top:16px">
-        <h2 class="reveal">What serious buyers usually ask.</h2>
-      </div>
+<section id="faq"><div class="wrap faq">
+<div class="eyebrow reveal">Questions</div>
+<div class="head" style="margin-top:16px"><h2 class="reveal">What clients actually need to know.</h2></div>
+<div class="faq-item reveal"><button class="faq-q">Is Cuttavo a video editing agency?<span>+</span></button><div class="faq-a"><p>No. Video can be part of the monthly content mix, but the service is the full content system: extracting ideas, positioning them, writing the assets, planning the month and coordinating production. If someone only needs an editor, there are cheaper tools and freelancers for that.</p></div></div>
+<div class="faq-item reveal"><button class="faq-q">Do I need to edit or manage editors?<span>+</span></button><div class="faq-a"><p>No. You should not need to open an editing app or manage the production workflow. When finished video is included, Cuttavo coordinates the production layer and quality control.</p></div></div>
+<div class="faq-item reveal"><button class="faq-q">Do I need to record new content every day?<span>+</span></button><div class="faq-a"><p>No. We can start from content and conversations you already have. For many clients, one focused source session plus existing material is enough to build the monthly plan.</p></div></div>
+<div class="faq-item reveal"><button class="faq-q">Do you use AI?<span>+</span></button><div class="faq-a"><p>Yes. AI is useful for transcription, research support, search, drafts and production acceleration. Human judgment remains responsible for positioning, voice, final selection and quality control.</p></div></div>
+<div class="faq-item reveal"><button class="faq-q">Will this guarantee clients?<span>+</span></button><div class="faq-a"><p>No. Content cannot honestly guarantee a specific number of customers or revenue. The goal is to make your expertise clearer, easier to discover and more persuasive before a sales conversation. Your offer, market and sales process still matter.</p></div></div>
+<div class="faq-item reveal"><button class="faq-q">How do we start?<span>+</span></button><div class="faq-a"><p>Start with the free 3-Idea Content Plan. We look at something you have already published or recorded and show you exactly what Cuttavo would do with it. If the thinking is useful, the next step is a focused Content Sprint.</p></div></div>
+</div></section>
 
-      <div class="faq-item reveal">
-        <button class="faq-q">So is Cuttavo still a video editing agency?<span>+</span></button>
-        <div class="faq-a"><p>No. Video can be part of execution, but Cuttavo is positioned around authority and demand. You hire us to identify the ideas worth owning, shape the positioning and turn that expertise into a repeatable content system. Production is one layer underneath that.</p></div>
-      </div>
-      <div class="faq-item reveal">
-        <button class="faq-q">Do I need to edit videos myself?<span>+</span></button>
-        <div class="faq-a"><p>No. When video is part of the plan, Cuttavo can coordinate production using AI-assisted workflows and specialist execution. You do not need to become an editor or manage editing tools yourself.</p></div>
-      </div>
-      <div class="faq-item reveal">
-        <button class="faq-q">Do I need to create a lot more content?<span>+</span></button>
-        <div class="faq-a"><p>Usually not at the beginning. We prefer to start with what already exists: calls, interviews, webinars, podcasts, voice notes, sales conversations and previous posts. The first question is what can be extracted and sharpened, not how to create more volume.</p></div>
-      </div>
-      <div class="faq-item reveal">
-        <button class="faq-q">Do you use AI?<span>+</span></button>
-        <div class="faq-a"><p>Yes, where it improves speed: transcription, research support, search, production assistance and first-pass workflows. Strategic decisions, positioning, voice, final judgment and quality control remain human-reviewed.</p></div>
-      </div>
-      <div class="faq-item reveal">
-        <button class="faq-q">Can you guarantee leads or revenue?<span>+</span></button>
-        <div class="faq-a"><p>No honest content partner can guarantee a specific number of customers or revenue. Cuttavo focuses on stronger positioning, better use of expertise, consistent execution and learning from real market response. Commercial outcomes still depend on your offer, market, sales process and other factors.</p></div>
-      </div>
-      <div class="faq-item reveal">
-        <button class="faq-q">What happens in the Authority Leak Audit?<span>+</span></button>
-        <div class="faq-a"><p>We review a small set of your existing materials, identify ideas or positioning opportunities that appear underused, and show you how we would sharpen them. The goal is to let you experience our judgment before deciding whether a larger engagement makes sense.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="final">
-    <div class="wrap">
-      <div class="eyebrow reveal">Cuttavo</div>
-      <h2 class="reveal">Make your expertise <em>impossible to waste.</em></h2>
-      <div class="final-row reveal">
-        <p>You already have the raw material. Cuttavo turns it into the authority your market can see — and a system your business can keep building on.</p>
-        <a class="btn" href="https://calendly.com/cuttavo/20min" target="_blank" rel="noopener">Get your Authority Leak Audit ↗</a>
-      </div>
-    </div>
-  </section>
+<section class="final"><div class="wrap">
+<div class="eyebrow reveal">Cuttavo</div>
+<h2 class="reveal">Your content should make the sales call <em>easier.</em></h2>
+<div class="finalrow reveal"><p>Keep your time for clients and your business. Give Cuttavo the raw expertise; we turn it into a consistent content system your prospects can understand before they ever speak to you.</p><a class="btn" href="https://calendly.com/cuttavo/20min" target="_blank" rel="noopener">Get my 3 content ideas ↗</a></div>
+</div></section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <div class="foot">
-      <div>
-        <a class="logo" href="#top">cuttavo<span>.</span></a>
-        <p>Authority → Demand for expert-led businesses.<br>Founded by Injam Haq.</p>
-      </div>
-      <div>
-        <h4>Explore</h4>
-        <a href="#method">Authority Engine</a>
-        <a href="#proof">Selected work</a>
-        <a href="#fit">Who it's for</a>
-        <a href="#offers">Offers</a>
-        <a href="/privacy/">Privacy</a>
-      </div>
-      <div>
-        <h4>Connect</h4>
-        <a href="mailto:hello@cuttavo.studio">hello@cuttavo.studio</a>
-        <a href="https://instagram.com/cuttavo.studio" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://www.facebook.com/cuttavo/" target="_blank" rel="noopener">Facebook</a>
-      </div>
-    </div>
-    <div class="copyright">
-      <span>© 2026 Cuttavo. All rights reserved.</span>
-      <span>AI under the hood. Human judgment on top.</span>
-    </div>
-  </div>
-</footer>
+<footer><div class="wrap">
+<div class="foot">
+<div><a class="logo" href="#top">cuttavo<span>.</span></a><p>Done-for-you content systems for coaches, consultants and expert-led businesses.<br>Founded by Injam Haq.</p></div>
+<div><h4>Explore</h4><a href="#system">Content Engine</a><a href="#proof">Selected work</a><a href="#fit">Who it's for</a><a href="#offers">Start here</a><a href="/privacy/">Privacy</a></div>
+<div><h4>Connect</h4><a href="mailto:hello@cuttavo.studio">hello@cuttavo.studio</a><a href="https://instagram.com/cuttavo.studio" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/cuttavo/" target="_blank" rel="noopener">Facebook</a></div>
+</div>
+<div class="copyline"><span>© 2026 Cuttavo. All rights reserved.</span><span>AI for leverage. Human judgment for the message.</span></div>
+</div></footer>
 
 <script>
-  var burger=document.getElementById('burger');
-  var links=document.getElementById('navLinks');
-  burger.addEventListener('click',function(){links.classList.toggle('show')});
-  links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('show')})});
-
-  document.querySelectorAll('.faq-q').forEach(function(q){
-    q.addEventListener('click',function(){
-      var item=q.parentElement;
-      var ans=item.querySelector('.faq-a');
-      var wasOpen=item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(function(i){
-        i.classList.remove('open');
-        i.querySelector('.faq-a').style.maxHeight=null;
-      });
-      if(!wasOpen){
-        item.classList.add('open');
-        ans.style.maxHeight=ans.scrollHeight+'px';
-      }
-    });
-  });
-
-  var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      }
-    });
-  },{threshold:.08});
-  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+var burger=document.getElementById('burger'),links=document.getElementById('navLinks');
+burger.addEventListener('click',function(){links.classList.toggle('show')});
+links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('show')})});
+document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var item=q.parentElement,ans=item.querySelector('.faq-a'),open=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');i.querySelector('.faq-a').style.maxHeight=null});if(!open){item.classList.add('open');ans.style.maxHeight=ans.scrollHeight+'px'}})});
+var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
 </script>
 </body>
 </html>

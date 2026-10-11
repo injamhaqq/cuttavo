@@ -1,682 +1,548 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cuttavo — Video Editing Studio for Coaches</title>
-<meta name="description" content="Cuttavo turns raw footage into scroll-stopping short-form and long-form video — done for you. You record. We edit. You post.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#0B0B0C; --lime:#C8FF00; --paper:#F4F4F2; --grey:#86868B;
-    --panel:#141416; --line:#262629;
-    --sg:'Space Grotesk',sans-serif; --in:'Inter',sans-serif;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuttavo — Authority to Demand for Expert-Led Businesses</title>
+  <meta name="description" content="Cuttavo turns the expertise inside your calls, podcasts and ideas into authority-building content designed to make the right buyers know, trust and remember you.">
+  <meta name="theme-color" content="#0b0b0c">
+  <meta property="og:title" content="Cuttavo — Authority to Demand">
+  <meta property="og:description" content="Turn what you know into the authority your market can see — and the demand your business can use.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cuttavo.studio/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#0B0B0C;--panel:#131315;--panel2:#18181b;--paper:#F4F4F2;--muted:#99999f;
+      --line:#29292d;--lime:#C8FF00;--lime2:#a4d600;--danger:#ffb5bd;
+      --sg:'Space Grotesk',sans-serif;--in:'Inter',sans-serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--ink);color:var(--paper);font-family:var(--in);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    ::selection{background:var(--lime);color:var(--ink)}
+    .wrap{width:min(1180px,calc(100% - 40px));margin:0 auto}
+    .eyebrow{display:flex;align-items:center;gap:10px;color:var(--lime);font-family:var(--sg);font-weight:600;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+    .eyebrow:before{content:"";width:28px;height:1px;background:var(--lime)}
+    .kicker{font-size:15px;line-height:1.7;color:var(--muted);max-width:60ch}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px 22px;border:1px solid var(--lime);background:var(--lime);color:var(--ink);font-family:var(--sg);font-weight:700;font-size:14px;transition:.18s ease;cursor:pointer}
+    .btn:hover{transform:translateY(-2px);box-shadow:5px 5px 0 #313136}
+    .btn.secondary{background:transparent;color:var(--paper);border-color:var(--line)}
+    .btn.secondary:hover{border-color:var(--lime);box-shadow:none}
+    .grid{display:grid;gap:18px}
+    .card{background:var(--panel);border:1px solid var(--line);padding:26px}
+    .card h3{font-family:var(--sg);font-size:21px;letter-spacing:-.4px}
+    .card p{color:var(--muted);font-size:14.5px;line-height:1.65;margin-top:10px}
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+    .reveal.in{opacity:1;transform:none}
+
+    nav{position:sticky;top:0;z-index:50;background:rgba(11,11,12,.78);border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}
+    .navin{height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .logo{font-family:var(--sg);font-weight:700;font-size:24px;letter-spacing:-.8px}
+    .logo span{color:var(--lime)}
+    .links{display:flex;align-items:center;gap:28px}
+    .links a{font-size:13px;color:#b7b7bc}
+    .links a:hover{color:var(--paper)}
+    .links .navcta{background:var(--lime);color:var(--ink);padding:11px 15px;font-weight:700}
+    .burger{display:none;background:none;border:0;color:var(--paper);font-size:24px}
+
+    .hero{position:relative;overflow:hidden;padding:110px 0 72px;border-bottom:1px solid var(--line)}
+    .hero:before{content:"";position:absolute;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(200,255,0,.13),rgba(200,255,0,0) 68%);right:-180px;top:-220px;pointer-events:none}
+    .hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:54px;align-items:end}
+    h1{font-family:var(--sg);font-size:clamp(54px,8.5vw,118px);line-height:.92;letter-spacing:-5px;margin-top:28px;max-width:9.5ch}
+    h1 em{display:inline-block;font-style:normal;color:var(--ink);background:var(--lime);padding:0 .12em}
+    .hero-copy{padding-bottom:7px}
+    .hero-copy p{font-size:17px;color:#b2b2b7;line-height:1.7}
+    .hero-copy strong{color:var(--paper)}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .proofbar{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);margin-top:72px;background:var(--line);gap:1px}
+    .proofbar div{background:var(--ink);padding:22px}
+    .proofbar b{font-family:var(--sg);display:block;font-size:16px}
+    .proofbar span{display:block;color:var(--muted);font-size:12.5px;margin-top:6px;line-height:1.45}
+
+    .thesis{padding:90px 0;border-bottom:1px solid var(--line);background:var(--panel)}
+    .thesis-grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:70px}
+    .statement{font-family:var(--sg);font-weight:700;font-size:clamp(32px,5vw,66px);line-height:1;letter-spacing:-2.4px}
+    .statement em{font-style:normal;color:var(--lime)}
+    .thesis-copy p{color:#b5b5ba;font-size:16px;line-height:1.8}
+    .thesis-copy p+p{margin-top:18px}
+    .truths{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:34px}
+    .truth{background:#101012;padding:22px}
+    .truth b{display:block;font-family:var(--sg);font-size:15px}
+    .truth span{display:block;color:var(--muted);font-size:13px;line-height:1.55;margin-top:8px}
+
+    section{padding:100px 0;border-bottom:1px solid var(--line)}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:40px;margin-bottom:42px}
+    .section-head h2{font-family:var(--sg);font-size:clamp(36px,5.5vw,72px);line-height:.98;letter-spacing:-3px;max-width:12ch;margin-top:17px}
+    .section-head p{max-width:47ch;color:var(--muted);line-height:1.7}
+
+    .system{grid-template-columns:repeat(4,1fr);counter-reset:sys}
+    .system .card{min-height:310px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+    .system .card:before{counter-increment:sys;content:"0" counter(sys);font-family:var(--sg);font-size:54px;color:#2e2e33;line-height:1}
+    .system .card h3{margin-top:auto}
+    .system .card:hover{border-color:#45454a}
+    .system .card:hover:before{color:var(--lime)}
+
+    .process{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .process .step{padding:24px;border-top:2px solid var(--line);background:#0f0f11}
+    .process .step span{color:var(--lime);font-family:var(--sg);font-weight:700;font-size:13px}
+    .process .step h3{font-family:var(--sg);font-size:20px;margin-top:35px}
+    .process .step p{color:var(--muted);font-size:14px;line-height:1.65;margin-top:9px}
+
+    .fit-grid{grid-template-columns:1fr 1fr}
+    .fit-card{padding:32px;border:1px solid var(--line)}
+    .fit-card.good{background:linear-gradient(145deg,rgba(200,255,0,.07),#111113)}
+    .fit-card.bad{background:#111113}
+    .fit-card h3{font-family:var(--sg);font-size:29px;letter-spacing:-1px}
+    .fit-list{list-style:none;margin-top:20px;display:grid;gap:13px}
+    .fit-list li{color:#bdbdc2;font-size:14.5px;line-height:1.55;padding-left:24px;position:relative}
+    .fit-card.good li:before{content:"+";position:absolute;left:0;color:var(--lime);font-weight:700}
+    .fit-card.bad li:before{content:"—";position:absolute;left:0;color:#7d7d83}
+
+    .work-grid{grid-template-columns:repeat(2,1fr)}
+    .work{border:1px solid var(--line);background:var(--panel);overflow:hidden}
+    .video{aspect-ratio:16/9;background:#000}
+    .video iframe{width:100%;height:100%;border:0}
+    .work-meta{display:flex;justify-content:space-between;gap:16px;padding:16px 18px}
+    .work-meta b{font-family:var(--sg)}
+    .work-meta span{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+
+    .compare-wrap{overflow-x:auto;border:1px solid var(--line)}
+    table{width:100%;border-collapse:collapse;min-width:760px}
+    th,td{padding:17px 18px;border-bottom:1px solid var(--line);text-align:left;font-size:13.5px}
+    th{font-family:var(--sg);font-size:13px;color:#c7c7cb;background:#101012}
+    th:last-child,td:last-child{background:rgba(200,255,0,.055)}
+    td{color:#aaaab0}
+    td:first-child{color:var(--paper);font-weight:600}
+    .yes{color:var(--lime);font-weight:700}
+    .partial{color:#d7d7da}
+    .no{color:#5f5f65}
+
+    .offers{grid-template-columns:repeat(4,1fr)}
+    .offer{position:relative;min-height:330px;display:flex;flex-direction:column}
+    .offer.featured{border-color:var(--lime)}
+    .tag{font-size:11px;color:var(--ink);background:var(--lime);font-weight:800;padding:6px 8px;width:max-content;text-transform:uppercase;letter-spacing:.08em;margin-bottom:18px}
+    .offer .stage{font-family:var(--sg);font-size:12px;color:var(--lime);text-transform:uppercase;letter-spacing:.1em}
+    .offer h3{font-family:var(--sg);font-size:25px;margin-top:10px}
+    .offer p{font-size:14px}
+    .offer .result{margin-top:auto;padding-top:26px;color:var(--paper);font-family:var(--sg);font-size:13px}
+
+    .audit{background:var(--lime);color:var(--ink);padding:88px 0}
+    .audit-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:60px;align-items:center}
+    .audit .eyebrow{color:var(--ink)}
+    .audit .eyebrow:before{background:var(--ink)}
+    .audit h2{font-family:var(--sg);font-size:clamp(42px,6vw,82px);line-height:.94;letter-spacing:-3.4px;margin-top:18px}
+    .audit p{font-size:16px;line-height:1.7;margin-top:20px;max-width:52ch}
+    .audit-list{list-style:none;display:grid;gap:13px}
+    .audit-list li{padding:16px 18px;border:1px solid rgba(11,11,12,.25);background:rgba(244,244,242,.25);font-weight:600;font-size:14px}
+    .audit .btn{background:var(--ink);color:var(--paper);border-color:var(--ink);margin-top:24px}
+
+    .faq{max-width:900px}
+    .faq-item{border-bottom:1px solid var(--line)}
+    .faq-q{width:100%;padding:24px 0;background:none;border:0;color:var(--paper);display:flex;justify-content:space-between;gap:20px;text-align:left;font-family:var(--sg);font-size:20px;font-weight:600;cursor:pointer}
+    .faq-q span{color:var(--lime);font-size:24px}
+    .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+    .faq-a p{color:var(--muted);line-height:1.75;padding:0 40px 23px 0;font-size:14.5px}
+    .faq-item.open .faq-q span{transform:rotate(45deg)}
+
+    .final{padding:125px 0;border-bottom:0}
+    .final h2{font-family:var(--sg);font-size:clamp(50px,8vw,112px);line-height:.91;letter-spacing:-5px;max-width:9ch}
+    .final h2 em{font-style:normal;color:var(--lime)}
+    .final-row{display:flex;justify-content:space-between;gap:40px;align-items:end;margin-top:38px}
+    .final-row p{color:var(--muted);max-width:52ch;line-height:1.7}
+
+    footer{border-top:1px solid var(--line);padding:60px 0 34px}
+    .foot{display:grid;grid-template-columns:1.3fr .7fr .7fr;gap:50px}
+    .foot p{color:var(--muted);font-size:13.5px;line-height:1.7;margin-top:13px}
+    .foot h4{font-family:var(--sg);font-size:12px;color:#77777d;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+    .foot a{display:block;font-size:13.5px;padding:5px 0}
+    .foot a:hover{color:var(--lime)}
+    .copyright{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;color:#77777d;font-size:12px}
+
+    @media(max-width:960px){
+      .hero-grid,.thesis-grid,.audit-grid{grid-template-columns:1fr}
+      h1{max-width:11ch}
+      .hero-copy{max-width:650px}
+      .system,.offers{grid-template-columns:repeat(2,1fr)}
+      .process{grid-template-columns:repeat(2,1fr)}
+      .proofbar{grid-template-columns:repeat(2,1fr)}
+      .truths{grid-template-columns:1fr}
+      .section-head{align-items:start;flex-direction:column}
+      .foot{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:720px){
+      .wrap{width:min(100% - 28px,1180px)}
+      .links{position:fixed;left:0;right:0;top:72px;background:#0b0b0c;border-bottom:1px solid var(--line);padding:20px 22px;display:none;flex-direction:column;align-items:flex-start}
+      .links.show{display:flex}
+      .burger{display:block}
+      .hero{padding-top:76px}
+      h1{font-size:clamp(50px,16vw,76px);letter-spacing:-3px}
+      .proofbar,.system,.process,.fit-grid,.work-grid,.offers,.foot{grid-template-columns:1fr}
+      .final-row{align-items:flex-start;flex-direction:column}
+      .copyright{flex-direction:column}
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"ProfessionalService",
+    "name":"Cuttavo",
+    "url":"https://cuttavo.studio/",
+    "email":"hello@cuttavo.studio",
+    "description":"Authority and demand content systems for expert-led businesses."
   }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{background:var(--ink);color:var(--paper);font-family:var(--in);
-    -webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative;}
-  a{color:inherit;text-decoration:none;}
-  img{display:block;max-width:100%;}
-  ::selection{background:var(--lime);color:var(--ink);}
-  .wrap{max-width:1240px;margin:0 auto;padding:0 32px;position:relative;z-index:2;}
-
-  /* === AMBIENT GRAIN === */
-  .grain{position:fixed;inset:-50%;pointer-events:none;z-index:100;opacity:.06;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    animation:grain 8s steps(8) infinite;mix-blend-mode:overlay;}
-  @keyframes grain{
-    0%,100%{transform:translate(0,0);} 10%{transform:translate(-5%,-10%);}
-    20%{transform:translate(-15%,5%);} 30%{transform:translate(7%,-25%);}
-    40%{transform:translate(-5%,25%);} 50%{transform:translate(-15%,10%);}
-    60%{transform:translate(15%,0);} 70%{transform:translate(0,15%);}
-    80%{transform:translate(3%,35%);} 90%{transform:translate(-10%,10%);}
-  }
-
-  /* === CUSTOM CURSOR === */
-  .cursor-dot{position:fixed;width:8px;height:8px;background:var(--lime);
-    border-radius:50%;pointer-events:none;z-index:200;transform:translate(-50%,-50%);
-    transition:transform .15s ease;mix-blend-mode:difference;opacity:0;}
-  .cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--lime);
-    border-radius:50%;pointer-events:none;z-index:199;transform:translate(-50%,-50%);
-    transition:width .25s,height .25s;opacity:0;}
-  body.cursor-ready .cursor-dot,body.cursor-ready .cursor-ring{opacity:1;}
-  @media(hover:none){.cursor-dot,.cursor-ring{display:none;}}
-
-  /* === FLOATING ORBS === */
-  .orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;
-    z-index:0;opacity:.18;}
-  .orb-1{width:520px;height:520px;background:var(--lime);top:-100px;left:-100px;
-    animation:orbFloat1 22s ease-in-out infinite;}
-  .orb-2{width:380px;height:380px;background:#5a7a00;top:50%;right:-150px;
-    animation:orbFloat2 28s ease-in-out infinite;}
-  .orb-3{width:300px;height:300px;background:var(--lime);bottom:-100px;left:30%;
-    animation:orbFloat3 18s ease-in-out infinite;opacity:.10;}
-  @keyframes orbFloat1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(60px,80px) scale(1.1);}}
-  @keyframes orbFloat2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-80px,-40px) scale(.9);}}
-  @keyframes orbFloat3{0%,100%{transform:translate(0,0);}50%{transform:translate(-50px,-60px);}}
-
-  /* === BUTTONS === */
-  .btn{display:inline-flex;align-items:center;gap:10px;background:var(--lime);
-    color:var(--ink);font-family:var(--in);font-weight:500;font-size:15px;
-    padding:17px 32px;transition:transform .14s cubic-bezier(.16,1,.3,1),box-shadow .14s;
-    border:none;cursor:pointer;position:relative;}
-  .btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--line);}
-  .btn-ghost{background:transparent;color:var(--paper);box-shadow:inset 0 0 0 1px var(--line);}
-  .btn-ghost:hover{box-shadow:inset 0 0 0 1px var(--lime);transform:none;}
-  .arrow{font-family:var(--sg);}
-  .marker{font-family:var(--sg);font-weight:500;font-size:13px;letter-spacing:.05em;
-    color:var(--lime);display:flex;align-items:center;gap:10px;}
-  .marker::before{content:"";width:30px;height:1px;background:var(--lime);display:inline-block;}
-
-  /* === NAV === */
-  nav{position:sticky;top:0;z-index:60;background:rgba(11,11,12,.7);
-    backdrop-filter:blur(18px) saturate(140%);border-bottom:1px solid var(--line);}
-  .nav-in{display:flex;align-items:center;justify-content:space-between;
-    height:74px;max-width:1240px;margin:0 auto;padding:0 32px;}
-  .logo{font-family:var(--sg);font-weight:700;font-size:23px;letter-spacing:-.5px;}
-  .logo span{color:var(--lime);display:inline-block;animation:dotPulse 2.5s ease-in-out infinite;}
-  @keyframes dotPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.15);}}
-  .nav-links{display:flex;gap:34px;align-items:center;}
-  .nav-links a{font-family:var(--in);font-size:14px;color:var(--grey);transition:color .15s;}
-  .nav-links a:hover{color:var(--paper);}
-  .nav-cta{color:var(--ink)!important;background:var(--lime);font-family:var(--sg);
-    font-weight:600;font-size:13.5px;padding:11px 20px;display:flex;align-items:center;
-    gap:7px;transition:transform .14s;}
-  .nav-cta:hover{transform:translateY(-1px);}
-  .nav-cta::after{content:"↗";}
-  .burger{display:none;background:none;border:none;color:var(--paper);font-size:24px;cursor:pointer;}
-
-  /* === HERO === */
-  .hero{padding:120px 0 90px;position:relative;border-bottom:1px solid var(--line);
-    overflow:hidden;perspective:1400px;}
-  .hero::before{content:"";position:absolute;top:0;right:0;width:55%;height:100%;
-    background:radial-gradient(circle at 75% 30%,rgba(200,255,0,.08),transparent 60%);
-    pointer-events:none;animation:meshShift 12s ease-in-out infinite;}
-  @keyframes meshShift{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-30px,20px) scale(1.05);}}
-  .hero-shape{position:absolute;pointer-events:none;z-index:1;}
-  .hero-shape.s1{width:14px;height:14px;background:var(--lime);top:18%;left:8%;animation:float1 9s ease-in-out infinite;}
-  .hero-shape.s2{width:60px;height:60px;border:1px solid var(--lime);border-radius:50%;top:65%;left:12%;animation:float2 11s ease-in-out infinite;opacity:.4;}
-  .hero-shape.s3{width:8px;height:80px;background:var(--lime);top:30%;right:14%;animation:float3 13s ease-in-out infinite;opacity:.6;}
-  .hero-shape.s4{width:100px;height:100px;border:1px solid var(--line);top:75%;right:8%;animation:float1 14s ease-in-out infinite reverse;}
-  .hero-shape.s5{width:6px;height:6px;background:var(--paper);top:48%;left:48%;border-radius:50%;animation:float2 8s ease-in-out infinite;opacity:.5;}
-  @keyframes float1{0%,100%{transform:translate(0,0) rotate(0);}50%{transform:translate(20px,-30px) rotate(180deg);}}
-  @keyframes float2{0%,100%{transform:translate(0,0) rotate(0);}50%{transform:translate(-30px,40px) rotate(-180deg);}}
-  @keyframes float3{0%,100%{transform:translate(0,0);}50%{transform:translate(15px,-20px);}}
-  .hero-inner{position:relative;z-index:3;transform-style:preserve-3d;
-    transition:transform .3s cubic-bezier(.16,1,.3,1);}
-  .hero-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:50px;align-items:end;}
-  .hero h1{font-family:var(--sg);font-weight:700;font-size:clamp(46px,7.6vw,108px);
-    line-height:.97;letter-spacing:-3px;}
-  .hero h1 .line{display:block;}
-  .hero h1 em{font-style:normal;color:var(--ink);background:var(--lime);
-    width:max-content;max-width:100%;padding:0 .15em;box-shadow:0 8px 40px rgba(200,255,0,.25);}
-  .hero h1 .out{-webkit-text-stroke:1.5px var(--grey);-webkit-text-fill-color:transparent;}
-  .hero-right p{font-size:17px;color:var(--grey);line-height:1.62;}
-  .hero-right .actions{display:flex;flex-direction:column;gap:12px;margin-top:26px;}
-  .hero-strip{display:flex;gap:0;margin-top:70px;border-top:1px solid var(--line);position:relative;z-index:3;}
-  .hero-strip .cell{flex:1;padding:22px 4px 0;border-right:1px solid var(--line);
-    transition:transform .25s,color .2s;}
-  .hero-strip .cell:last-child{border-right:none;}
-  .hero-strip .cell:hover{transform:translateY(-4px);}
-  .hero-strip .cell:hover .v{color:var(--lime);}
-  .hero-strip .v{font-family:var(--sg);font-weight:700;font-size:28px;color:var(--paper);transition:color .2s;}
-  .hero-strip .k{font-size:12.5px;color:var(--grey);margin-top:4px;}
-
-  /* === MARQUEE === */
-  .marquee{overflow:hidden;border-bottom:1px solid var(--line);background:var(--ink);padding:18px 0;}
-  .marquee-track{display:flex;gap:80px;animation:marqueeScroll 28s linear infinite;width:max-content;}
-  .marquee-track span{font-family:var(--sg);font-weight:500;font-size:14px;
-    color:var(--grey);letter-spacing:.08em;text-transform:uppercase;
-    display:flex;align-items:center;gap:80px;white-space:nowrap;}
-  .marquee-track span::after{content:"●";color:var(--lime);font-size:8px;}
-  @keyframes marqueeScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-
-  /* === SECTION === */
-  section{padding:120px 0;border-bottom:1px solid var(--line);position:relative;overflow:hidden;}
-  .sec-top{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;}
-  .sec-top h2{font-family:var(--sg);font-weight:700;font-size:clamp(32px,4.6vw,62px);
-    letter-spacing:-2px;line-height:1.04;margin-top:18px;max-width:16ch;}
-  .sec-top .side{color:var(--grey);font-size:15px;max-width:34ch;line-height:1.6;}
-
-  /* PROBLEM */
-  .problem{background:var(--panel);}
-  .problem .big{font-family:var(--sg);font-weight:700;font-size:clamp(28px,3.6vw,48px);
-    letter-spacing:-1.2px;line-height:1.22;max-width:21ch;margin-top:30px;}
-  .problem .big b{color:var(--lime);font-weight:700;}
-  .problem .note{color:var(--grey);font-size:16px;line-height:1.65;max-width:52ch;margin-top:26px;}
-
-  /* WORK */
-  .work-rail{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:50px;
-    background:var(--line);border:1px solid var(--line);perspective:1200px;}
-  .wk{background:var(--ink);overflow:hidden;
-    transition:background .25s,transform .35s cubic-bezier(.16,1,.3,1);
-    transform-style:preserve-3d;position:relative;}
-  .wk:hover{background:var(--panel);}
-  .wk::after{content:"";position:absolute;inset:0;
-    background:linear-gradient(135deg,rgba(200,255,0,0),rgba(200,255,0,.04));
-    opacity:0;transition:opacity .3s;pointer-events:none;}
-  .wk:hover::after{opacity:1;}
-  .wk-embed{position:relative;width:100%;aspect-ratio:16/9;background:#000;}
-  .wk-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
-  .wk-meta{display:flex;justify-content:space-between;align-items:baseline;padding:18px 20px;gap:14px;}
-  .wk-meta .t{font-family:var(--sg);font-weight:600;font-size:17px;}
-  .wk-meta .c{font-size:12px;color:var(--grey);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;}
-
-  /* === MOODBOARD === */
-  .mood{background:var(--ink);position:relative;overflow:hidden;padding:140px 0;}
-  .mood::before{content:"";position:absolute;top:-150px;right:-100px;width:500px;height:500px;
-    border-radius:50%;background:radial-gradient(circle,rgba(200,255,0,.06),transparent 70%);pointer-events:none;}
-  .mood::after{content:"";position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;
-    border-radius:50%;background:radial-gradient(circle,rgba(200,255,0,.04),transparent 70%);pointer-events:none;}
-  .mood-top{margin-bottom:60px;}
-  .mood-top h2{font-family:var(--sg);font-weight:700;font-size:clamp(36px,5vw,72px);
-    letter-spacing:-2.5px;line-height:1.02;margin-top:18px;max-width:14ch;}
-  .mood-top h2 em{font-style:normal;color:var(--lime);}
-  .mood-top .sub{color:var(--grey);font-size:16.5px;line-height:1.62;max-width:46ch;margin-top:22px;}
-  .mood-board{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;grid-auto-rows:90px;perspective:1500px;}
-  .mood-card{position:relative;background:var(--panel);border:1px solid var(--line);overflow:hidden;
-    transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s,border-color .3s;
-    transform-style:preserve-3d;display:flex;align-items:flex-end;padding:18px;
-    animation:moodFloat 8s ease-in-out infinite;}
-  .mood-card:nth-child(odd){animation-delay:-2s;}
-  .mood-card:nth-child(3n){animation-delay:-4s;}
-  .mood-card:nth-child(5n){animation-delay:-6s;}
-  @keyframes moodFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-  .mood-card:hover{transform:translateY(-12px) scale(1.02);
-    box-shadow:0 30px 60px rgba(0,0,0,.5),0 0 0 1px var(--lime);border-color:var(--lime);}
-  .mood-card .label{font-family:var(--sg);font-weight:600;font-size:13px;color:var(--paper);letter-spacing:-.2px;}
-  .mood-card .num{position:absolute;top:14px;left:18px;font-family:var(--sg);font-weight:500;
-    font-size:11px;color:var(--lime);letter-spacing:.06em;}
-  .mood-1{grid-column:span 4;grid-row:span 3;background:var(--lime);color:var(--ink);}
-  .mood-1 .num{color:var(--ink);}
-  .mood-1 .label{color:var(--ink);font-size:28px;line-height:1.05;font-weight:700;letter-spacing:-1px;}
-  .mood-2{grid-column:span 5;grid-row:span 3;background:linear-gradient(135deg,var(--panel),#1a1a1d);}
-  .mood-2 .label{font-size:18px;font-weight:500;color:var(--grey);line-height:1.5;letter-spacing:-.2px;}
-  .mood-2 .label b{color:var(--paper);font-weight:600;}
-  .mood-3{grid-column:span 3;grid-row:span 3;background:var(--ink);border:1px solid var(--line);}
-  .mood-3 .swatches{display:flex;gap:6px;width:100%;}
-  .mood-3 .sw{flex:1;aspect-ratio:1;border-radius:2px;}
-  .mood-3 .sw1{background:var(--ink);border:1px solid var(--line);}
-  .mood-3 .sw2{background:var(--panel);}
-  .mood-3 .sw3{background:var(--grey);}
-  .mood-3 .sw4{background:var(--paper);}
-  .mood-3 .sw5{background:var(--lime);}
-  .mood-4{grid-column:span 4;grid-row:span 4;background:var(--panel);overflow:hidden;padding:0;}
-  .mood-4 .vid-wrap{position:absolute;inset:0;}
-  .mood-4 iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
-  .mood-4 .label{position:absolute;bottom:14px;left:18px;z-index:2;color:var(--paper);
-    background:rgba(11,11,12,.8);padding:4px 10px;backdrop-filter:blur(6px);font-size:12px;}
-  .mood-5{grid-column:span 4;grid-row:span 2;background:var(--panel);align-items:center;
-    justify-content:center;text-align:center;padding:24px;flex-direction:column;}
-  .mood-5 .big-type{font-family:var(--sg);font-weight:700;font-size:54px;color:var(--paper);letter-spacing:-2px;line-height:1;}
-  .mood-5 .big-type em{color:var(--lime);font-style:normal;}
-  .mood-5 .label{font-size:11px;color:var(--grey);margin-top:8px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;}
-  .mood-6{grid-column:span 4;grid-row:span 2;background:var(--ink);border:1px solid var(--line);}
-  .mood-6 .label{font-family:var(--sg);font-size:14px;color:var(--paper);line-height:1.5;font-weight:500;}
-  .mood-6 .label .hl{background:var(--lime);color:var(--ink);padding:0 4px;}
-  .mood-7{grid-column:span 5;grid-row:span 3;background:var(--panel);overflow:hidden;padding:0;}
-  .mood-7 .vid-wrap{position:absolute;inset:0;}
-  .mood-7 iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
-  .mood-7 .label{position:absolute;bottom:14px;left:18px;z-index:2;color:var(--paper);
-    background:rgba(11,11,12,.8);padding:4px 10px;backdrop-filter:blur(6px);font-size:12px;}
-  .mood-8{grid-column:span 7;grid-row:span 3;background:var(--ink);border:1px solid var(--line);
-    align-items:center;justify-content:center;text-align:center;padding:30px;flex-direction:column;}
-  .mood-8 .big-type{font-family:var(--sg);font-weight:700;font-size:clamp(36px,5vw,68px);
-    color:var(--paper);letter-spacing:-2px;line-height:1;}
-  .mood-8 .big-type em{color:var(--lime);font-style:normal;}
-  .mood-8 .label{font-size:11px;color:var(--grey);margin-top:14px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;}
-
-  /* SERVICES */
-  .svc-rows{margin-top:46px;border-top:1px solid var(--line);}
-  .svc-row{display:grid;grid-template-columns:80px 1fr 1.4fr;gap:30px;padding:36px 0;
-    border-bottom:1px solid var(--line);align-items:start;
-    transition:padding-left .25s,background .25s;position:relative;}
-  .svc-row:hover{padding-left:18px;background:rgba(200,255,0,.02);}
-  .svc-row::before{content:"";position:absolute;left:0;top:0;height:100%;width:2px;
-    background:var(--lime);transform:scaleY(0);transform-origin:top;transition:transform .3s;}
-  .svc-row:hover::before{transform:scaleY(1);}
-  .svc-row .rn{font-family:var(--sg);font-weight:700;font-size:18px;color:var(--lime);}
-  .svc-row h3{font-family:var(--sg);font-weight:600;font-size:clamp(20px,2.4vw,28px);letter-spacing:-.5px;}
-  .svc-row p{color:var(--grey);font-size:15.5px;line-height:1.62;}
-
-  /* WHY */
-  .why{background:var(--panel);}
-  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;margin-top:46px;align-items:start;}
-  .why-list{list-style:none;display:flex;flex-direction:column;}
-  .why-list li{display:flex;gap:16px;padding:22px 0;border-bottom:1px solid var(--line);
-    font-size:16px;line-height:1.55;transition:padding-left .2s,color .2s;}
-  .why-list li:hover{padding-left:8px;color:var(--paper);}
-  .why-list li:first-child{border-top:1px solid var(--line);}
-  .why-list .x{font-family:var(--sg);font-weight:700;color:var(--lime);flex-shrink:0;}
-
-  /* PROCESS */
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:46px;
-    background:var(--line);border:1px solid var(--line);perspective:1000px;}
-  .step{background:var(--ink);padding:30px 26px;min-height:220px;display:flex;flex-direction:column;
-    transition:background .25s,transform .3s cubic-bezier(.16,1,.3,1);transform-style:preserve-3d;}
-  .step:hover{background:var(--panel);transform:translateY(-6px) translateZ(20px);}
-  .step .sn{font-family:var(--sg);font-weight:700;font-size:50px;color:var(--line);
-    letter-spacing:-1px;line-height:1;transition:color .25s;}
-  .step:hover .sn{color:var(--lime);}
-  .step h4{font-family:var(--sg);font-weight:600;font-size:19px;margin:auto 0 8px;}
-  .step p{color:var(--grey);font-size:14px;line-height:1.6;}
-
-  /* REVIEWS */
-  .rev-wrap{margin-top:50px;}
-  .rev{display:grid;grid-template-columns:1fr 280px;gap:50px;padding:48px 0;
-    border-bottom:1px solid var(--line);align-items:start;transition:padding-left .25s;}
-  .rev:hover{padding-left:8px;}
-  .rev:first-child{border-top:1px solid var(--line);}
-  .rev .quote{font-family:var(--sg);font-weight:500;font-size:clamp(19px,2.3vw,27px);
-    line-height:1.4;letter-spacing:-.4px;}
-  .rev .quote .mk{color:var(--lime);}
-  .rev .who{padding-top:8px;}
-  .rev .who .stars{color:var(--lime);font-size:13px;letter-spacing:3px;}
-  .rev .who .n{font-family:var(--sg);font-weight:700;font-size:18px;margin-top:14px;}
-  .rev .who .r{font-size:13px;color:var(--grey);margin-top:3px;}
-
-  /* RISK */
-  .risk{background:var(--lime);color:var(--ink);position:relative;overflow:hidden;}
-  .risk .wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
-  .risk .marker{color:var(--ink);}
-  .risk .marker::before{background:var(--ink);}
-  .risk h2{font-family:var(--sg);font-weight:700;font-size:clamp(30px,4.2vw,56px);
-    letter-spacing:-2px;line-height:1.05;margin-top:18px;}
-  .risk p{font-size:16.5px;line-height:1.62;margin-top:0;}
-  .risk .btn{background:var(--ink);color:var(--paper);}
-  .risk .btn:hover{box-shadow:6px 6px 0 rgba(11,11,12,.25);}
-
-  /* FAQ */
-  .faq-list{margin-top:46px;border-top:1px solid var(--line);}
-  .faq-item{border-bottom:1px solid var(--line);transition:padding-left .2s;}
-  .faq-item:hover{padding-left:6px;}
-  .faq-q{width:100%;background:none;border:none;color:var(--paper);font-family:var(--sg);
-    font-weight:600;font-size:clamp(17px,2vw,22px);text-align:left;padding:28px 0;cursor:pointer;
-    display:flex;justify-content:space-between;align-items:center;gap:24px;letter-spacing:-.3px;}
-  .faq-q .ic{color:var(--lime);font-size:26px;flex-shrink:0;transition:transform .25s;font-family:var(--sg);}
-  .faq-item.open .faq-q .ic{transform:rotate(45deg);}
-  .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;}
-  .faq-a p{color:var(--grey);font-size:15.5px;line-height:1.66;padding:0 60px 30px 0;}
-
-  /* FINAL */
-  .final{padding:160px 0;}
-  .final h2{font-family:var(--sg);font-weight:700;font-size:clamp(40px,8vw,124px);
-    letter-spacing:-3.5px;line-height:.95;}
-  .final h2 .out{-webkit-text-stroke:1.5px var(--grey);-webkit-text-fill-color:transparent;}
-  .final .row{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap;margin-top:40px;}
-  .final .row p{color:var(--grey);font-size:16px;max-width:40ch;line-height:1.6;}
-
-  /* FOOTER */
-  footer{border-top:1px solid var(--line);padding:80px 0 40px;}
-  .foot-in{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;}
-  .foot-brand .logo{font-size:32px;}
-  .foot-brand p{color:var(--grey);font-size:14px;margin-top:14px;line-height:1.65;}
-  .foot-col h5{font-family:var(--sg);font-weight:600;font-size:13px;text-transform:uppercase;
-    letter-spacing:.08em;color:var(--grey);margin-bottom:18px;}
-  .foot-col a{display:block;font-size:15px;color:var(--paper);padding:6px 0;
-    transition:color .15s,transform .15s;}
-  .foot-col a:hover{color:var(--lime);transform:translateX(4px);}
-  .foot-bottom{margin-top:60px;padding-top:28px;border-top:1px solid var(--line);
-    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--grey);}
-
-  /* REVEAL */
-  .reveal-on .reveal{opacity:0;transform:translateY(40px);
-    transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
-  .reveal-on .reveal.in{opacity:1;transform:none;}
-
-  @media(max-width:900px){
-    .nav-links{position:fixed;inset:74px 0 auto 0;background:var(--ink);flex-direction:column;
-      padding:26px 32px;gap:22px;border-bottom:1px solid var(--line);display:none;}
-    .nav-links.show{display:flex;}
-    .burger{display:block;}
-    .hero-grid,.why-grid,.risk .wrap,.rev{grid-template-columns:1fr;gap:32px;}
-    .hero-right{align-self:start;}
-    .work-rail,.svc-rows .svc-row{grid-template-columns:1fr;}
-    .svc-row{gap:10px;}
-    .steps{grid-template-columns:1fr 1fr;}
-    .hero-strip{flex-wrap:wrap;}
-    .hero-strip .cell{flex:1 0 50%;border-bottom:1px solid var(--line);padding-bottom:18px;}
-    .foot-in{grid-template-columns:1fr;}
-    section{padding:90px 0;}
-    .rev .who{padding-top:0;}
-    .mood-board{grid-template-columns:repeat(6,1fr);grid-auto-rows:70px;}
-    .mood-1,.mood-8{grid-column:span 6;}
-    .mood-2,.mood-3,.mood-4,.mood-5,.mood-6,.mood-7{grid-column:span 3;}
-    .cursor-dot,.cursor-ring{display:none;}
-  }
-</style>
+  </script>
 </head>
 <body>
-
-<div class="grain"></div>
-<div class="cursor-dot"></div>
-<div class="cursor-ring"></div>
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
-<div class="orb orb-3"></div>
-
 <nav>
-  <div class="nav-in">
-    <a href="#top" class="logo">cuttavo<span>.</span></a>
-    <button class="burger" id="burger" aria-label="Menu">☰</button>
-    <div class="nav-links" id="navLinks">
-      <a href="#work">Work</a>
-      <a href="#mood">Vibe</a>
-      <a href="#services">Services</a>
-      <a href="#process">Process</a>
-      <a href="#reviews">Reviews</a>
+  <div class="wrap navin">
+    <a class="logo" href="#top">cuttavo<span>.</span></a>
+    <button class="burger" id="burger" aria-label="Open menu">☰</button>
+    <div class="links" id="navLinks">
+      <a href="#method">Method</a>
+      <a href="#proof">Proof</a>
+      <a href="#fit">Who it's for</a>
+      <a href="#offers">Offers</a>
       <a href="#faq">FAQ</a>
-      <a href="https://calendly.com/cuttavo/20min" class="nav-cta" target="_blank" rel="noopener">Book a call</a>
+      <a class="navcta" href="https://calendly.com/cuttavo/20min" target="_blank" rel="noopener">Get an Authority Audit ↗</a>
     </div>
   </div>
 </nav>
-<span id="top"></span>
 
-<header class="hero">
-  <div class="hero-shape s1"></div>
-  <div class="hero-shape s2"></div>
-  <div class="hero-shape s3"></div>
-  <div class="hero-shape s4"></div>
-  <div class="hero-shape s5"></div>
-  <div class="wrap">
-    <div class="hero-inner" id="heroInner">
+<main id="top">
+  <header class="hero">
+    <div class="wrap">
       <div class="hero-grid">
-        <div>
-          <p class="marker reveal">Video editing studio — for coaches</p>
-          <h1 class="reveal" style="margin-top:26px;">
-            <span class="line">You record.</span>
-            <em>We edit.</em>
-            <span class="line out">You post.</span>
-          </h1>
+        <div class="reveal">
+          <div class="eyebrow">Authority → Demand for expert-led businesses</div>
+          <h1>Your expertise should <em>compound.</em></h1>
         </div>
-        <div class="hero-right reveal">
-          <p>Cuttavo turns your raw footage into scroll-stopping short-form and long-form video — fully done for you. The content keeps coming. You never open an editing app.</p>
+        <div class="hero-copy reveal">
+          <p><strong>Cuttavo turns the thinking already inside your calls, podcasts, interviews and ideas into authority-building content designed to make the right buyers know, trust and remember you.</strong></p>
+          <p style="margin-top:14px">You bring the expertise. We find the ideas worth owning, shape the positioning, build the content system and learn from what your market responds to.</p>
           <div class="actions">
-            <a href="https://calendly.com/cuttavo/20min" class="btn magnetic" target="_blank" rel="noopener">Book a free call <span class="arrow">↗</span></a>
-            <a href="#work" class="btn btn-ghost magnetic">See selected work</a>
+            <a class="btn" href="https://calendly.com/cuttavo/20min" target="_blank" rel="noopener">Get a free Authority Leak Audit ↗</a>
+            <a class="btn secondary" href="#method">See the system</a>
           </div>
         </div>
       </div>
-      <div class="hero-strip reveal">
-        <div class="cell"><div class="v">48h</div><div class="k">Short-form turnaround</div></div>
-        <div class="cell"><div class="v">3–5d</div><div class="k">Long-form turnaround</div></div>
-        <div class="cell"><div class="v">100%</div><div class="k">Done-for-you editing</div></div>
-        <div class="cell"><div class="v">7-day</div><div class="k">Money-back guarantee</div></div>
+      <div class="proofbar reveal">
+        <div><b>30–45 min/week</b><span>Start from conversations and expertise you already have.</span></div>
+        <div><b>Human judgment</b><span>Positioning and taste stay human. AI accelerates the mechanical work.</span></div>
+        <div><b>One authority system</b><span>Ideas, writing, repurposing, production coordination and learning.</span></div>
+        <div><b>Built for buyers</b><span>We care more about qualified attention than vanity output.</span></div>
       </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<div class="marquee">
-  <div class="marquee-track">
-    <span>scroll-stopping short-form</span>
-    <span>48-hour turnaround</span>
-    <span>YouTube · podcasts · reels</span>
-    <span>done-for-you editing</span>
-    <span>hooks · captions · sound</span>
-    <span>built for coaches</span>
-    <span>scroll-stopping short-form</span>
-    <span>48-hour turnaround</span>
-    <span>YouTube · podcasts · reels</span>
-    <span>done-for-you editing</span>
-    <span>hooks · captions · sound</span>
-    <span>built for coaches</span>
-  </div>
-</div>
-
-<section class="problem">
-  <div class="wrap">
-    <p class="marker reveal">01 — The problem</p>
-    <div class="big reveal">You film more than you post — and editing is the reason. <b>Every video stuck on your drive is reach you're not getting.</b></div>
-    <p class="note reveal">Raw clips pile up while you coach and close. Posting slips. In short-form, going quiet for even a week loses momentum. Cuttavo removes the bottleneck completely — you send footage, you get back finished video, and nothing else about your week has to change.</p>
-  </div>
-</section>
-
-<section id="work">
-  <div class="wrap">
-    <div class="sec-top">
-      <div>
-        <p class="marker reveal">02 — Selected work</p>
-        <h2 class="reveal">Edits we're proud to put our name on.</h2>
+  <section class="thesis">
+    <div class="wrap">
+      <div class="thesis-grid">
+        <div class="statement reveal">AI made content production cheap. <em>Being worth remembering got more valuable.</em></div>
+        <div class="thesis-copy reveal">
+          <p>Anyone can generate captions, clips and posts now. That is not the advantage anymore. The advantage is knowing which ideas deserve attention, what you should become known for, and how to express that expertise in a way buyers recognize.</p>
+          <p>Cuttavo sits above the tools. We use automation where it saves time, then apply human judgment where strategy, voice, credibility and differentiation matter.</p>
+          <div class="truths">
+            <div class="truth"><b>Production is abundant.</b><span>More output is not automatically more authority.</span></div>
+            <div class="truth"><b>Distinctive POV is scarce.</b><span>Strong beliefs and useful frameworks create memory.</span></div>
+            <div class="truth"><b>Trust compounds.</b><span>The right content can pre-sell expertise before a call happens.</span></div>
+          </div>
+        </div>
       </div>
-      <p class="side reveal">Recent work across short-form, long-form, and sales video. Press play.</p>
     </div>
-    <div class="work-rail reveal">
-      <div class="wk tilt-card"><div class="wk-embed"><iframe src="https://www.youtube.com/embed/oLhWn_4RKHo" title="Bernd Trading" loading="lazy" allowfullscreen></iframe></div><div class="wk-meta"><span class="t">Bernd Trading</span><span class="c">Long-form</span></div></div>
-      <div class="wk tilt-card"><div class="wk-embed"><iframe src="https://www.youtube.com/embed/ESsmWEt1UlE" title="Conor Murray" loading="lazy" allowfullscreen></iframe></div><div class="wk-meta"><span class="t">Conor Murray</span><span class="c">Long-form</span></div></div>
-      <div class="wk tilt-card"><div class="wk-embed"><iframe src="https://www.youtube.com/embed/RAKWDJKlj7Q" title="Nathan" loading="lazy" allowfullscreen></iframe></div><div class="wk-meta"><span class="t">Nathan</span><span class="c">Long-form</span></div></div>
-      <div class="wk tilt-card"><div class="wk-embed"><iframe src="https://www.youtube.com/embed/Kh1LTEoHtBc" title="f_ingla" loading="lazy" allowfullscreen></iframe></div><div class="wk-meta"><span class="t">f_ingla</span><span class="c">Short-form</span></div></div>
-      <div class="wk tilt-card"><div class="wk-embed"><iframe src="https://www.youtube.com/embed/WtLtJySbw4I" title="Talking Head" loading="lazy" allowfullscreen></iframe></div><div class="wk-meta"><span class="t">Talking-Head Edit</span><span class="c">Short-form</span></div></div>
-      <div class="wk tilt-card"><div class="wk-embed"><iframe src="https://www.youtube.com/embed/_NRQc0GFlTU" title="Gym VSL" loading="lazy" allowfullscreen></iframe></div><div class="wk-meta"><span class="t">Gym Niche Sales Video</span><span class="c">VSL</span></div></div>
-      <div class="wk tilt-card"><div class="wk-embed"><iframe src="https://www.youtube.com/embed/n7qG2U5fIBc" title="Mini Launch" loading="lazy" allowfullscreen></iframe></div><div class="wk-meta"><span class="t">Mini Launch Kit</span><span class="c">VSL</span></div></div>
-      <div class="wk tilt-card"><div class="wk-embed"><iframe src="https://www.youtube.com/embed/1fhVFWGxXz0" title="Viral Labs" loading="lazy" allowfullscreen></iframe></div><div class="wk-meta"><span class="t">Viral Labs</span><span class="c">Short-form</span></div></div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section class="mood" id="mood">
-  <div class="wrap">
-    <div class="mood-top">
-      <p class="marker reveal">03 — The vibe</p>
-      <h2 class="reveal">Built for a feeling. <em>Not just a brief.</em></h2>
-      <p class="sub reveal">Every edit we deliver has a sonic and visual identity. Color. Type. Sound. Pacing. Treated as design, not output.</p>
-    </div>
-    <div class="mood-board reveal">
-      <div class="mood-card mood-1"><span class="num">/ TONE</span><div class="label">scroll-stopping.<br>not loud.</div></div>
-      <div class="mood-card mood-2"><span class="num">/ VOICE</span><div class="label">we don't make content. <b>we make video your audience finishes watching.</b></div></div>
-      <div class="mood-card mood-3"><span class="num">/ PALETTE</span><div class="swatches"><div class="sw sw1"></div><div class="sw sw2"></div><div class="sw sw3"></div><div class="sw sw4"></div><div class="sw sw5"></div></div></div>
-      <div class="mood-card mood-4"><div class="vid-wrap"><iframe src="https://www.youtube.com/embed/Kh1LTEoHtBc?autoplay=1&mute=1&loop=1&playlist=Kh1LTEoHtBc&controls=0&modestbranding=1" title="vibe" loading="lazy" allow="autoplay"></iframe></div><div class="label">f_ingla / short</div></div>
-      <div class="mood-card mood-5"><div class="big-type">48h<em>.</em></div><div class="label">turnaround on short-form</div></div>
-      <div class="mood-card mood-6"><span class="num">/ RULE</span><div class="label">the first <span class="hl">3 seconds</span> earn the next 27.</div></div>
-      <div class="mood-card mood-7"><div class="vid-wrap"><iframe src="https://www.youtube.com/embed/WtLtJySbw4I?autoplay=1&mute=1&loop=1&playlist=WtLtJySbw4I&controls=0&modestbranding=1" title="vibe" loading="lazy" allow="autoplay"></iframe></div><div class="label">talking-head / short</div></div>
-      <div class="mood-card mood-8"><div class="big-type">you record.<br>we edit.<em> you post.</em></div><div class="label">/ the whole arrangement</div></div>
-    </div>
-  </div>
-</section>
-
-<section id="services">
-  <div class="wrap">
-    <div class="sec-top">
-      <div>
-        <p class="marker reveal">04 — What we do</p>
-        <h2 class="reveal">One studio for every video you need.</h2>
+  <section id="method">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow reveal">The Cuttavo Authority Engine</div>
+          <h2 class="reveal">Turn what you know into something your market can recognize.</h2>
+        </div>
+        <p class="reveal">Not a pile of deliverables. A recurring system that captures expertise, sharpens positioning, creates content and feeds the response back into the next cycle.</p>
       </div>
-      <p class="side reveal">Short, long, or sales — handled in-house, so you're never juggling editors.</p>
-    </div>
-    <div class="svc-rows reveal">
-      <div class="svc-row"><div class="rn">01</div><h3>Short-Form Video</h3><p>Reels, TikToks, and Shorts engineered to stop the scroll — hooks in the first second, captions, pacing, sound. Built to get watched, not just posted.</p></div>
-      <div class="svc-row"><div class="rn">02</div><h3>Long-Form Video</h3><p>YouTube videos and podcast edits that hold attention and build trust — the deeper content that turns followers into buyers.</p></div>
-      <div class="svc-row"><div class="rn">03</div><h3>Sales Video &amp; VSLs</h3><p>Conversion-focused edits for launches and offers. Structured to move a viewer from mildly interested to ready to buy.</p></div>
-      <div class="svc-row"><div class="rn">04</div><h3>Repurposing</h3><p>One long recording becomes a week of short-form. Film once, post everywhere — without the extra work landing on you.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="why" class="why">
-  <div class="wrap">
-    <div class="why-grid">
-      <div>
-        <p class="marker reveal">05 — Why Cuttavo</p>
-        <h2 class="reveal" style="font-family:var(--sg);font-weight:700;font-size:clamp(30px,4vw,52px);letter-spacing:-2px;line-height:1.06;margin-top:18px;">Why not just hire a freelancer?</h2>
-        <p class="reveal" style="color:var(--grey);font-size:16px;line-height:1.62;margin-top:18px;max-width:36ch;">Most editors hand back a file and disappear. We work like a partner you can plan a content calendar around.</p>
+      <div class="grid system">
+        <article class="card reveal">
+          <h3>Extract</h3>
+          <p>We mine calls, interviews, voice notes, podcasts, webinars and existing material for strong ideas, stories, objections, frameworks and buyer-relevant insights.</p>
+        </article>
+        <article class="card reveal">
+          <h3>Position</h3>
+          <p>We decide what deserves to become a point of view, what you should be associated with, and how to make the idea sharper without flattening your voice.</p>
+        </article>
+        <article class="card reveal">
+          <h3>Package</h3>
+          <p>We turn the strongest ideas into platform-ready thought leadership, posts, scripts, repurposed assets and production briefs. Video production can be coordinated when it supports the strategy.</p>
+        </article>
+        <article class="card reveal">
+          <h3>Learn</h3>
+          <p>We review response quality, engagement patterns and commercial signals where available, then use that evidence to improve the next month's themes and angles.</p>
+        </article>
       </div>
-      <ul class="why-list reveal">
-        <li><span class="x">/</span><span>Turnaround you can build a posting schedule on — 48 hours on short-form, every time.</span></li>
-        <li><span class="x">/</span><span>Revisions until it's genuinely right — not "three rounds, then extra."</span></li>
-        <li><span class="x">/</span><span>Hooks and pacing built for watch time, not just clean cuts.</span></li>
-        <li><span class="x">/</span><span>One point of contact who actually replies.</span></li>
-        <li><span class="x">/</span><span>Short-form and long-form under one roof — no juggling.</span></li>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow reveal">Your Cuttavo Authority Graph</div>
+          <h2 class="reveal">The system gets smarter as we learn how you think.</h2>
+        </div>
+        <p class="reveal">We build a living working model of your expertise so every month starts with more context than the last.</p>
+      </div>
+      <div class="process">
+        <div class="step reveal"><span>01 / POV</span><h3>What you believe</h3><p>Your strongest beliefs, contrarian views, frameworks and category opinions.</p></div>
+        <div class="step reveal"><span>02 / BUYER</span><h3>What they care about</h3><p>Pains, objections, decision criteria, language and problems close to the buying decision.</p></div>
+        <div class="step reveal"><span>03 / PROOF</span><h3>Why they should believe you</h3><p>Cases, stories, results, examples and experiences that support the point of view.</p></div>
+        <div class="step reveal"><span>04 / SIGNALS</span><h3>What resonates</h3><p>Hooks, themes, formats and conversations that deserve another iteration.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fit">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow reveal">Fit matters</div>
+          <h2 class="reveal">Built for experts whose knowledge is connected to revenue.</h2>
+        </div>
+        <p class="reveal">Cuttavo is intentionally narrower than a generic content agency. The economics work best when one new customer is meaningfully valuable to your business.</p>
+      </div>
+      <div class="grid fit-grid">
+        <div class="fit-card good reveal">
+          <h3>Best fit</h3>
+          <ul class="fit-list">
+            <li>Business and executive coaches with an established offer</li>
+            <li>Consultants, advisors and fractional executives</li>
+            <li>B2B founders selling expertise-heavy products or services</li>
+            <li>Speakers and subject-matter experts with existing IP</li>
+            <li>Experts with calls, podcasts, webinars or ideas already being underused</li>
+          </ul>
+        </div>
+        <div class="fit-card bad reveal">
+          <h3>Probably not a fit</h3>
+          <ul class="fit-list">
+            <li>Someone looking only for the cheapest editor</li>
+            <li>An aspiring creator without a clear offer or expertise</li>
+            <li>A brand that wants generic AI content at maximum volume</li>
+            <li>A business expecting guaranteed virality or guaranteed customers</li>
+            <li>Anyone unwilling to contribute real ideas, experience or point of view</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="proof">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow reveal">Selected production work</div>
+          <h2 class="reveal">Execution still matters. It just isn't the strategy.</h2>
+        </div>
+        <p class="reveal">Cuttavo began with production. That capability stays available underneath the authority system when video is the right format.</p>
+      </div>
+      <div class="grid work-grid">
+        <article class="work reveal"><div class="video"><iframe src="https://www.youtube.com/embed/oLhWn_4RKHo" title="Bernd Trading" loading="lazy" allowfullscreen></iframe></div><div class="work-meta"><b>Bernd Trading</b><span>Long-form</span></div></article>
+        <article class="work reveal"><div class="video"><iframe src="https://www.youtube.com/embed/ESsmWEt1UlE" title="Conor Murray" loading="lazy" allowfullscreen></iframe></div><div class="work-meta"><b>Conor Murray</b><span>Long-form</span></div></article>
+        <article class="work reveal"><div class="video"><iframe src="https://www.youtube.com/embed/WtLtJySbw4I" title="Talking Head" loading="lazy" allowfullscreen></iframe></div><div class="work-meta"><b>Talking-head content</b><span>Short-form</span></div></article>
+        <article class="work reveal"><div class="video"><iframe src="https://www.youtube.com/embed/_NRQc0GFlTU" title="Gym Sales Video" loading="lazy" allowfullscreen></iframe></div><div class="work-meta"><b>Gym niche sales video</b><span>VSL</span></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow reveal">Why Cuttavo</div>
+          <h2 class="reveal">Do not compare us to another editing subscription.</h2>
+        </div>
+        <p class="reveal">If you only need clips, use a clipper. Cuttavo is designed for the layer above production: deciding what deserves to be said and how it supports market authority.</p>
+      </div>
+      <div class="compare-wrap reveal">
+        <table>
+          <thead><tr><th>Capability</th><th>AI clipper</th><th>Generic editor</th><th>Typical content vendor</th><th>Cuttavo</th></tr></thead>
+          <tbody>
+            <tr><td>Create clips / assets</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓ when useful</td></tr>
+            <tr><td>Mine existing expertise</td><td class="partial">Automatic</td><td class="no">—</td><td class="partial">Sometimes</td><td class="yes">Core</td></tr>
+            <tr><td>Clarify what you should own</td><td class="no">—</td><td class="no">—</td><td class="partial">Varies</td><td class="yes">Core</td></tr>
+            <tr><td>Map ideas to buyer problems</td><td class="no">—</td><td class="no">—</td><td class="partial">Varies</td><td class="yes">Core</td></tr>
+            <tr><td>Protect voice and POV</td><td class="partial">Prompt-dependent</td><td class="partial">Visual only</td><td class="partial">Varies</td><td class="yes">Human-reviewed</td></tr>
+            <tr><td>Use response to guide next cycle</td><td class="partial">Basic metrics</td><td class="no">—</td><td class="partial">Reporting</td><td class="yes">Performance review</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="offers">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow reveal">Start small. Earn the next step.</div>
+          <h2 class="reveal">An offer ladder built to reduce risk.</h2>
+        </div>
+        <p class="reveal">We do not ask a cold prospect to commit to a large retainer before seeing how we think.</p>
+      </div>
+      <div class="grid offers">
+        <article class="card offer reveal">
+          <div class="stage">Free diagnosis</div>
+          <h3>Authority Leak Audit</h3>
+          <p>We identify underused ideas, a positioning gap, stronger angles and what we would publish next from what you already have.</p>
+          <div class="result">Outcome → See what your expertise is currently leaving on the table.</div>
+        </article>
+        <article class="card offer featured reveal">
+          <div class="tag">Best first engagement</div>
+          <div class="stage">Pilot</div>
+          <h3>Authority Sprint</h3>
+          <p>A focused project to establish the positioning, initial Authority Graph and first content system without forcing a long commitment.</p>
+          <div class="result">Outcome → Experience the operating system before scaling it.</div>
+        </article>
+        <article class="card offer reveal">
+          <div class="stage">Ongoing</div>
+          <h3>Authority Engine</h3>
+          <p>Recurring extraction, positioning, thought leadership, repurposing, production coordination and performance learning.</p>
+          <div class="result">Outcome → Consistent authority without becoming a full-time creator.</div>
+        </article>
+        <article class="card offer reveal">
+          <div class="stage">Advanced</div>
+          <h3>Authority Demand</h3>
+          <p>For mature clients who want deeper distribution, buyer-signal review and closer alignment between authority content and commercial conversations.</p>
+          <div class="result">Outcome → Connect content activity more closely to demand.</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="audit">
+    <div class="wrap audit-grid">
+      <div class="reveal">
+        <div class="eyebrow">Free Authority Leak Audit</div>
+        <h2>Before you create more, find what you're already wasting.</h2>
+        <p>Bring us your profile, a podcast, a webinar, a call, a video or a few recent posts. We'll show you where the strongest authority opportunities are hiding.</p>
+        <a class="btn" href="https://calendly.com/cuttavo/20min" target="_blank" rel="noopener">Request your audit ↗</a>
+      </div>
+      <ul class="audit-list reveal">
+        <li>3 ideas you could own more clearly</li>
+        <li>3 stronger angles or hooks</li>
+        <li>1 positioning gap we would fix</li>
+        <li>1 recommended next move</li>
       </ul>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="process">
-  <div class="wrap">
-    <div class="sec-top">
-      <div>
-        <p class="marker reveal">06 — How it works</p>
-        <h2 class="reveal">Four steps. That's the whole system.</h2>
+  <section id="faq">
+    <div class="wrap faq">
+      <div class="eyebrow reveal">Questions</div>
+      <div class="section-head" style="margin-top:16px">
+        <h2 class="reveal">What serious buyers usually ask.</h2>
       </div>
-      <p class="side reveal">No lengthy onboarding. You could be sending footage this week.</p>
-    </div>
-    <div class="steps reveal">
-      <div class="step"><div class="sn">01</div><h4>You send footage</h4><p>Drop raw clips in a shared folder. That's your only job.</p></div>
-      <div class="step"><div class="sn">02</div><h4>We edit</h4><p>Hooks, captions, pacing, sound, motion. Delivered fast.</p></div>
-      <div class="step"><div class="sn">03</div><h4>You review</h4><p>Want a change? Revisions until it's right — no limit games.</p></div>
-      <div class="step"><div class="sn">04</div><h4>You post</h4><p>Finished video, ready to go. Repeat every week.</p></div>
-    </div>
-  </div>
-</section>
 
-<section id="reviews">
-  <div class="wrap">
-    <div class="sec-top">
-      <div>
-        <p class="marker reveal">07 — What clients say</p>
-        <h2 class="reveal">Coaches who stopped editing.</h2>
+      <div class="faq-item reveal">
+        <button class="faq-q">So is Cuttavo still a video editing agency?<span>+</span></button>
+        <div class="faq-a"><p>No. Video can be part of execution, but Cuttavo is positioned around authority and demand. You hire us to identify the ideas worth owning, shape the positioning and turn that expertise into a repeatable content system. Production is one layer underneath that.</p></div>
       </div>
-      <p class="side reveal">Real words from people who handed their footage to Cuttavo.</p>
+      <div class="faq-item reveal">
+        <button class="faq-q">Do I need to edit videos myself?<span>+</span></button>
+        <div class="faq-a"><p>No. When video is part of the plan, Cuttavo can coordinate production using AI-assisted workflows and specialist execution. You do not need to become an editor or manage editing tools yourself.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Do I need to create a lot more content?<span>+</span></button>
+        <div class="faq-a"><p>Usually not at the beginning. We prefer to start with what already exists: calls, interviews, webinars, podcasts, voice notes, sales conversations and previous posts. The first question is what can be extracted and sharpened, not how to create more volume.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Do you use AI?<span>+</span></button>
+        <div class="faq-a"><p>Yes, where it improves speed: transcription, research support, search, production assistance and first-pass workflows. Strategic decisions, positioning, voice, final judgment and quality control remain human-reviewed.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Can you guarantee leads or revenue?<span>+</span></button>
+        <div class="faq-a"><p>No honest content partner can guarantee a specific number of customers or revenue. Cuttavo focuses on stronger positioning, better use of expertise, consistent execution and learning from real market response. Commercial outcomes still depend on your offer, market, sales process and other factors.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">What happens in the Authority Leak Audit?<span>+</span></button>
+        <div class="faq-a"><p>We review a small set of your existing materials, identify ideas or positioning opportunities that appear underused, and show you how we would sharpen them. The goal is to let you experience our judgment before deciding whether a larger engagement makes sense.</p></div>
+      </div>
     </div>
-    <div class="rev-wrap">
-      <div class="rev reveal"><p class="quote"><span class="mk">"</span>I had weeks of coaching calls and client transformations just sitting unedited on my drive. Sent everything over, got it back in 2 days looking sharp. My clients actually started sharing my content. Been working together since.<span class="mk">"</span></p><div class="who"><div class="stars">★★★★★</div><div class="n">Conor Murray</div><div class="r">Online Business Coach</div></div></div>
-      <div class="rev reveal"><p class="quote"><span class="mk">"</span>I'm coaching clients from 6am. I'm not sitting down to edit after that. I just send the gym footage and it comes back exactly how I want it. Fast cuts, good energy, feels like me. Shows up every week without me chasing.<span class="mk">"</span></p><div class="who"><div class="stars">★★★★★</div><div class="n">Nathan</div><div class="r">Fitness Coach</div></div></div>
-      <div class="rev reveal"><p class="quote"><span class="mk">"</span>We're pushing content hard and needed someone who could keep up with the pace. No lengthy briefs, no revisions back and forth, just fast, clean edits that match the brand. Fits straight into how we work.<span class="mk">"</span></p><div class="who"><div class="stars">★★★★★</div><div class="n">Viral Labs</div><div class="r">Content &amp; Growth Agency</div></div></div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section class="risk">
-  <div class="wrap">
-    <div>
-      <p class="marker reveal">08 — Zero risk</p>
-      <h2 class="reveal">Try Cuttavo with nothing to lose.</h2>
+  <section class="final">
+    <div class="wrap">
+      <div class="eyebrow reveal">Cuttavo</div>
+      <h2 class="reveal">Make your expertise <em>impossible to waste.</em></h2>
+      <div class="final-row reveal">
+        <p>You already have the raw material. Cuttavo turns it into the authority your market can see — and a system your business can keep building on.</p>
+        <a class="btn" href="https://calendly.com/cuttavo/20min" target="_blank" rel="noopener">Get your Authority Leak Audit ↗</a>
+      </div>
     </div>
-    <div class="reveal">
-      <p>Hiring a new editor is a leap — so we take the risk off you. If you're not happy with your first delivery within 7 days, you get a full refund of your first payment. No arguments, no awkwardness. You walk away with a finished video either way.</p>
-      <a href="https://calendly.com/cuttavo/20min" class="btn magnetic" target="_blank" rel="noopener" style="margin-top:26px;">Book a free call <span class="arrow">↗</span></a>
-    </div>
-  </div>
-</section>
-
-<section id="faq">
-  <div class="wrap">
-    <p class="marker reveal">09 — Questions</p>
-    <h2 class="reveal" style="font-family:var(--sg);font-weight:700;font-size:clamp(32px,4.6vw,62px);letter-spacing:-2px;margin-top:18px;">Everything you might ask.</h2>
-    <div class="faq-list reveal">
-      <div class="faq-item"><button class="faq-q">What exactly does Cuttavo do?<span class="ic">+</span></button><div class="faq-a"><p>We're a video editing studio for coaches. You send raw footage; we deliver finished short-form and long-form video, ready to post — Reels, TikToks, Shorts, YouTube, podcasts, and sales videos.</p></div></div>
-      <div class="faq-item"><button class="faq-q">How fast is turnaround?<span class="ic">+</span></button><div class="faq-a"><p>Short-form video is delivered within 48 hours on a standard schedule. Longer YouTube and podcast edits take 3–5 days depending on length and complexity.</p></div></div>
-      <div class="faq-item"><button class="faq-q">What if I don't like the edit?<span class="ic">+</span></button><div class="faq-a"><p>We revise until you're happy — no rigid round limits. And your first payment is protected by a 7-day money-back guarantee, so trying us carries no risk.</p></div></div>
-      <div class="faq-item"><button class="faq-q">How do I send my footage?<span class="ic">+</span></button><div class="faq-a"><p>Through a simple shared cloud folder. You drop your clips in, and we take it from there. No complicated tools or process.</p></div></div>
-      <div class="faq-item"><button class="faq-q">Do you do both short and long form?<span class="ic">+</span></button><div class="faq-a"><p>Yes. Short-form (Reels, TikToks, Shorts), long-form (YouTube, podcasts), and sales videos — all under one roof, so you're not juggling multiple editors.</p></div></div>
-      <div class="faq-item"><button class="faq-q">How do we get started?<span class="ic">+</span></button><div class="faq-a"><p>Book a free call. We'll look at your current content, talk through your goals, and map out a plan. No pressure — just a conversation to see if we're a fit.</p></div></div>
-    </div>
-  </div>
-</section>
-
-<section class="final" style="border-bottom:none;">
-  <div class="wrap">
-    <p class="marker reveal">10 — Let's work together</p>
-    <h2 class="reveal" style="margin-top:24px;">Never edit a<br><span class="out">video again.</span></h2>
-    <div class="row reveal">
-      <p>We take on a limited number of new coaches each month to protect turnaround. Book a free call and let's see if it's a fit.</p>
-      <a href="https://calendly.com/cuttavo/20min" class="btn magnetic" target="_blank" rel="noopener">Book a free call <span class="arrow">↗</span></a>
-    </div>
-  </div>
-</section>
+  </section>
+</main>
 
 <footer>
   <div class="wrap">
-    <div class="foot-in">
-      <div class="foot-brand">
-        <a href="#top" class="logo">cuttavo<span>.</span></a>
-        <p>Video editing studio for coaches.<br>Founded by Injam Haq.</p>
+    <div class="foot">
+      <div>
+        <a class="logo" href="#top">cuttavo<span>.</span></a>
+        <p>Authority → Demand for expert-led businesses.<br>Founded by Injam Haq.</p>
       </div>
-      <div class="foot-col">
-        <h5>Studio</h5>
-        <a href="#work">Selected Work</a>
-        <a href="#mood">The Vibe</a>
-        <a href="#services">Services</a>
-        <a href="#process">Process</a>
-        <a href="#faq">FAQ</a>
+      <div>
+        <h4>Explore</h4>
+        <a href="#method">Authority Engine</a>
+        <a href="#proof">Selected work</a>
+        <a href="#fit">Who it's for</a>
+        <a href="#offers">Offers</a>
+        <a href="/privacy/">Privacy</a>
       </div>
-      <div class="foot-col">
-        <h5>Connect</h5>
+      <div>
+        <h4>Connect</h4>
         <a href="mailto:hello@cuttavo.studio">hello@cuttavo.studio</a>
         <a href="https://instagram.com/cuttavo.studio" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.facebook.com/cuttavo/" target="_blank" rel="noopener">Facebook</a>
       </div>
     </div>
-    <div class="foot-bottom">
+    <div class="copyright">
       <span>© 2026 Cuttavo. All rights reserved.</span>
-      <span>Built for coaches who'd rather coach.</span>
+      <span>AI under the hood. Human judgment on top.</span>
     </div>
   </div>
 </footer>
 
 <script>
-  const burger=document.getElementById('burger');
-  const navLinks=document.getElementById('navLinks');
-  burger.addEventListener('click',()=>navLinks.classList.toggle('show'));
-  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('show')));
+  var burger=document.getElementById('burger');
+  var links=document.getElementById('navLinks');
+  burger.addEventListener('click',function(){links.classList.toggle('show')});
+  links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('show')})});
 
-  document.querySelectorAll('.faq-q').forEach(q=>{
-    q.addEventListener('click',()=>{
-      const item=q.parentElement;
-      const a=item.querySelector('.faq-a');
-      const open=item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-a').style.maxHeight=null;});
-      if(!open){item.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}
+  document.querySelectorAll('.faq-q').forEach(function(q){
+    q.addEventListener('click',function(){
+      var item=q.parentElement;
+      var ans=item.querySelector('.faq-a');
+      var wasOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){
+        i.classList.remove('open');
+        i.querySelector('.faq-a').style.maxHeight=null;
+      });
+      if(!wasOpen){
+        item.classList.add('open');
+        ans.style.maxHeight=ans.scrollHeight+'px';
+      }
     });
   });
 
-  document.documentElement.classList.add('reveal-on');
-  const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1});
-  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4*0.08)+'s';io.observe(el);});
-
-  const dot=document.querySelector('.cursor-dot');
-  const ring=document.querySelector('.cursor-ring');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';document.body.classList.add('cursor-ready');});
-  function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);}
-  loop();
-  document.querySelectorAll('a, button, .wk, .mood-card, .step, .svc-row').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{ring.style.width='60px';ring.style.height='60px';});
-    el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';});
-  });
-
-  const heroInner=document.getElementById('heroInner');
-  const hero=document.querySelector('.hero');
-  hero.addEventListener('mousemove',e=>{
-    const r=hero.getBoundingClientRect();
-    const x=(e.clientX-r.left)/r.width-.5;
-    const y=(e.clientY-r.top)/r.height-.5;
-    heroInner.style.transform=`rotateY(${x*2.5}deg) rotateX(${-y*1.5}deg)`;
-  });
-  hero.addEventListener('mouseleave',()=>{heroInner.style.transform='';});
-
-  document.querySelectorAll('.tilt-card').forEach(card=>{
-    card.addEventListener('mousemove',e=>{
-      const r=card.getBoundingClientRect();
-      const x=(e.clientX-r.left)/r.width-.5;
-      const y=(e.clientY-r.top)/r.height-.5;
-      card.style.transform=`perspective(1000px) rotateY(${x*4}deg) rotateX(${-y*4}deg) translateZ(8px)`;
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
     });
-    card.addEventListener('mouseleave',()=>{card.style.transform='';});
-  });
-
-  document.querySelectorAll('.magnetic').forEach(btn=>{
-    btn.addEventListener('mousemove',e=>{
-      const r=btn.getBoundingClientRect();
-      const x=e.clientX-r.left-r.width/2;
-      const y=e.clientY-r.top-r.height/2;
-      btn.style.transform=`translate(${x*0.18}px, ${y*0.18}px)`;
-    });
-    btn.addEventListener('mouseleave',()=>{btn.style.transform='';});
-  });
+  },{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
 </script>
 </body>
 </html>

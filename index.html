@@ -70,13 +70,25 @@ a:focus-visible,.faq-q:focus-visible{outline:3px solid var(--lime);outline-offse
 .burger:focus-visible,.faq-q:focus-visible,.links a:focus-visible{outline:3px solid var(--lime);outline-offset:4px}
 html{scroll-padding-top:86px}
 @media(max-width:720px){.navin{gap:14px}.burger{min-width:44px;min-height:44px;text-align:center;cursor:pointer}}
+
+.trust-intro{padding:34px 0 40px;background:#151517;border-bottom:1px solid var(--line)}
+.trust-intro-grid{display:grid;grid-template-columns:1.35fr repeat(3,1fr);gap:14px}
+.trust-intro-lead{padding:18px 20px 18px 0}.trust-intro-lead p{font:500 17px/1.55 var(--sg);margin-top:12px}
+.trust-intro-lead strong{color:var(--lime)}
+.trust-intro-item{border:1px solid #444448;padding:17px 18px;display:flex;flex-direction:column;gap:10px;background:#101012;text-decoration:none;transition:border-color .18s,transform .18s}
+.trust-intro-item:hover{border-color:var(--lime);transform:translateY(-2px);text-decoration:none}
+.trust-intro-item span,.role-number,.outcome-card>span{font:600 10px var(--sg);letter-spacing:.08em;text-transform:uppercase;color:var(--lime)}
+.trust-intro-item b{font:600 16px/1.25 var(--sg)}.trust-intro-item small{font:400 12px/1.5 var(--in);color:#b5b5bc}
+.work-link{display:inline-block;padding:0 16px 18px;text-decoration:underline;text-underline-offset:4px;font:600 12px/1.4 var(--sg);color:var(--lime)}
+@media(max-width:1100px){.trust-intro-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.trust-intro-grid{grid-template-columns:1fr}.trust-intro-lead{padding:12px 0}}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Cuttavo","url":"https://cuttavo.studio/","email":"hello@cuttavo.studio","description":"Done-for-you content systems for coaches, consultants and expert-led businesses."}
 </script>
 </head>
 <body>
-<nav><div class="wrap navin"><a class="logo" href="#top">cuttavo<span>.</span></a><button class="burger" id="burger" type="button" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false">☰</button><div class="links" id="navLinks"><a href="#system">Content Engine</a><a href="#proof">Video examples</a><a href="#fit">Who it's for</a><a href="#offers">Start here</a><a href="#faq">FAQ</a><a class="navcta" href="/ideas/">Get a free sample ↗</a></div></div></nav>
+<nav><div class="wrap navin"><a class="logo" href="#top">cuttavo<span>.</span></a><button class="burger" id="burger" type="button" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false">☰</button><div class="links" id="navLinks"><a href="#system">Content Engine</a><a href="#proof">Published work</a><a href="#trust">Why Cuttavo</a><a href="#fit">Who it's for</a><a href="#offers">Start here</a><a href="#faq">FAQ</a><a class="navcta" href="/ideas/">Get a free sample ↗</a></div></div></nav>
 
 <main id="top">
 <header class="hero"><div class="wrap">
@@ -84,8 +96,8 @@ html{scroll-padding-top:86px}
 <div class="reveal"><div class="eyebrow">Buyer-ready content for established coaches & consultants</div><h1>Turn your best answers into <em>content buyers trust.</em></h1></div>
 <div class="hero-copy reveal">
 <p><strong>Your prospects ask the same questions on sales calls. We turn your best answers into posts, carousels, scripts and emails they can learn from before they book.</strong></p>
-<p style="margin-top:14px">Cuttavo handles the content thinking, writing, repurposing and production coordination. You bring your expertise. We help you put it to work without becoming a full-time creator.</p>
-<div class="actions"><a class="btn" href="/ideas/">Get My Free Sample Post ↗</a><a class="btn ghost" href="/ideas/#example">See What One Conversation Becomes</a></div>
+<p style="margin-top:14px">Cuttavo handles the content thinking, writing, production coordination and human review. You bring your expertise. We bring a clear workflow and a founder-led point of contact — without making you manage the whole process.</p>
+<div class="actions"><a class="btn" href="/ideas/">Get My Free Sample Post ↗</a><a class="btn ghost" href="#proof">See Published Work ↗</a></div>
 </div>
 </div>
 <div class="strip reveal">
@@ -95,6 +107,13 @@ html{scroll-padding-top:86px}
 <div><b>Human reviewed</b><span>Your voice and approval guide the finished work.</span></div>
 </div>
 </div></header>
+
+<section class="trust-intro"><div class="wrap"><div class="trust-intro-grid">
+<div class="trust-intro-lead"><div class="eyebrow">A credible partner should show its work</div><p>Don't judge an agency by its pitch alone. <strong>Inspect the work, understand the review process, and try a small project before a monthly commitment.</strong></p></div>
+<a class="trust-intro-item" href="#proof"><span>01 / Inspect the production</span><b>4 published video examples</b><small>View real publicly available editing examples — not fabricated client result counters.</small></a>
+<a class="trust-intro-item" href="/ideas/#example"><span>02 / Inspect the thinking</span><b>Full content transformation</b><small>Read the actual example post, carousel, script and email drafts.</small></a>
+<a class="trust-intro-item" href="#offers"><span>03 / Understand the terms</span><b>One-off paid Sprint</b><small>Clear deliverables, feedback and approvals before a monthly engagement.</small></a>
+</div></div></section>
 
 <section id="transformation" class="transformation"><div class="wrap">
 <div class="head"><div><div class="eyebrow reveal">One buyer objection → five useful answers</div><h2 class="reveal">Show your next buyer what you already know.</h2></div><p class="reveal">Your best sales answers shouldn't disappear after a call. Here's how one original insight becomes content a buyer can read, save and understand before a conversation.</p></div>
@@ -178,12 +197,12 @@ html{scroll-padding-top:86px}
 </div></section>
 
 <section id="proof" class="panel"><div class="wrap">
-<div class="head"><div><div class="eyebrow reveal">Cuttavo video examples</div><h2 class="reveal">The content angle matters as much as the edit.</h2></div><p class="reveal">These are videos published under Cuttavo titles as editing examples or style studies. They show production formats, not proven lead-generation results or independent client testimonials.</p></div>
+<div class="head"><div><div class="eyebrow reveal">Published work you can inspect</div><h2 class="reveal">Judge the actual craft. Not a made-up results counter.</h2></div><p class="reveal">These videos are publicly available under Cuttavo editing-example or style-study titles. They demonstrate production formats, pacing and presentation. They are not independent customer endorsements or verified views, leads or revenue improvements.</p></div>
 <div class="workgrid">
-<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/oLhWn_4RKHo" title="Bernd Trading" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Bernd Trading</b><span>Long-form</span></div></article>
-<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/ESsmWEt1UlE" title="Conor Murray" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Conor Murray</b><span>Long-form</span></div></article>
-<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/WtLtJySbw4I" title="Talking Head" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Talking-head content</b><span>Short-form</span></div></article>
-<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/_NRQc0GFlTU" title="Sales Video" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Sales video</b><span>VSL</span></div></article>
+<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/oLhWn_4RKHo" title="Bernd Trading" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Bernd Trading</b><span>Long-form editing example</span></div><a class="work-link" href="https://www.youtube.com/watch?v=oLhWn_4RKHo" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
+<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/ESsmWEt1UlE" title="Conor Murray" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Conor Murray</b><span>Long-form editing example</span></div><a class="work-link" href="https://www.youtube.com/watch?v=ESsmWEt1UlE" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
+<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/WtLtJySbw4I" title="Talking Head" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Talking-head style study</b><span>Short-form format study</span></div><a class="work-link" href="https://www.youtube.com/watch?v=WtLtJySbw4I" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
+<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/_NRQc0GFlTU" title="Sales Video" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Sales-video editing</b><span>VSL format example</span></div><a class="work-link" href="https://www.youtube.com/watch?v=_NRQc0GFlTU" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
 </div>
 </div></section>
 
@@ -242,7 +261,7 @@ html{scroll-padding-top:86px}
 <footer><div class="wrap">
 <div class="foot">
 <div><a class="logo" href="#top">cuttavo<span>.</span></a><p>Done-for-you content systems for coaches, consultants and expert-led businesses.<br>Founded by Injam Haq.</p></div>
-<div><h4>Explore</h4><a href="#system">Content Engine</a><a href="#proof">Video examples</a><a href="#fit">Who it's for</a><a href="#offers">Start here</a><a href="/privacy/">Privacy</a></div>
+<div><h4>Explore</h4><a href="#system">Content Engine</a><a href="#proof">Published work</a><a href="#trust">Why Cuttavo</a><a href="#fit">Who it's for</a><a href="#offers">Start here</a><a href="/privacy/">Privacy</a></div>
 <div><h4>Connect</h4><a href="mailto:hello@cuttavo.studio">hello@cuttavo.studio</a><a href="https://instagram.com/cuttavo.studio" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/cuttavo/" target="_blank" rel="noopener">Facebook</a></div>
 </div>
 <div class="copyline"><span>© 2026 Cuttavo. All rights reserved.</span><span>AI for leverage. Human judgment for the message.</span></div>

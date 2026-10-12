@@ -69,3 +69,43 @@ test('lead form validates user input and copy fallback', async ({ page }) => {
   await expect(page.locator('#status')).not.toBeEmpty();
   // Do not click Submit: production third-party delivery requires inbox activation.
 });
+
+test('buyer journey has short navigation, early proof, clear offers and ten relevant FAQs', async ({ page }) => {
+  await page.goto('http://127.0.0.1:8000/');
+  const links = page.locator('#navLinks > a');
+  await expect(links).toHaveCount(6); // Five straightforward destinations + primary sample CTA
+  await expect(page.locator('#navLinks')).toContainText('Work samples');
+  await expect(page.locator('#navLinks')).toContainText('How it works');
+  await expect(page.locator('#navLinks')).toContainText('Services');
+  await expect(page.locator('#navLinks')).toContainText('About');
+  await expect(page.locator('#navLinks')).toContainText('Get started');
+  await expect(page.locator('.faq-q')).toHaveCount(10);
+  await expect(page.locator('main > section')).toHaveCount(10);
+  const positions = await page.evaluate(() => [...document.querySelectorAll('main > section')].map(s => s.id || s.className));
+  expect(positions.indexOf('proof')).toBe(1);
+  expect(positions.indexOf('offers')).toBe(7);
+  await expect(page.locator('#offers .offer')).toHaveCount(3);
+  const unscopedPromises = await page.locator('#deliverables').textContent();
+  expect(unscopedPromises).not.toContain('12 Authority posts');
+  expect(unscopedPromises).toContain('written agreement');
+  await expect(page.locator('.trust-intro-item')).toHaveCount(3);
+  await expect(page.locator('#proof iframe')).toHaveCount(4);
+  // Every internal section link must reference an actual document target.
+  const missing = await page.evaluate(() => [...document.querySelectorAll('a[href^="#"]')]
+    .map(a => a.getAttribute('href').slice(1))
+    .filter(id => id && !document.getElementById(id)));
+  expect(missing).toEqual([]);
+});
+
+test('lead page explains actual email submission and reaches a form without false confirmation', async ({ page }) => {
+  await page.goto('http://127.0.0.1:8000/ideas/');
+  await expect(page.locator('h1')).toContainText("See what we'd write");
+  await expect(page.locator('#ideasForm')).toHaveAttribute('data-intake-mode', 'email-fallback');
+  await expect(page.locator('#sendRequest')).toContainText('Prepare My Email Request');
+  await expect(page.locator('#name')).toBeVisible();
+  await expect(page.locator('#email')).toBeVisible();
+  await expect(page.locator('#url')).toBeVisible();
+  await expect(page.locator('#offer')).toBeVisible();
+  const notice=await page.locator('#ideasForm .hint').textContent();
+  expect(notice).toMatch(/email|send/i);
+});

@@ -70,13 +70,45 @@ a:focus-visible,.faq-q:focus-visible{outline:3px solid var(--lime);outline-offse
 .burger:focus-visible,.faq-q:focus-visible,.links a:focus-visible{outline:3px solid var(--lime);outline-offset:4px}
 html{scroll-padding-top:86px}
 @media(max-width:720px){.navin{gap:14px}.burger{min-width:44px;min-height:44px;text-align:center;cursor:pointer}}
+
+.trust-intro{padding:34px 0 40px;background:#151517;border-bottom:1px solid var(--line)}
+.trust-intro-grid{display:grid;grid-template-columns:1.35fr repeat(3,1fr);gap:14px}
+.trust-intro-lead{padding:18px 20px 18px 0}.trust-intro-lead p{font:500 17px/1.55 var(--sg);margin-top:12px}
+.trust-intro-lead strong{color:var(--lime)}
+.trust-intro-item{border:1px solid #444448;padding:17px 18px;display:flex;flex-direction:column;gap:10px;background:#101012;text-decoration:none;transition:border-color .18s,transform .18s}
+.trust-intro-item:hover{border-color:var(--lime);transform:translateY(-2px);text-decoration:none}
+.trust-intro-item span,.role-number,.outcome-card>span{font:600 10px var(--sg);letter-spacing:.08em;text-transform:uppercase;color:var(--lime)}
+.trust-intro-item b{font:600 16px/1.25 var(--sg)}.trust-intro-item small{font:400 12px/1.5 var(--in);color:#b5b5bc}
+.work-link{display:inline-block;padding:0 16px 18px;text-decoration:underline;text-underline-offset:4px;font:600 12px/1.4 var(--sg);color:var(--lime)}
+@media(max-width:1100px){.trust-intro-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.trust-intro-grid{grid-template-columns:1fr}.trust-intro-lead{padding:12px 0}}
+
+.trust-proof{padding:100px 0;background:#141416;border-top:1px solid var(--line)}
+.trust-roles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.trust-role{background:#101012;border:1px solid #424249;padding:23px 20px;display:flex;flex-direction:column}
+.trust-role span,.outcome-card span{font:600 12px var(--sg);color:var(--lime)}
+.trust-role h3,.outcome-card h3{font:600 22px/1.25 var(--sg);margin-top:17px}
+.trust-role p,.outcome-card p{color:#bcbcc3;font-size:13px;line-height:1.7;margin-top:13px;flex:1}
+.trust-role>b,.outcome-card>strong{font:500 12px/1.5 var(--sg);border-top:1px solid #424249;color:var(--paper);padding-top:16px;margin-top:21px}
+.accountable{margin-top:18px;background:#222225;border:1px solid #52525a;padding:25px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.accountable h3{font:600 22px var(--sg)}.accountable p{font-size:13px;line-height:1.65;color:#cacad0;margin-top:9px;max-width:74ch}
+.accountable a{color:var(--lime);font:600 12px var(--sg);text-decoration:underline;text-underline-offset:4px;flex:none}
+.outcomes{padding:100px 0;border-top:1px solid #303034}
+.outcome-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.outcome-card{padding:24px;border:1px solid var(--line);background:#151517;display:flex;flex-direction:column}
+.outcomes-disclosure{max-width:100ch;color:#ababaf;line-height:1.65;font-size:12px;margin-top:21px}
+.outcomes-action{display:flex;align-items:center;flex-wrap:wrap;gap:22px;margin-top:23px}
+.outcomes-action .plain-link{color:var(--lime);font:600 13px var(--sg)}
+#trust,#outcomes{scroll-margin-top:90px}
+@media(max-width:1050px){.trust-roles{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.trust-proof,.outcomes{padding:68px 0}.trust-roles,.outcome-grid{grid-template-columns:1fr}.accountable{align-items:flex-start;flex-direction:column}}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Cuttavo","url":"https://cuttavo.studio/","email":"hello@cuttavo.studio","description":"Done-for-you content systems for coaches, consultants and expert-led businesses."}
 </script>
 </head>
 <body>
-<nav><div class="wrap navin"><a class="logo" href="#top">cuttavo<span>.</span></a><button class="burger" id="burger" type="button" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false">☰</button><div class="links" id="navLinks"><a href="#system">Content Engine</a><a href="#proof">Video examples</a><a href="#fit">Who it's for</a><a href="#offers">Start here</a><a href="#faq">FAQ</a><a class="navcta" href="/ideas/">Get a free sample ↗</a></div></div></nav>
+<nav><div class="wrap navin"><a class="logo" href="#top">cuttavo<span>.</span></a><button class="burger" id="burger" type="button" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false">☰</button><div class="links" id="navLinks"><a href="#system">Content Engine</a><a href="#proof">Published work</a><a href="#trust">Why Cuttavo</a><a href="#outcomes">Measuring value</a><a href="#fit">Who it's for</a><a href="#offers">Start here</a><a href="#faq">FAQ</a><a class="navcta" href="/ideas/">Get a free sample ↗</a></div></div></nav>
 
 <main id="top">
 <header class="hero"><div class="wrap">
@@ -84,8 +116,8 @@ html{scroll-padding-top:86px}
 <div class="reveal"><div class="eyebrow">Buyer-ready content for established coaches & consultants</div><h1>Turn your best answers into <em>content buyers trust.</em></h1></div>
 <div class="hero-copy reveal">
 <p><strong>Your prospects ask the same questions on sales calls. We turn your best answers into posts, carousels, scripts and emails they can learn from before they book.</strong></p>
-<p style="margin-top:14px">Cuttavo handles the content thinking, writing, repurposing and production coordination. You bring your expertise. We help you put it to work without becoming a full-time creator.</p>
-<div class="actions"><a class="btn" href="/ideas/">Get My Free Sample Post ↗</a><a class="btn ghost" href="/ideas/#example">See What One Conversation Becomes</a></div>
+<p style="margin-top:14px">Cuttavo handles the content thinking, writing, production coordination and human review. You bring your expertise. We bring a clear workflow and a founder-led point of contact — without making you manage the whole process.</p>
+<div class="actions"><a class="btn" href="/ideas/">Get My Free Sample Post ↗</a><a class="btn ghost" href="#proof">See Published Work ↗</a></div>
 </div>
 </div>
 <div class="strip reveal">
@@ -95,6 +127,13 @@ html{scroll-padding-top:86px}
 <div><b>Human reviewed</b><span>Your voice and approval guide the finished work.</span></div>
 </div>
 </div></header>
+
+<section class="trust-intro"><div class="wrap"><div class="trust-intro-grid">
+<div class="trust-intro-lead"><div class="eyebrow">A credible partner should show its work</div><p>Don't judge an agency by its pitch alone. <strong>Inspect the work, understand the review process, and try a small project before a monthly commitment.</strong></p></div>
+<a class="trust-intro-item" href="#proof"><span>01 / Inspect the production</span><b>4 published video examples</b><small>View real publicly available editing examples — not fabricated client result counters.</small></a>
+<a class="trust-intro-item" href="/ideas/#example"><span>02 / Inspect the thinking</span><b>Full content transformation</b><small>Read the actual example post, carousel, script and email drafts.</small></a>
+<a class="trust-intro-item" href="#offers"><span>03 / Understand the terms</span><b>One-off paid Sprint</b><small>Clear deliverables, feedback and approvals before a monthly engagement.</small></a>
+</div></div></section>
 
 <section id="transformation" class="transformation"><div class="wrap">
 <div class="head"><div><div class="eyebrow reveal">One buyer objection → five useful answers</div><h2 class="reveal">Show your next buyer what you already know.</h2></div><p class="reveal">Your best sales answers shouldn't disappear after a call. Here's how one original insight becomes content a buyer can read, save and understand before a conversation.</p></div>
@@ -178,13 +217,34 @@ html{scroll-padding-top:86px}
 </div></section>
 
 <section id="proof" class="panel"><div class="wrap">
-<div class="head"><div><div class="eyebrow reveal">Cuttavo video examples</div><h2 class="reveal">The content angle matters as much as the edit.</h2></div><p class="reveal">These are videos published under Cuttavo titles as editing examples or style studies. They show production formats, not proven lead-generation results or independent client testimonials.</p></div>
+<div class="head"><div><div class="eyebrow reveal">Published work you can inspect</div><h2 class="reveal">Judge the actual craft. Not a made-up results counter.</h2></div><p class="reveal">These videos are publicly available under Cuttavo editing-example or style-study titles. They demonstrate production formats, pacing and presentation. They are not independent customer endorsements or verified views, leads or revenue improvements.</p></div>
 <div class="workgrid">
-<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/oLhWn_4RKHo" title="Bernd Trading" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Bernd Trading</b><span>Long-form</span></div></article>
-<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/ESsmWEt1UlE" title="Conor Murray" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Conor Murray</b><span>Long-form</span></div></article>
-<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/WtLtJySbw4I" title="Talking Head" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Talking-head content</b><span>Short-form</span></div></article>
-<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/_NRQc0GFlTU" title="Sales Video" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Sales video</b><span>VSL</span></div></article>
+<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/oLhWn_4RKHo" title="Bernd Trading" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Bernd Trading</b><span>Long-form editing example</span></div><a class="work-link" href="https://www.youtube.com/watch?v=oLhWn_4RKHo" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
+<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/ESsmWEt1UlE" title="Conor Murray" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Conor Murray</b><span>Long-form editing example</span></div><a class="work-link" href="https://www.youtube.com/watch?v=ESsmWEt1UlE" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
+<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/WtLtJySbw4I" title="Talking Head" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Talking-head style study</b><span>Short-form format study</span></div><a class="work-link" href="https://www.youtube.com/watch?v=WtLtJySbw4I" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
+<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/_NRQc0GFlTU" title="Sales Video" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Sales-video editing</b><span>VSL format example</span></div><a class="work-link" href="https://www.youtube.com/watch?v=_NRQc0GFlTU" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
 </div>
+</div></section>
+
+<section id="trust" class="trust-proof"><div class="wrap">
+<div class="head"><div><div class="eyebrow reveal">Professional disciplines. Clear accountability.</div><h2 class="reveal">A serious content workflow — not a mystery editing queue.</h2></div><p class="reveal">Every client deserves to know who owns the thinking, what gets reviewed and what is included. Your written scope identifies the actual people and specialists assigned — never an invented team size.</p></div>
+<div class="trust-roles">
+<article class="trust-role reveal"><span>01 / Strategy</span><h3>Buyer insight and direction</h3><p>Study your offer, audience, objections and original expertise to choose useful angles.</p><b>Quality gate: Is this useful to a buyer?</b></article>
+<article class="trust-role reveal"><span>02 / Writing</span><h3>Your voice and storytelling</h3><p>Shape ideas into clear posts, hooks, carousel outlines, scripts and follow-ups.</p><b>Quality gate: Would you actually say this?</b></article>
+<article class="trust-role reveal"><span>03 / Production</span><h3>Editing and creative craft</h3><p>Adapt approved material to the formats and deliverables included in your scope.</p><b>Quality gate: Is the format publishable?</b></article>
+<article class="trust-role reveal"><span>04 / Review</span><h3>Human quality assurance</h3><p>Check facts, voice, revision requests and the approved delivery process.</p><b>Quality gate: Are the claims and output sound?</b></article>
+</div>
+<div class="accountable reveal"><div><h3>Founder-led communication. Clear ownership.</h3><p>Cuttavo was founded by Injam Haq. We identify your point of contact, people involved, responsibilities, deliverables and review rounds before a paid engagement. The four disciplines described here do not mean four separate full-time employees work on every account.</p></div><a href="mailto:hello@cuttavo.studio?subject=Who%20will%20work%20on%20my%20Cuttavo%20project">Ask about the team ↗</a></div>
+</div></section>
+<section id="outcomes" class="outcomes"><div class="wrap">
+<div class="head"><div><div class="eyebrow reveal">Results that matter to your business</div><h2 class="reveal">More than views. Let's define what value looks like.</h2></div><p class="reveal">We propose a practical measurement approach based on your goals and available data. We don't promise viral growth, attribute sales without evidence, or present goals as past client outcomes.</p></div>
+<div class="outcome-grid">
+<article class="outcome-card reveal"><span>Visibility</span><h3>Relevant reach</h3><p>Review views, retention, saves and the quality of engagement — not a meaningless view count alone.</p><strong>Sample metric: engaged reach</strong></article>
+<article class="outcome-card reveal"><span>Buyer intent</span><h3>Better-informed enquiries</h3><p>Use reliable lead data, replies and discovery-call questions when the client can share them.</p><strong>Sample metric: relevant conversations</strong></article>
+<article class="outcome-card reveal"><span>Time saved</span><h3>Less production overhead</h3><p>Compare the founder's hours spent on content planning, editing coordination and approval.</p><strong>Sample metric: time spent on content tasks</strong></article>
+</div>
+<p class="outcomes-disclosure reveal">These are possible KPIs to track — not documented Cuttavo customer results. Reach, leads and sales are different outcomes; sales depend on the offer, audience and sales process. Any future client quote or performance claim requires verified evidence and permission.</p>
+<div class="outcomes-action reveal"><a class="btn" href="/ideas/">See Our Thinking With a Free Sample ↗</a><a class="plain-link" href="#offers">Review the paid Sprint →</a></div>
 </div></section>
 
 <section><div class="wrap">
@@ -229,7 +289,10 @@ html{scroll-padding-top:86px}
 <div class="faq-item reveal"><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-answer-9">Do I need a long-term contract?<span aria-hidden="true">+</span></button><div class="faq-a" id="faq-answer-9"><p>No long-term contract is required to test the Content Sprint. For ongoing work, the exact commercial terms are agreed in writing before you start so you know the scope, price and commitment up front.</p></div></div>
 <div class="faq-item reveal"><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-answer-10">Will this guarantee clients?<span aria-hidden="true">+</span></button><div class="faq-a" id="faq-answer-10"><p>No. Content cannot honestly guarantee a specific number of customers or revenue. The goal is to make your expertise clearer, easier to discover and more persuasive before a sales conversation. Your offer, market and sales process still matter.</p></div></div>
 <div class="faq-item reveal"><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-answer-11">Does everyone receive a free sample?<span aria-hidden="true">+</span></button><div class="faq-a" id="faq-answer-11"><p>We review requests for fit and available capacity. We prioritize established coaches and consultants with a clear offer and enough publicly shareable material to understand their voice. A request is not a promise of delivery. If we need more context or cannot take it on, we will explain rather than send generic content.</p></div></div>
-<div class="faq-item reveal"><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-answer-12">How do we start?<span aria-hidden="true">+</span></button><div class="faq-a" id="faq-answer-12"><p>Request a free Proof-of-Voice Sample with a public content link and a buyer question. We review requests for fit; suitable businesses receive one draft post and two angles before deciding whether to try a paid Sprint.</p></div></div>
+<div class="faq-item reveal"><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-answer-12">How do we start?<span aria-hidden="true">+</span></button><div class="faq-a" id="faq-answer-12"><p>Request a free Proof-of-Voice Sample with a public content link and a buyer question. We review requests for fit; suitable businesses receive one draft post and two angles before deciding whether to try a paid Sprint.</p></div><div class="faq-item reveal"><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-answer-13">Who does the work on my content?<span aria-hidden="true">+</span></button><div class="faq-a" id="faq-answer-13"><p>Work follows specialist checks across content direction, writing, production and human review. Your proposal identifies the people or collaborators actually assigned, your point of contact, and who owns each deliverable.</p></div></div>
+<div class="faq-item reveal"><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-answer-14">Can I verify your results and customer reviews?<span aria-hidden="true">+</span></button><div class="faq-a" id="faq-answer-14"><p>You can inspect our published video editing examples and the full writing demonstration. We do not present them as proven customer sales outcomes, independent customer reviews or permissioned case studies. Quantified results will only appear here with evidence and consent.</p></div></div>
+<div class="faq-item reveal"><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-answer-15">What if I care about sales or time savings instead of views?<span aria-hidden="true">+</span></button><div class="faq-a" id="faq-answer-15"><p>We can agree on a practical scorecard for buyer interest, qualified enquiries and the time you spend on the content workflow, subject to available data. None of these outcomes is guaranteed, and video views do not automatically mean sales.</p></div></div>
+</div>
 </div></section>
 
 <section class="final"><div class="wrap">
@@ -242,7 +305,7 @@ html{scroll-padding-top:86px}
 <footer><div class="wrap">
 <div class="foot">
 <div><a class="logo" href="#top">cuttavo<span>.</span></a><p>Done-for-you content systems for coaches, consultants and expert-led businesses.<br>Founded by Injam Haq.</p></div>
-<div><h4>Explore</h4><a href="#system">Content Engine</a><a href="#proof">Video examples</a><a href="#fit">Who it's for</a><a href="#offers">Start here</a><a href="/privacy/">Privacy</a></div>
+<div><h4>Explore</h4><a href="#system">Content Engine</a><a href="#proof">Published work</a><a href="#trust">Why Cuttavo</a><a href="#outcomes">Measuring value</a><a href="#fit">Who it's for</a><a href="#offers">Start here</a><a href="/privacy/">Privacy</a></div>
 <div><h4>Connect</h4><a href="mailto:hello@cuttavo.studio">hello@cuttavo.studio</a><a href="https://instagram.com/cuttavo.studio" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/cuttavo/" target="_blank" rel="noopener">Facebook</a></div>
 </div>
 <div class="copyline"><span>© 2026 Cuttavo. All rights reserved.</span><span>AI for leverage. Human judgment for the message.</span></div>

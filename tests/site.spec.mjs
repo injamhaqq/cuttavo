@@ -47,6 +47,8 @@ test('mobile navigation opens, closes and supports Escape', async ({ browser }) 
   await page.goto('http://127.0.0.1:8000/');
   const toggle = page.locator('#burger');
   await expect(toggle).toBeVisible();
+  await expect(page.locator('.mobile-cta')).toBeVisible();
+  await expect(page.locator('.mobile-cta')).toHaveAttribute('href','/ideas/#request');
   await toggle.click();
   await expect(toggle).toHaveAttribute('aria-expanded', 'true');
   await page.keyboard.press('Escape');
@@ -89,7 +91,8 @@ test('buyer journey has short navigation, early proof, clear offers and ten rele
   expect(unscopedPromises).not.toContain('12 Authority posts');
   expect(unscopedPromises).toContain('written agreement');
   await expect(page.locator('.trust-intro-item')).toHaveCount(3);
-  await expect(page.locator('#proof iframe')).toHaveCount(4);
+  await expect(page.locator('#proof .video-preview')).toHaveCount(4);
+  await expect(page.locator('#proof .play-badge')).toHaveCount(4);
   // Every internal section link must reference an actual document target.
   const missing = await page.evaluate(() => [...document.querySelectorAll('a[href^="#"]')]
     .map(a => a.getAttribute('href').slice(1))

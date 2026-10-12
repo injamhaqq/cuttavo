@@ -1,0 +1,42 @@
+name: Cuttavo Website QA
+on:
+  pull_request:
+    branches: [main]
+    paths: ['index.html', 'ideas/**', 'privacy/**', 'favicon.svg', '.github/workflows/site-qa.yml', 'tests/**']
+  push:
+    branches: [main]
+    paths: ['index.html', 'ideas/**', 'privacy/**', 'favicon.svg', '.github/workflows/site-qa.yml', 'tests/**']
+permissions:
+  contents: read
+jobs:
+  browser-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test-only browser dependencies
+        run: |
+          npm install --no-save --no-package-lock @playwright/test@1.58.2
+          npx playwright install chromium --with-deps
+      - name: Run static local web server
+        run: |
+          python3 -m http.server 8000 --bind 127.0.0.1 > /tmp/cuttavo-server.log 2>&1 &
+          for i in $(seq 1 20); do
+            curl -s -o /dev/null http://127.0.0.1:8000/ && exit 0
+            sleep 1
+          done
+          exit 1
+      - name: Test desktop + mobile, FAQ, navigation, lead form
+        run: |
+          mkdir -p artifacts
+          npx playwright test tests/site.spec.mjs --workers=1 --reporter=line
+      - name: Upload QA screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cuttavo-website-qa-screenshots
+          path: artifacts/
+          retention-days: 14

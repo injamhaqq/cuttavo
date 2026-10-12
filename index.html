@@ -124,6 +124,20 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--lime);outline-offse
 @media(max-width:1040px){.links{gap:12px}.links a{font-size:12px}.hero-grid{gap:22px}}
 @media(max-width:850px){.hero-grid{grid-template-columns:1fr}.hero h1{font-size:clamp(49px,10vw,78px)}}
 @media(max-width:720px){.links a{font-size:16px;min-height:44px;display:flex;align-items:center}.hero{padding:64px 0 44px}.hero h1{font-size:clamp(47px,12vw,68px);letter-spacing:-2px}.faq-q{font-size:16px;min-height:54px}section{padding:65px 0}}
+
+/* Accessible portfolio previews: visible even when an external video player is blocked */
+.video-preview{position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;min-height:175px;background:linear-gradient(135deg,#262a23,#0b0b0c);text-decoration:none}
+.video-preview:hover{text-decoration:none}
+.video-preview img{display:block;width:100%;height:100%;object-fit:cover;aspect-ratio:16/9;filter:brightness(.62);transition:filter .2s ease,transform .2s ease}
+.video-preview:hover img{filter:brightness(.82);transform:scale(1.03)}
+.play-badge{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--lime);color:var(--ink);padding:12px 16px;white-space:nowrap;font:700 13px var(--sg);z-index:1}
+.mobile-cta{display:none}
+@media(max-width:720px){
+.navin{gap:12px}
+.mobile-cta{display:inline-flex;align-items:center;margin-left:auto;min-height:40px;padding:8px 11px;border:1px solid var(--lime);color:var(--lime);font:700 12px var(--sg);white-space:nowrap}
+.video-preview{min-height:174px}
+}
+@media(prefers-reduced-motion:reduce){.video-preview img{transition:none}.video-preview:hover img{transform:none}}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Cuttavo","url":"https://cuttavo.studio/","email":"hello@cuttavo.studio","description":"Done-for-you content systems for coaches, consultants and expert-led businesses."}
@@ -131,7 +145,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--lime);outline-offse
 </head>
 <body>
 <a class="skip-link" href="#top">Skip to main content</a>
-<nav><div class="wrap navin"><a class="logo" href="#top">cuttavo<span>.</span></a><button class="burger" id="burger" type="button" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false">☰</button><div class="links" id="navLinks"><a href="#proof">Work samples</a><a href="#system">How it works</a><a href="#deliverables">Services</a><a href="#trust">About</a><a href="#offers">Get started</a><a class="navcta" href="/ideas/">Get free sample ↗</a></div></div></nav>
+<nav><div class="wrap navin"><a class="logo" href="#top">cuttavo<span>.</span></a><a class="mobile-cta" href="/ideas/#request">Free sample ↗</a><button class="burger" id="burger" type="button" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false">☰</button><div class="links" id="navLinks"><a href="#proof">Work samples</a><a href="#system">How it works</a><a href="#deliverables">Services</a><a href="#trust">About</a><a href="#offers">Get started</a><a class="navcta" href="/ideas/">Get free sample ↗</a></div></div></nav>
 
 <main id="top">
 <header class="hero"><div class="wrap">
@@ -161,10 +175,10 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--lime);outline-offse
 <section id="proof" class="panel"><div class="wrap">
 <div class="head"><div><div class="eyebrow reveal">Published work you can inspect</div><h2 class="reveal">See what the editing work looks like.</h2></div><p class="reveal">These four videos are published as Cuttavo editing examples or style studies. Watch the pacing, captions and visual details. They are not client testimonials or verified sales case studies.</p></div>
 <div class="workgrid">
-<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/oLhWn_4RKHo" title="Bernd Trading" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Bernd Trading</b><span>Long-form editing example</span></div><a class="work-link" href="https://www.youtube.com/watch?v=oLhWn_4RKHo" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
-<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/ESsmWEt1UlE" title="Conor Murray" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Conor Murray</b><span>Long-form editing example</span></div><a class="work-link" href="https://www.youtube.com/watch?v=ESsmWEt1UlE" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
-<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/WtLtJySbw4I" title="Talking Head" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Talking-head style study</b><span>Short-form format study</span></div><a class="work-link" href="https://www.youtube.com/watch?v=WtLtJySbw4I" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
-<article class="work reveal"><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/_NRQc0GFlTU" title="Sales Video" loading="lazy" allowfullscreen></iframe></div><div class="wm"><b>Sales-video editing</b><span>VSL format example</span></div><a class="work-link" href="https://www.youtube.com/watch?v=_NRQc0GFlTU" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
+<article class="work reveal"><a class="video video-preview" href="https://www.youtube.com/watch?v=oLhWn_4RKHo" target="_blank" rel="noopener noreferrer" aria-label="Watch Bernd Trading video editing example on YouTube"><img src="https://i.ytimg.com/vi/oLhWn_4RKHo/hqdefault.jpg" alt="YouTube preview image for Bernd Trading video editing example" loading="lazy" decoding="async" width="480" height="360"><span class="play-badge" aria-hidden="true">▶ Watch example</span></a><div class="wm"><b>Bernd Trading</b><span>Long-form editing example</span></div><a class="work-link" href="https://www.youtube.com/watch?v=oLhWn_4RKHo" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
+<article class="work reveal"><a class="video video-preview" href="https://www.youtube.com/watch?v=ESsmWEt1UlE" target="_blank" rel="noopener noreferrer" aria-label="Watch Conor Murray video editing example on YouTube"><img src="https://i.ytimg.com/vi/ESsmWEt1UlE/hqdefault.jpg" alt="YouTube preview image for Conor Murray video editing example" loading="lazy" decoding="async" width="480" height="360"><span class="play-badge" aria-hidden="true">▶ Watch example</span></a><div class="wm"><b>Conor Murray</b><span>Long-form editing example</span></div><a class="work-link" href="https://www.youtube.com/watch?v=ESsmWEt1UlE" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
+<article class="work reveal"><a class="video video-preview" href="https://www.youtube.com/watch?v=WtLtJySbw4I" target="_blank" rel="noopener noreferrer" aria-label="Watch Talking-head editing style study on YouTube"><img src="https://i.ytimg.com/vi/WtLtJySbw4I/hqdefault.jpg" alt="YouTube preview image for Talking-head editing style study" loading="lazy" decoding="async" width="480" height="360"><span class="play-badge" aria-hidden="true">▶ Watch example</span></a><div class="wm"><b>Talking-head style study</b><span>Short-form format study</span></div><a class="work-link" href="https://www.youtube.com/watch?v=WtLtJySbw4I" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
+<article class="work reveal"><a class="video video-preview" href="https://www.youtube.com/watch?v=_NRQc0GFlTU" target="_blank" rel="noopener noreferrer" aria-label="Watch Sales video editing format example on YouTube"><img src="https://i.ytimg.com/vi/_NRQc0GFlTU/hqdefault.jpg" alt="YouTube preview image for Sales video editing format example" loading="lazy" decoding="async" width="480" height="360"><span class="play-badge" aria-hidden="true">▶ Watch example</span></a><div class="wm"><b>Sales-video editing</b><span>VSL format example</span></div><a class="work-link" href="https://www.youtube.com/watch?v=_NRQc0GFlTU" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
 </div>
 </div></section>
 

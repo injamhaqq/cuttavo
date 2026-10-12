@@ -59,7 +59,7 @@ test('lead form validates user input and copy fallback', async ({ page }) => {
   const form = page.locator('#ideasForm');
   await expect(form).toBeVisible();
   await expect(page.locator('#sendRequest')).toBeVisible();
-  await expect(page.locator('#sendRequest')).toHaveText(/Submit My Free Sample Request/);
+  await expect(page.locator('#sendRequest')).toHaveText(/Prepare My Email Request/);
   await page.locator('#name').fill('Test Visitor');
   await page.locator('#email').fill('sample@example.com');
   await page.locator('#offer').fill('Leadership coaching for senior managers');

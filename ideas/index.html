@@ -81,20 +81,20 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:#96969c;font-size:1
 </div></div></div></section>
 <section class="request" id="request"><div class="wrap request-inner"><div><div class="eyebrow">Free Proof-of-Voice Sample</div><h2>Show us what you know. See how we would write it for buyers.</h2><p>Tell us your offer, share public content and, if possible, name one question buyers ask before saying yes. We review requests for fit. Suitable businesses receive one complete written post plus two content angles.</p>
 <ul class="checklist"><li>One complete draft post in your voice</li><li>Two buyer-relevant angles</li><li>A specific recommendation for what to post next</li><li>No discovery call or monthly contract required to request it</li></ul><p class="subtle" style="color:#333">Only share material you have permission to use. Don't include private client recordings, confidential data or client names without permission.</p></div>
-<form class="form" id="ideasForm" action="https://formsubmit.co/hello@cuttavo.studio" method="POST" accept-charset="UTF-8">
+<form class="form" id="ideasForm" action="mailto:hello@cuttavo.studio" method="post" enctype="text/plain" data-intake-mode="email-fallback" accept-charset="UTF-8">
 <input type="hidden" name="_subject" value="New Cuttavo Proof-of-Voice Sample Request">
 <input type="hidden" name="_template" value="table">
 <input type="hidden" name="_url" value="https://cuttavo.studio/ideas/">
 <div class="trap" aria-hidden="true"><label for="form-honey">Leave this blank</label><input type="text" id="form-honey" name="_honey" autocomplete="off" tabindex="-1"></div>
-<h3>Request My Free Sample Post</h3><p>Tell us enough to create a relevant draft. Form submissions are processed by FormSubmit and forwarded to our team after we activate the recipient address. Free samples are subject to fit and capacity.</p>
+<h3>Request My Free Sample Post</h3><p>Tell us enough to create a relevant draft. While direct online submissions are being verified, the main action opens an email you can send immediately. Free samples are subject to fit and capacity.</p>
 <label for="name">Your name *</label><input id="name" name="name" type="text" autocomplete="name" maxlength="100" required placeholder="Jane Smith">
 <label for="email">Work email *</label><input id="email" name="email" type="email" autocomplete="email" maxlength="150" required placeholder="jane@yourbusiness.com">
 <label for="url">Public post, podcast or website link (recommended)</label><input id="url" name="url" type="url" maxlength="450" aria-describedby="sourceHelp" placeholder="https://yourwebsite.com"><p class="field-help" id="sourceHelp">To write in your voice, we need examples of how you actually communicate. Without them, we may request more material before preparing a sample.</p>
 <label for="offer">What do you help clients achieve? *</label><textarea id="offer" name="offer" maxlength="400" rows="3" required placeholder="I help founders build better leadership teams..."></textarea>
 <label for="buyerQuestion">What do prospects ask before hiring you? (optional)</label><input id="buyerQuestion" name="buyer_question" type="text" maxlength="250" placeholder="For example: How is this different from consulting?">
 <label class="agree"><input type="checkbox" id="consent" name="consent_to_contact" value="yes" required> I agree to be contacted about this request and understand that my submission is processed by FormSubmit as described in the <a href="/privacy/">Privacy Policy</a>.</label>
-<button class="btn" type="submit" id="sendRequest">Submit My Free Sample Request ↗</button><button class="btn copy" type="button" id="copyRequest">Copy Request Instead <span aria-hidden="true">↗</span></button>
-<p class="hint">This form uses <a href="https://formsubmit.co/" target="_blank" rel="noopener noreferrer">FormSubmit</a>, which requires verification of our receiving mailbox. Until activation and a real inbox receipt test are confirmed, you can also email <a href="mailto:hello@cuttavo.studio">hello@cuttavo.studio</a> directly. We review requests for fit and capacity. We do not promise a sample to every applicant.</p>
+<button class="btn" type="submit" id="sendRequest">Prepare My Email Request ↗</button><button class="btn copy" type="button" id="copyRequest">Copy Request Instead <span aria-hidden="true">↗</span></button>
+<p class="hint">Direct website delivery is undergoing verification. For now, selecting <strong>Prepare My Email Request</strong> opens an email draft. You must press <strong>Send</strong> in your email app; the website does not send it on your behalf. Alternatively use Copy Request or write to <a href="mailto:hello@cuttavo.studio">hello@cuttavo.studio</a>. Free samples are subject to suitability and capacity.</p>
 <div id="manualCopy" hidden><label for="manualBody">Copy these details into your email</label><textarea id="manualBody" rows="7" readonly></textarea></div>
 <p id="status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
 <p class="call">Prefer a conversation? <a href="mailto:hello@cuttavo.studio?subject=Buyer-Ready%20Content%20Fit%20Call">Email us to arrange a fit call ↗</a></p>
@@ -143,6 +143,12 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:#96969c;font-size:1
   form.addEventListener('submit',function(event){
     event.preventDefault();
     if(!form.reportValidity()||send.disabled)return;
+    if(form.getAttribute('data-intake-mode')!=='provider'){
+      var draft=compose();
+      tell('Your email draft is prepared, but NOT yet sent. Press Send in your email app to complete your request. You can also copy the request below.','progress');
+      window.location.href='mailto:hello@cuttavo.studio?subject='+encodeURIComponent(draft.subject)+'&body='+encodeURIComponent(draft.body);
+      return;
+    }
     // Bot trap: do not send filled honeypot fields.
     if(value('form-honey'))return;
     if(!window.fetch){

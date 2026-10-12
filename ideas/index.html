@@ -5,9 +5,14 @@
 <title>Free Proof-of-Voice Sample Post — Cuttavo</title>
 <meta name="description" content="See a free sample post written from your expertise before you hire a content agency. Coaches and consultants can request a finished draft plus two tailored buyer-content angles.">
 <link rel="canonical" href="https://cuttavo.studio/ideas/">
+<meta property="og:image" content="https://cuttavo.studio/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Cuttavo: Your best answers become buyer-ready content for coaches and consultants">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="theme-color" content="#0B0B0C">
-<meta name="twitter:card" content="summary">
+
 <meta property="og:site_name" content="Cuttavo">
 <meta property="og:title" content="Cuttavo — Free Buyer-Ready Sample Post">
 <meta property="og:description" content="For suitable established coaches and consultants: one finished draft post in your voice and two buyer-question angles. No call required to request.">
@@ -43,6 +48,15 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:#96969c;font-size:1
 #manualBody{width:100%;resize:vertical;min-height:124px}
 .form a[href^="mailto:"]{text-decoration:underline}
 #request{scroll-margin-top:80px}
+
+/* Live form processor, fallbacks, privacy-conscious progressive enhancement */
+.trap{position:absolute!important;left:-10000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important}
+#sendRequest[disabled]{opacity:.66;cursor:progress}
+.form .status{line-height:1.6;white-space:normal}
+.form .status[data-state="error"]{color:#802719}
+.form .status[data-state="success"]{color:#235c19}
+.form .status[data-state="progress"]{color:#303030}
+.form .hint a{text-decoration:underline;text-underline-offset:2px}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Cuttavo Content Engine","provider":{"@type":"Organization","name":"Cuttavo","url":"https://cuttavo.studio/"},"serviceType":"Done-for-you content production for coaches and consultants"}</script>
 </head>
@@ -67,18 +81,22 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:#96969c;font-size:1
 </div></div></div></section>
 <section class="request" id="request"><div class="wrap request-inner"><div><div class="eyebrow">Free Proof-of-Voice Sample</div><h2>Show us what you know. See how we would write it for buyers.</h2><p>Tell us your offer, share public content and, if possible, name one question buyers ask before saying yes. We review requests for fit. Suitable businesses receive one complete written post plus two content angles.</p>
 <ul class="checklist"><li>One complete draft post in your voice</li><li>Two buyer-relevant angles</li><li>A specific recommendation for what to post next</li><li>No discovery call or monthly contract required to request it</li></ul><p class="subtle" style="color:#333">Only share material you have permission to use. Don't include private client recordings, confidential data or client names without permission.</p></div>
-<form class="form" id="ideasForm" action="mailto:hello@cuttavo.studio" method="post" enctype="text/plain">
-<h3>Request My Free Sample Post</h3><p>Tell us enough to create a relevant draft. Requests are reviewed for fit and capacity; a request is not a guarantee of delivery.</p>
+<form class="form" id="ideasForm" action="https://formsubmit.co/hello@cuttavo.studio" method="POST" accept-charset="UTF-8">
+<input type="hidden" name="_subject" value="New Cuttavo Proof-of-Voice Sample Request">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_url" value="https://cuttavo.studio/ideas/">
+<div class="trap" aria-hidden="true"><label for="form-honey">Leave this blank</label><input type="text" id="form-honey" name="_honey" autocomplete="off" tabindex="-1"></div>
+<h3>Request My Free Sample Post</h3><p>Tell us enough to create a relevant draft. Form submissions are processed by FormSubmit and forwarded to our team after we activate the recipient address. Free samples are subject to fit and capacity.</p>
 <label for="name">Your name *</label><input id="name" name="name" type="text" autocomplete="name" maxlength="100" required placeholder="Jane Smith">
 <label for="email">Work email *</label><input id="email" name="email" type="email" autocomplete="email" maxlength="150" required placeholder="jane@yourbusiness.com">
 <label for="url">Public post, podcast or website link (recommended)</label><input id="url" name="url" type="url" maxlength="450" aria-describedby="sourceHelp" placeholder="https://yourwebsite.com"><p class="field-help" id="sourceHelp">To write in your voice, we need examples of how you actually communicate. Without them, we may request more material before preparing a sample.</p>
 <label for="offer">What do you help clients achieve? *</label><textarea id="offer" name="offer" maxlength="400" rows="3" required placeholder="I help founders build better leadership teams..."></textarea>
 <label for="buyerQuestion">What do prospects ask before hiring you? (optional)</label><input id="buyerQuestion" name="buyer_question" type="text" maxlength="250" placeholder="For example: How is this different from consulting?">
-<label class="agree"><input type="checkbox" required> I consent to being contacted about my request and have read the <a href="/privacy/">Privacy Policy</a>.</label>
-<button class="btn" type="submit">Open My Request in Email ↗</button><button class="btn copy" type="button" id="copyRequest">Copy Request Instead <span aria-hidden="true">↗</span></button>
-<p class="hint">Your details are <strong>not submitted by this website</strong>. Send the drafted email yourself, or copy the request and email it to <a href="mailto:hello@cuttavo.studio">hello@cuttavo.studio</a>. We review requests for fit and capacity.</p>
+<label class="agree"><input type="checkbox" id="consent" name="consent_to_contact" value="yes" required> I agree to be contacted about this request and understand that my submission is processed by FormSubmit as described in the <a href="/privacy/">Privacy Policy</a>.</label>
+<button class="btn" type="submit" id="sendRequest">Submit My Free Sample Request ↗</button><button class="btn copy" type="button" id="copyRequest">Copy Request Instead <span aria-hidden="true">↗</span></button>
+<p class="hint">This form uses <a href="https://formsubmit.co/" target="_blank" rel="noopener noreferrer">FormSubmit</a>, which requires verification of our receiving mailbox. Until activation and a real inbox receipt test are confirmed, you can also email <a href="mailto:hello@cuttavo.studio">hello@cuttavo.studio</a> directly. We review requests for fit and capacity. We do not promise a sample to every applicant.</p>
 <div id="manualCopy" hidden><label for="manualBody">Copy these details into your email</label><textarea id="manualBody" rows="7" readonly></textarea></div>
-<p id="status" class="status" role="status" aria-live="polite"></p>
+<p id="status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
 <p class="call">Prefer a conversation? <a href="mailto:hello@cuttavo.studio?subject=Buyer-Ready%20Content%20Fit%20Call">Email us to arrange a fit call ↗</a></p>
 </form></div></section>
 <section class="end"><div class="wrap"><div class="eyebrow">No monthly retainer required to try us</div><h2>Like the sample? Try a small paid Sprint.</h2><p>Our one-off Buyer-Ready Content Sprint includes two written posts, a carousel slide script, short-video script, buyer follow-up email and buyer-question map from your approved expertise, under an agreed written scope.</p><p>Free sample → optional paid Sprint → monthly Buyer-Ready Content Engine. <a href="/#offers">See the exact offer ↗</a></p></div></section>
@@ -86,49 +104,94 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:#96969c;font-size:1
 <footer><div class="wrap"><span>© 2026 Cuttavo. Done-for-you content for coaches & consultants.</span><span><a href="/privacy/">Privacy</a> · <a href="mailto:hello@cuttavo.studio">Email</a> · <a href="/">Home</a></span></div></footer>
 <script>
 (function(){
+  'use strict';
   var form=document.getElementById('ideasForm');
   var status=document.getElementById('status');
   var copy=document.getElementById('copyRequest');
-  function message(){
-    var name=document.getElementById('name').value.trim();
-    var email=document.getElementById('email').value.trim();
-    var link=document.getElementById('url').value.trim();
-    var offer=document.getElementById('offer').value.trim();
-    var question=document.getElementById('buyerQuestion').value.trim();
-    var params=new URLSearchParams(location.search);
-    var campaign=['utm_source','utm_medium','utm_campaign','utm_content']
-      .filter(function(k){return params.has(k)})
-      .map(function(k){return k+': '+params.get(k).slice(0,80)}).join(' | ');
-    var subject='Cuttavo Free Sample Post — '+name;
-    var fields=['Hello Cuttavo,','','I would like to request a free Proof-of-Voice Sample Post.','','Name: '+name,'Work email: '+email,'Public content or website: '+(link||'Not provided'),'What I help clients achieve: '+offer,'A prospect question: '+(question||'Not provided')];
-    if(campaign)fields.push('Campaign: '+campaign);
-    fields.push('','I understand requests are subject to eligibility and capacity.','Thank you.');
-    return {subject:subject,body:fields.join('\n')};
+  var send=document.getElementById('sendRequest');
+  if(!form||!status||!send||!copy)return;
+  var endpoint='https://formsubmit.co/ajax/hello@cuttavo.studio';
+  function value(id){return document.getElementById(id).value.trim();}
+  function data(){
+    var utms=new URLSearchParams(location.search),tracking={};
+    ['utm_source','utm_medium','utm_campaign','utm_content'].forEach(function(key){
+      if(utms.has(key))tracking[key]=utms.get(key).slice(0,100);
+    });
+    return {
+      name:value('name'),
+      email:value('email'),
+      public_content_url:value('url'),
+      client_outcome:value('offer'),
+      buyer_question:value('buyerQuestion'),
+      consent_to_contact:'yes',
+      source_page:'https://cuttavo.studio/ideas/',
+      _subject:'New Cuttavo Proof-of-Voice Sample Request',
+      _template:'table',
+      _url:'https://cuttavo.studio/ideas/',
+      _honey:value('form-honey'),
+      ...tracking
+    };
   }
+  function compose(){
+    var request=data();
+    var fields=['Hello Cuttavo,','','I would like a free Proof-of-Voice Sample Post.','','Name: '+request.name,'Email: '+request.email,'Public content: '+(request.public_content_url||'Not supplied'),'Client outcome: '+request.client_outcome,'Buyer question: '+(request.buyer_question||'Not supplied')];
+    ['utm_source','utm_medium','utm_campaign','utm_content'].forEach(function(key){if(request[key])fields.push(key+': '+request[key]);});
+    fields.push('','I understand that samples depend on business fit and capacity.','Thank you.');
+    return {subject:request._subject,body:fields.join('\n')};
+  }
+  function tell(msg,state){status.textContent=msg;status.setAttribute('data-state',state||'');}
   form.addEventListener('submit',function(event){
     event.preventDefault();
-    if(!form.reportValidity())return;
-    var draft=message();
-    status.textContent='Email draft prepared. Your request has NOT been submitted yet. Please press Send in your email app.';
-    var href='mailto:hello@cuttavo.studio?subject='+encodeURIComponent(draft.subject)+'&body='+encodeURIComponent(draft.body);
-    window.location.href=href;
+    if(!form.reportValidity()||send.disabled)return;
+    // Bot trap: do not send filled honeypot fields.
+    if(value('form-honey'))return;
+    if(!window.fetch){
+      tell('Your browser cannot use the on-page form. Please use Copy Request Instead or email us directly.','error');
+      return;
+    }
+    var request=data();
+    var controller=typeof AbortController!=='undefined'?new AbortController():null;
+    send.disabled=true;
+    send.textContent='Submitting request…';
+    tell('Sending your request securely to our form-processing provider…','progress');
+    var timer=controller?setTimeout(function(){controller.abort();},15000):null;
+    var options={method:'POST',mode:'cors',credentials:'omit',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(request)};
+    if(controller)options.signal=controller.signal;
+    fetch(endpoint,options).then(function(res){
+      if(!res.ok)throw new Error('Form service HTTP '+res.status);
+      return res.json();
+    }).then(function(result){
+      // The provider may accept a request before the inbox owner activates mail forwarding.
+      if(result&&String(result.success).toLowerCase()==='true'){
+        form.reset();
+        tell('The form service accepted your request. Our team can receive it after mailbox activation is complete. If you need immediate confirmation, email hello@cuttavo.studio directly.','success');
+      }else{
+        throw new Error('Form service could not confirm acceptance.');
+      }
+    }).catch(function(){
+      tell('We could not confirm online submission. Nothing has been confirmed delivered. Use Copy Request Instead or email hello@cuttavo.studio directly.','error');
+    }).finally(function(){
+      if(timer)clearTimeout(timer);
+      send.disabled=false;
+      send.textContent='Submit My Free Sample Request ↗';
+    });
   });
   copy.addEventListener('click',function(){
     if(!form.reportValidity())return;
-    var draft=message();
-    var text='To: hello@cuttavo.studio\nSubject: '+draft.subject+'\n\n'+draft.body;
-    function manual(){
-      var panel=document.getElementById('manualCopy');
-      var field=document.getElementById('manualBody');
-      field.value=text;panel.hidden=false;field.focus();field.select();
-      status.textContent='Copy the selected request, paste it into an email to hello@cuttavo.studio, and send it yourself.';
+    var draft=compose();
+    var message='To: hello@cuttavo.studio\nSubject: '+draft.subject+'\n\n'+draft.body;
+    function fallback(){
+      var panel=document.getElementById('manualCopy'),field=document.getElementById('manualBody');
+      field.value=message;
+      panel.hidden=false;field.focus();field.select();
+      tell('Copy the selected text and send it by email to hello@cuttavo.studio. This does not submit the form.','progress');
     }
     if(navigator.clipboard&&navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(function(){
+      navigator.clipboard.writeText(message).then(function(){
         document.getElementById('manualCopy').hidden=true;
-        status.textContent='Request copied. Paste it into an email to hello@cuttavo.studio and press Send; nothing has been submitted yet.';
-      }).catch(manual);
-    }else manual();
+        tell('Request copied. Paste it into an email to hello@cuttavo.studio and press Send. Nothing was submitted yet.','success');
+      }).catch(fallback);
+    }else fallback();
   });
 })();
 </script>

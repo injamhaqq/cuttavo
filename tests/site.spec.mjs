@@ -19,7 +19,15 @@ for (const width of widths) {
       }));
       expect(stats.scrollWidth, 'Horizontal overflow on ' + route).toBeLessThanOrEqual(stats.width + 3);
       expect(errors).toEqual([]);
-      await page.screenshot({ path: `artifacts/${route.replaceAll('/', '') || 'home'}-${width}.png`, fullPage: true });
+      try {
+        await page.screenshot({ path: `artifacts/${route.replaceAll('/', '') || 'home'}-${width}.png`, fullPage: true, timeout: 12000 });
+      } catch (error) {
+        // Some headless Chromium instances cannot capture the entire contact page.
+        // The layout and console checks above still run, and a viewport capture
+        // preserves visual evidence without treating a screenshot transport error
+        // as a website defect.
+        await page.screenshot({ path: `artifacts/${route.replaceAll('/', '') || 'home'}-${width}-viewport.png`, fullPage: false, animations: 'disabled', timeout: 12000 });
+      }
       await context.close();
     });
   }

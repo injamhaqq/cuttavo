@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 const widths = [375, 768, 1440];
-const pages = ['/', '/ideas/', '/privacy/'];
+const pages = ['/', '/ideas/', '/privacy/', '/contact/', '/404.html'];
 
 for (const width of widths) {
   for (const route of pages) {
@@ -111,4 +111,49 @@ test('lead page explains actual email submission and reaches a form without fals
   await expect(page.locator('#offer')).toBeVisible();
   const notice=await page.locator('#ideasForm .hint').textContent();
   expect(notice).toMatch(/email|send/i);
+});
+
+test('contact page has direct founder-led contact, scoped offer, and privacy link', async ({ page }) => {
+  await page.goto('http://127.0.0.1:8000/contact/');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Talk to a');
+  await expect(page.locator('a[href="mailto:hello@cuttavo.studio"]')).toBeVisible();
+  await expect(page.getByRole('link', { name: /Request a free sample/i })).toBeVisible();
+  await expect(page.getByRole('link', { name: /Ask about the Sprint/i })).toBeVisible();
+  await expect(page.locator('main')).toContainText('Injam Haq');
+  await expect(page.locator('footer a[href="/privacy/"]')).toBeVisible();
+});
+
+test('404 page offers safe recovery and is noindexed', async ({ page }) => {
+  await page.goto('http://127.0.0.1:8000/404.html');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText("That page isn't here");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex,follow');
+  await expect(page.getByRole('link', { name: /Go to homepage/i })).toHaveAttribute('href','/');
+  await expect(page.getByRole('link', { name: /Contact Cuttavo/i })).toHaveAttribute('href','/contact/');
+});
+
+test('visible forms, buttons, images and document landmark have accessible essentials', async ({ browser }) => {
+  for (const route of ['/', '/ideas/', '/contact/', '/privacy/', '/404.html']) {
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 840 } });
+    const page = await ctx.newPage();
+    await page.goto('http://127.0.0.1:8000'+route);
+    const issues = await page.evaluate(() => {
+      const out=[];
+      if (!document.querySelector('main')) out.push('missing main landmark');
+      if (document.querySelectorAll('h1').length !== 1) out.push('expected one h1');
+      for (const img of document.querySelectorAll('img')) if(!img.hasAttribute('alt')) out.push('image missing alt');
+      for (const button of document.querySelectorAll('button')) {
+        if (!button.textContent?.trim() && !button.getAttribute('aria-label')) out.push('unlabeled button');
+      }
+      for (const field of document.querySelectorAll('input:not([type="hidden"]):not([type="checkbox"]),textarea,select')) {
+        if (field.closest('[aria-hidden="true"]')) continue;
+        const id=field.getAttribute('id');
+        const described=id ? document.querySelector('label[for="'+id+'"]') : null;
+        const wrapped=field.closest('label');
+        if(!described && !wrapped && !field.getAttribute('aria-label'))out.push('unlabeled field');
+      }
+      return out;
+    });
+    expect(issues, route).toEqual([]);
+    await ctx.close();
+  }
 });

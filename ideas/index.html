@@ -151,7 +151,7 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:#96969c;font-size:1
   }
   function compose(){
     var request=data();
-    var fields=['Hello Cuttavo,','','I would like a free Proof-of-Voice Sample Post.','','Name: '+request.name,'Email: '+request.email,'Public content: '+(request.public_content_url||'Not supplied'),'Client outcome: '+request.client_outcome,'Buyer question: '+(request.buyer_question||'Not supplied')];
+    var fields=['Hello Cuttavo,','','I would like a free Proof-of-Voice Sample Post.','','Name: '+request.name,'Email: '+request.email,'Public content: '+(request.public_content_url||'Not supplied'),'Client outcome: '+request.client_outcome,'Buyer question: '+(request.buyer_question||'Not supplied'),'Consent to contact: '+(request.consent_to_contact||'not given')];
     ['utm_source','utm_medium','utm_campaign','utm_content'].forEach(function(key){if(request[key])fields.push(key+': '+request[key]);});
     fields.push('','I understand that samples depend on business fit and capacity.','Thank you.');
     return {subject:request._subject,body:fields.join('\n')};
@@ -160,14 +160,17 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:#96969c;font-size:1
   form.addEventListener('submit',function(event){
     event.preventDefault();
     if(!form.reportValidity()||send.disabled)return;
+    // Bot trap: checked before any branch can return, so it applies in every intake mode.
+    if(value('form-honey'))return;
     if(form.getAttribute('data-intake-mode')!=='provider'){
       var draft=compose();
-      tell('Your email draft is prepared, but NOT yet sent. Press Send in your email app to complete your request. You can also copy the request below.','progress');
+      var panel=document.getElementById('manualCopy'),field=document.getElementById('manualBody');
+      var message='To: hello@cuttavo.studio\nSubject: '+draft.subject+'\n\n'+draft.body;
+      if(panel&&field){field.value=message;panel.hidden=false;}
+      tell('Your email draft is prepared, but NOT yet sent. Copy it from the box below, or press Send in your email app, to complete your request.','progress');
       window.location.href='mailto:hello@cuttavo.studio?subject='+encodeURIComponent(draft.subject)+'&body='+encodeURIComponent(draft.body);
       return;
     }
-    // Bot trap: do not send filled honeypot fields.
-    if(value('form-honey'))return;
     if(!window.fetch){
       tell('Your browser cannot use the on-page form. Please use Copy Request Instead or email us directly.','error');
       return;

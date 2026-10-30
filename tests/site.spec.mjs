@@ -88,7 +88,7 @@ test('lead form keeps its anti-spam and consent contract', async ({ page }) => {
   // Consent must be an explicit, required opt-in carrying the consent field name.
   const consent = page.locator('#consent');
   await expect(consent).toHaveCount(1);
-  await expect(consent).toBeRequired();
+  expect(await consent.evaluate(el => el.required), 'consent must be a required opt-in').toBe(true);
   await expect(consent).toHaveAttribute('name', 'consent_to_contact');
   // A manual copy path must exist so the form is still usable without a mail client.
   await expect(page.locator('#manualCopy')).toHaveCount(1);

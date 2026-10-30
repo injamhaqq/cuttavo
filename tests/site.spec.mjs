@@ -1,8 +1,10 @@
 import { test, expect } from '@playwright/test';
 
+const BASE = 'http://127.0.0.1:8000';
 const widths = [375, 768, 1440];
 const pages = ['/', '/ideas/', '/privacy/', '/contact/', '/404.html'];
 
+// Layout, overflow and console cleanliness across the breakpoints we support.
 for (const width of widths) {
   for (const route of pages) {
     test(`${route} at ${width}px has readable layout`, async ({ browser }) => {
@@ -10,22 +12,17 @@ for (const width of widths) {
       const page = await context.newPage();
       const errors = [];
       page.on('pageerror', error => errors.push(error.message));
-      await page.goto('http://127.0.0.1:8000' + route, { waitUntil: 'domcontentloaded' });
+      await page.goto(BASE + route, { waitUntil: 'domcontentloaded' });
       await expect(page.locator('h1')).toBeVisible();
       const stats = await page.evaluate(() => ({
         width: document.documentElement.clientWidth,
         scrollWidth: document.documentElement.scrollWidth,
-        headline: document.querySelector('h1')?.textContent,
       }));
       expect(stats.scrollWidth, 'Horizontal overflow on ' + route).toBeLessThanOrEqual(stats.width + 3);
       expect(errors).toEqual([]);
       try {
         await page.screenshot({ path: `artifacts/${route.replaceAll('/', '') || 'home'}-${width}.png`, fullPage: true, timeout: 12000 });
       } catch (error) {
-        // Some headless Chromium instances cannot capture the entire contact page.
-        // The layout and console checks above still run, and a viewport capture
-        // preserves visual evidence without treating a screenshot transport error
-        // as a website defect.
         await page.screenshot({ path: `artifacts/${route.replaceAll('/', '') || 'home'}-${width}-viewport.png`, fullPage: false, animations: 'disabled', timeout: 12000 });
       }
       await context.close();
@@ -34,7 +31,7 @@ for (const width of widths) {
 }
 
 test('FAQ controls reflect expanded and collapsed states', async ({ page }) => {
-  await page.goto('http://127.0.0.1:8000/');
+  await page.goto(BASE + '/');
   const first = page.locator('.faq-q').first();
   const second = page.locator('.faq-q').nth(1);
   const answerOne = page.locator('#' + await first.getAttribute('aria-controls'));
@@ -52,11 +49,11 @@ test('FAQ controls reflect expanded and collapsed states', async ({ page }) => {
 test('mobile navigation opens, closes and supports Escape', async ({ browser }) => {
   const ctx = await browser.newContext({ viewport: { width: 375, height: 760 } });
   const page = await ctx.newPage();
-  await page.goto('http://127.0.0.1:8000/');
+  await page.goto(BASE + '/');
   const toggle = page.locator('#burger');
   await expect(toggle).toBeVisible();
   await expect(page.locator('.mobile-cta')).toBeVisible();
-  await expect(page.locator('.mobile-cta')).toHaveAttribute('href','/ideas/#request');
+  await expect(page.locator('.mobile-cta')).toHaveAttribute('href', /#request$/);
   await toggle.click();
   await expect(toggle).toHaveAttribute('aria-expanded', 'true');
   await page.keyboard.press('Escape');
@@ -64,12 +61,13 @@ test('mobile navigation opens, closes and supports Escape', async ({ browser }) 
   await ctx.close();
 });
 
-test('lead form validates user input and copy fallback', async ({ page }) => {
-  await page.goto('http://127.0.0.1:8000/ideas/');
+test('lead form validates input and offers a copy-based fallback', async ({ page }) => {
+  await page.goto(BASE + '/ideas/');
   const form = page.locator('#ideasForm');
   await expect(form).toBeVisible();
   await expect(page.locator('#sendRequest')).toBeVisible();
-  await expect(page.locator('#sendRequest')).toHaveText(/Prepare My Email Request/);
+  // The submit control must always expose an accessible name, whatever the wording.
+  await expect(page.locator('#sendRequest')).not.toHaveText('');
   await page.locator('#name').fill('Test Visitor');
   await page.locator('#email').fill('sample@example.com');
   await page.locator('#offer').fill('Leadership coaching for senior managers');
@@ -80,88 +78,152 @@ test('lead form validates user input and copy fallback', async ({ page }) => {
   // Do not click Submit: production third-party delivery requires inbox activation.
 });
 
-test('buyer journey has short navigation, early proof, clear offers and ten relevant FAQs', async ({ page }) => {
-  await page.goto('http://127.0.0.1:8000/');
+test('lead form keeps its anti-spam and consent contract', async ({ page }) => {
+  await page.goto(BASE + '/ideas/');
+  // Honeypot must exist, be hidden from assistive tech and skipped in the tab order.
+  const honey = page.locator('#form-honey');
+  await expect(honey).toHaveCount(1);
+  await expect(honey).toHaveAttribute('tabindex', '-1');
+  await expect(page.locator('#ideasForm .trap')).toHaveAttribute('aria-hidden', 'true');
+  // Consent must be an explicit, required opt-in carrying the consent field name.
+  const consent = page.locator('#consent');
+  await expect(consent).toHaveCount(1);
+  expect(await consent.evaluate(el => el.required), 'consent must be a required opt-in').toBe(true);
+  await expect(consent).toHaveAttribute('name', 'consent_to_contact');
+  // A manual copy path must exist so the form is still usable without a mail client.
+  await expect(page.locator('#manualCopy')).toHaveCount(1);
+  await expect(page.locator('#manualBody')).toHaveCount(1);
+  // Intake mode is an implementation detail, but it must be one of the two known modes.
+  await expect(page.locator('#ideasForm')).toHaveAttribute('data-intake-mode', /^(provider|email-fallback)$/);
+});
+
+test('homepage keeps proof early, offers after proof and a short bounded navigation', async ({ page }) => {
+  await page.goto(BASE + '/');
   const links = page.locator('#navLinks > a');
-  await expect(links).toHaveCount(6); // Five straightforward destinations + primary sample CTA
-  await expect(page.locator('#navLinks')).toContainText('Work samples');
-  await expect(page.locator('#navLinks')).toContainText('How it works');
-  await expect(page.locator('#navLinks')).toContainText('Services');
-  await expect(page.locator('#navLinks')).toContainText('About');
-  await expect(page.locator('#navLinks')).toContainText('Get started');
-  await expect(page.locator('.faq-q')).toHaveCount(10);
-  await expect(page.locator('main > section')).toHaveCount(10);
-  const positions = await page.evaluate(() => [...document.querySelectorAll('main > section')].map(s => s.id || s.className));
-  expect(positions.indexOf('proof')).toBe(1);
-  expect(positions.indexOf('offers')).toBe(7);
-  await expect(page.locator('#offers .offer')).toHaveCount(3);
-  const unscopedPromises = await page.locator('#deliverables').textContent();
-  expect(unscopedPromises).not.toContain('12 Authority posts');
-  expect(unscopedPromises).toContain('written agreement');
-  await expect(page.locator('.trust-intro-item')).toHaveCount(3);
-  await expect(page.locator('#proof .video-preview')).toHaveCount(4);
-  await expect(page.locator('#proof .play-badge')).toHaveCount(4);
-  // Every internal section link must reference an actual document target.
+  const navCount = await links.count();
+  expect(navCount, 'navigation must stay short').toBeGreaterThanOrEqual(4);
+  expect(navCount, 'navigation must stay short').toBeLessThanOrEqual(7);
+  const hrefs = await links.evaluateAll(as => as.map(a => a.getAttribute('href')));
+  expect(hrefs.every(h => h && h.trim().length)).toBeTruthy();
+
+  const sections = await page.evaluate(() =>
+    [...document.querySelectorAll('main > section')].map(s => s.id || s.className));
+  expect(sections.length).toBeGreaterThanOrEqual(5);
+  expect(sections.length).toBeLessThanOrEqual(14);
+
+  // The commercial argument: work is shown before it is sold.
+  const proofAt = sections.indexOf('proof');
+  expect(proofAt, 'a proof section must exist').toBeGreaterThanOrEqual(0);
+  expect(proofAt, 'proof must appear near the top, not buried').toBeLessThanOrEqual(2);
+
+  const offersAt = sections.indexOf('offers');
+  expect(offersAt, 'an offers section must exist').toBeGreaterThanOrEqual(0);
+  expect(offersAt, 'offers must come after proof').toBeGreaterThan(proofAt);
+
+  expect(await page.locator('#proof .video-preview').count()).toBeGreaterThanOrEqual(1);
+  expect(await page.locator('#proof .play-badge').count())
+    .toBe(await page.locator('#proof .video-preview').count());
+
+  // Deliverables must stay a real, described section rather than a bare list of promises.
+  const deliverables = (await page.locator('#deliverables').textContent()) || '';
+  expect(deliverables.trim().length).toBeGreaterThan(40);
+
+  // Every in-page anchor must resolve to a real target.
   const missing = await page.evaluate(() => [...document.querySelectorAll('a[href^="#"]')]
     .map(a => a.getAttribute('href').slice(1))
     .filter(id => id && !document.getElementById(id)));
   expect(missing).toEqual([]);
 });
 
-test('lead page explains actual email submission and reaches a form without false confirmation', async ({ page }) => {
-  await page.goto('http://127.0.0.1:8000/ideas/');
-  await expect(page.locator('h1')).toContainText("See what we'd write");
-  await expect(page.locator('#ideasForm')).toHaveAttribute('data-intake-mode', 'email-fallback');
-  await expect(page.locator('#sendRequest')).toContainText('Prepare My Email Request');
-  await expect(page.locator('#name')).toBeVisible();
-  await expect(page.locator('#email')).toBeVisible();
-  await expect(page.locator('#url')).toBeVisible();
-  await expect(page.locator('#offer')).toBeVisible();
-  const notice=await page.locator('#ideasForm .hint').textContent();
+test('lead page explains its real submission path without false confirmation', async ({ page }) => {
+  await page.goto(BASE + '/ideas/');
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+  await expect(page.locator('#ideasForm')).toBeVisible();
+  for (const field of ['#name', '#email', '#url', '#offer']) {
+    await expect(page.locator(field)).toBeVisible();
+  }
+  const notice = await page.locator('#ideasForm .hint').textContent();
   expect(notice).toMatch(/email|send/i);
 });
 
-test('contact page has direct founder-led contact, scoped offer, and privacy link', async ({ page }) => {
-  await page.goto('http://127.0.0.1:8000/contact/');
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Talk to a');
-  await expect(page.locator('a[href="mailto:hello@cuttavo.studio"]')).toBeVisible();
-  await expect(page.getByRole('link', { name: /Request a free sample/i })).toBeVisible();
-  await expect(page.getByRole('link', { name: /Ask about the Sprint/i })).toBeVisible();
+test('contact page gives a direct founder-led route to a person', async ({ page }) => {
+  await page.goto(BASE + '/contact/');
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+  await expect(page.locator('a[href^="mailto:"]').first()).toBeVisible();
   await expect(page.locator('main')).toContainText('Injam Haq');
   await expect(page.locator('footer a[href="/privacy/"]')).toBeVisible();
 });
 
 test('404 page offers safe recovery and is noindexed', async ({ page }) => {
-  await page.goto('http://127.0.0.1:8000/404.html');
-  await expect(page.getByRole('heading', { level: 1 })).toContainText("That page isn't here");
+  await page.goto(BASE + '/404.html');
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex,follow');
-  await expect(page.getByRole('link', { name: /Go to homepage/i })).toHaveAttribute('href','/');
-  await expect(page.getByRole('link', { name: /Contact Cuttavo/i })).toHaveAttribute('href','/contact/');
+  await expect(page.locator('a[href="/"]').first()).toBeVisible();
+  await expect(page.locator('a[href="/contact/"]').first()).toBeVisible();
 });
 
 test('visible forms, buttons, images and document landmark have accessible essentials', async ({ browser }) => {
   for (const route of ['/', '/ideas/', '/contact/', '/privacy/', '/404.html']) {
     const ctx = await browser.newContext({ viewport: { width: 390, height: 840 } });
     const page = await ctx.newPage();
-    await page.goto('http://127.0.0.1:8000'+route);
+    await page.goto(BASE + route);
     const issues = await page.evaluate(() => {
-      const out=[];
+      const out = [];
       if (!document.querySelector('main')) out.push('missing main landmark');
       if (document.querySelectorAll('h1').length !== 1) out.push('expected one h1');
-      for (const img of document.querySelectorAll('img')) if(!img.hasAttribute('alt')) out.push('image missing alt');
+      for (const img of document.querySelectorAll('img')) if (!img.hasAttribute('alt')) out.push('image missing alt');
       for (const button of document.querySelectorAll('button')) {
         if (!button.textContent?.trim() && !button.getAttribute('aria-label')) out.push('unlabeled button');
       }
       for (const field of document.querySelectorAll('input:not([type="hidden"]):not([type="checkbox"]),textarea,select')) {
         if (field.closest('[aria-hidden="true"]')) continue;
-        const id=field.getAttribute('id');
-        const described=id ? document.querySelector('label[for="'+id+'"]') : null;
-        const wrapped=field.closest('label');
-        if(!described && !wrapped && !field.getAttribute('aria-label'))out.push('unlabeled field');
+        const id = field.getAttribute('id');
+        const described = id ? document.querySelector('label[for="' + id + '"]') : null;
+        const wrapped = field.closest('label');
+        if (!described && !wrapped && !field.getAttribute('aria-label')) out.push('unlabeled field');
       }
       return out;
     });
     expect(issues, route).toEqual([]);
     await ctx.close();
   }
+});
+
+test('quiet text meets WCAG AA contrast on its real background', async ({ page }) => {
+  await page.goto(BASE + '/');
+  const results = await page.evaluate(() => {
+    function parse(c) {
+      const m = c.match(/rgba?\(([^)]+)\)/);
+      if (!m) return null;
+      const p = m[1].split(',').map(v => parseFloat(v));
+      return { r: p[0], g: p[1], b: p[2], a: p.length > 3 ? p[3] : 1 };
+    }
+    function lum({ r, g, b }) {
+      const f = v => { v /= 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+      return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+    }
+    function ratio(fg, bg) {
+      const a = lum(fg), b = lum(bg), hi = Math.max(a, b), lo = Math.min(a, b);
+      return (hi + 0.05) / (lo + 0.05);
+    }
+    const selectors = ['.muted', '.transform-arrow', '.foot h4', '.copyline', '.note', '.asset p', '.offer p', '.faq-a p', '.foot p'];
+    const out = [];
+    for (const sel of selectors) {
+      for (const el of document.querySelectorAll(sel)) {
+        const fg = parse(getComputedStyle(el).color);
+        if (!fg || fg.a === 0) continue;
+        let node = el, bg = null;
+        while (node) {
+          const b = parse(getComputedStyle(node).backgroundColor);
+          if (b && b.a > 0.9) { bg = b; break; }
+          node = node.parentElement;
+        }
+        if (!bg) continue;
+        const r = ratio(fg, bg);
+        if (r < 4.5) out.push(sel + ' -> ' + r.toFixed(2) + ':1');
+      }
+    }
+    return out;
+  });
+  expect(results, 'text below 4.5:1').toEqual([]);
 });

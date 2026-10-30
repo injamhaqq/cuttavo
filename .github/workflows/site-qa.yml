@@ -2,10 +2,10 @@ name: Cuttavo Website QA
 on:
   pull_request:
     branches: [main]
-    paths: ['index.html', 'ideas/**', 'privacy/**', 'favicon.svg', '.github/workflows/site-qa.yml', 'tests/**']
+    paths: ['index.html', 'ideas/**', 'privacy/**', 'contact/**', '404.html', 'robots.txt', 'sitemap.xml', 'CNAME', 'favicon.svg', 'social-card.png', '.github/workflows/site-qa.yml', 'tests/**']
   push:
     branches: [main]
-    paths: ['index.html', 'ideas/**', 'privacy/**', 'favicon.svg', '.github/workflows/site-qa.yml', 'tests/**']
+    paths: ['index.html', 'ideas/**', 'privacy/**', 'contact/**', '404.html', 'robots.txt', 'sitemap.xml', 'CNAME', 'favicon.svg', 'social-card.png', '.github/workflows/site-qa.yml', 'tests/**']
 permissions:
   contents: read
 jobs:

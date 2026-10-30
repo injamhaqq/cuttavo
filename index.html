@@ -138,6 +138,13 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--lime);outline-offse
 .video-preview{min-height:174px}
 }
 @media(prefers-reduced-motion:reduce){.video-preview img{transition:none}.video-preview:hover img{transform:none}}
+.yt-modal{position:fixed;inset:0;background:rgba(6,6,7,.94);display:none;align-items:center;justify-content:center;padding:24px;z-index:9999}
+.yt-modal.open{display:flex}
+.yt-modal-inner{width:min(100%,1100px);aspect-ratio:16/9;position:relative;background:#000;border:1px solid var(--line)}
+.yt-modal-inner iframe{width:100%;height:100%;border:0;display:block}
+.yt-close{position:absolute;top:-54px;right:0;background:var(--lime);color:var(--ink);border:0;font:700 13px var(--sg);padding:12px 16px;cursor:pointer;min-height:44px}
+@media(max-width:720px){.yt-modal{padding:12px}.yt-close{top:auto;bottom:-54px;right:auto;left:0}}
+@media(prefers-reduced-motion:reduce){.yt-modal{transition:none}}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Cuttavo","url":"https://cuttavo.studio/","email":"hello@cuttavo.studio","description":"Done-for-you content systems for coaches, consultants and expert-led businesses."}
@@ -175,10 +182,10 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--lime);outline-offse
 <section id="proof" class="panel"><div class="wrap">
 <div class="head"><div><div class="eyebrow reveal">Published work you can inspect</div><h2 class="reveal">See what the editing work looks like.</h2></div><p class="reveal">These four videos are published as Cuttavo editing examples or style studies. Watch the pacing, captions and visual details. They are not client testimonials or verified sales case studies.</p></div>
 <div class="workgrid">
-<article class="work reveal"><a class="video video-preview" href="https://www.youtube.com/watch?v=oLhWn_4RKHo" target="_blank" rel="noopener noreferrer" aria-label="Watch Bernd Trading video editing example on YouTube"><img src="https://i.ytimg.com/vi/oLhWn_4RKHo/hqdefault.jpg" alt="YouTube preview image for Bernd Trading video editing example" loading="lazy" decoding="async" width="480" height="360"><span class="play-badge" aria-hidden="true">▶ Watch example</span></a><div class="wm"><b>Bernd Trading</b><span>Long-form editing example</span></div><a class="work-link" href="https://www.youtube.com/watch?v=oLhWn_4RKHo" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
-<article class="work reveal"><a class="video video-preview" href="https://www.youtube.com/watch?v=ESsmWEt1UlE" target="_blank" rel="noopener noreferrer" aria-label="Watch Conor Murray video editing example on YouTube"><img src="https://i.ytimg.com/vi/ESsmWEt1UlE/hqdefault.jpg" alt="YouTube preview image for Conor Murray video editing example" loading="lazy" decoding="async" width="480" height="360"><span class="play-badge" aria-hidden="true">▶ Watch example</span></a><div class="wm"><b>Conor Murray</b><span>Long-form editing example</span></div><a class="work-link" href="https://www.youtube.com/watch?v=ESsmWEt1UlE" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
-<article class="work reveal"><a class="video video-preview" href="https://www.youtube.com/watch?v=WtLtJySbw4I" target="_blank" rel="noopener noreferrer" aria-label="Watch Talking-head editing style study on YouTube"><img src="https://i.ytimg.com/vi/WtLtJySbw4I/hqdefault.jpg" alt="YouTube preview image for Talking-head editing style study" loading="lazy" decoding="async" width="480" height="360"><span class="play-badge" aria-hidden="true">▶ Watch example</span></a><div class="wm"><b>Talking-head style study</b><span>Short-form format study</span></div><a class="work-link" href="https://www.youtube.com/watch?v=WtLtJySbw4I" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
-<article class="work reveal"><a class="video video-preview" href="https://www.youtube.com/watch?v=_NRQc0GFlTU" target="_blank" rel="noopener noreferrer" aria-label="Watch Sales video editing format example on YouTube"><img src="https://i.ytimg.com/vi/_NRQc0GFlTU/hqdefault.jpg" alt="YouTube preview image for Sales video editing format example" loading="lazy" decoding="async" width="480" height="360"><span class="play-badge" aria-hidden="true">▶ Watch example</span></a><div class="wm"><b>Sales-video editing</b><span>VSL format example</span></div><a class="work-link" href="https://www.youtube.com/watch?v=_NRQc0GFlTU" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
+<article class="work reveal"><a class="video video-preview" data-yt="oLhWn_4RKHo" href="https://www.youtube.com/watch?v=oLhWn_4RKHo" target="_blank" rel="noopener noreferrer" aria-label="Watch Bernd Trading video editing example on YouTube"><img onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/oLhWn_4RKHo/hqdefault.jpg'" src="https://i.ytimg.com/vi/oLhWn_4RKHo/maxresdefault.jpg" alt="YouTube preview image for Bernd Trading video editing example" loading="lazy" decoding="async" width="1280" height="720"><span class="play-badge" aria-hidden="true">▶ Watch example</span></a><div class="wm"><b>Bernd Trading</b><span>Long-form editing example</span></div><a class="work-link" href="https://www.youtube.com/watch?v=oLhWn_4RKHo" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
+<article class="work reveal"><a class="video video-preview" data-yt="ESsmWEt1UlE" href="https://www.youtube.com/watch?v=ESsmWEt1UlE" target="_blank" rel="noopener noreferrer" aria-label="Watch Conor Murray video editing example on YouTube"><img onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/ESsmWEt1UlE/hqdefault.jpg'" src="https://i.ytimg.com/vi/ESsmWEt1UlE/maxresdefault.jpg" alt="YouTube preview image for Conor Murray video editing example" loading="lazy" decoding="async" width="1280" height="720"><span class="play-badge" aria-hidden="true">▶ Watch example</span></a><div class="wm"><b>Conor Murray</b><span>Long-form editing example</span></div><a class="work-link" href="https://www.youtube.com/watch?v=ESsmWEt1UlE" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
+<article class="work reveal"><a class="video video-preview" data-yt="WtLtJySbw4I" href="https://www.youtube.com/watch?v=WtLtJySbw4I" target="_blank" rel="noopener noreferrer" aria-label="Watch Talking-head editing style study on YouTube"><img onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/WtLtJySbw4I/hqdefault.jpg'" src="https://i.ytimg.com/vi/WtLtJySbw4I/maxresdefault.jpg" alt="YouTube preview image for Talking-head editing style study" loading="lazy" decoding="async" width="1280" height="720"><span class="play-badge" aria-hidden="true">▶ Watch example</span></a><div class="wm"><b>Talking-head style study</b><span>Short-form format study</span></div><a class="work-link" href="https://www.youtube.com/watch?v=WtLtJySbw4I" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
+<article class="work reveal"><a class="video video-preview" data-yt="_NRQc0GFlTU" href="https://www.youtube.com/watch?v=_NRQc0GFlTU" target="_blank" rel="noopener noreferrer" aria-label="Watch Sales video editing format example on YouTube"><img onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/_NRQc0GFlTU/hqdefault.jpg'" src="https://i.ytimg.com/vi/_NRQc0GFlTU/maxresdefault.jpg" alt="YouTube preview image for Sales video editing format example" loading="lazy" decoding="async" width="1280" height="720"><span class="play-badge" aria-hidden="true">▶ Watch example</span></a><div class="wm"><b>Sales-video editing</b><span>VSL format example</span></div><a class="work-link" href="https://www.youtube.com/watch?v=_NRQc0GFlTU" target="_blank" rel="noopener noreferrer">Watch the published example ↗</a></article>
 </div>
 </div></section>
 
@@ -243,9 +250,9 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--lime);outline-offse
 <section id="outcomes" class="outcomes"><div class="wrap">
 <div class="head"><div><div class="eyebrow reveal">Results that matter to your business</div><h2 class="reveal">Measure the outcomes you actually care about.</h2></div><p class="reveal">Views, sales conversations and time saved are different outcomes. We agree what to review and use the data that's actually available.</p></div>
 <div class="outcome-grid">
-<article class="outcome-card reveal"><span>Visibility</span><h3>Relevant reach</h3><p>Review views, retention, saves and the quality of engagement — not a meaningless view count alone.</p><strong>Sample metric: engaged reach</strong></article>
-<article class="outcome-card reveal"><span>Buyer intent</span><h3>Better-informed enquiries</h3><p>Use reliable lead data, replies and discovery-call questions when the client can share them.</p><strong>Sample metric: relevant conversations</strong></article>
-<article class="outcome-card reveal"><span>Time saved</span><h3>Less production overhead</h3><p>Compare the founder's hours spent on content planning, editing coordination and approval.</p><strong>Sample metric: time spent on content tasks</strong></article>
+<article class="outcome-card reveal"><span>Visibility</span><h3>Relevant reach</h3><p>Review views, retention, saves and the quality of engagement — not a meaningless view count alone.</p><strong>What we review: engaged reach</strong></article>
+<article class="outcome-card reveal"><span>Buyer intent</span><h3>Better-informed enquiries</h3><p>Use reliable lead data, replies and discovery-call questions when the client can share them.</p><strong>What we review: relevant conversations</strong></article>
+<article class="outcome-card reveal"><span>Time saved</span><h3>Less production overhead</h3><p>Compare the founder's hours spent on content planning, editing coordination and approval.</p><strong>What we review: time spent on content tasks</strong></article>
 </div>
 <p class="outcomes-disclosure reveal">These are potential measures, not past client results. We only publish verified performance claims or testimonials with permission. Sales also depend on your offer, distribution and sales process.</p>
 <div class="outcomes-action reveal"><a class="btn" href="/ideas/">See Our Thinking With a Free Sample ↗</a><a class="plain-link" href="#offers">Review the paid Sprint →</a></div>
@@ -342,6 +349,25 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--lime);outline-offse
       a.setAttribute('href',dest.pathname+dest.search+dest.hash);
     });
   }
+})();
+</script>
+<div class="yt-modal" id="ytModal" role="dialog" aria-modal="true" aria-label="Video player">
+<div class="yt-modal-inner">
+<button class="yt-close" type="button">Close &#10005;</button>
+<iframe id="ytFrame" title="Cuttavo work example video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+</div>
+</div>
+<script>
+(function(){
+var modal=document.getElementById('ytModal');if(!modal)return;
+var frame=document.getElementById('ytFrame'),btn=modal.querySelector('.yt-close'),last=null;
+function open(id){frame.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';last=document.activeElement;modal.classList.add('open');document.body.style.overflow='hidden';btn.focus();}
+function close(){modal.classList.remove('open');frame.src='';document.body.style.overflow='';if(last&&last.focus)last.focus();}
+document.addEventListener('click',function(e){
+var a=e.target.closest?e.target.closest('a[data-yt]'):null;
+if(a){e.preventDefault();open(a.getAttribute('data-yt'));return;}
+if(e.target===modal||e.target===btn)close();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('open'))close();});
 })();
 </script>
 </body>
